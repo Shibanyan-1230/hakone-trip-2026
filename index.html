@@ -3,318 +3,399 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>箱根温泉旅行 2026.2.22-23</title>
+<title>旅のしおり - 箱根温泉 2026.2.22-23</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400;500;700;900&family=Shippori+Mincho:wght@400;600;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400;500;700;900&family=Shippori+Mincho:wght@400;600;800&family=Klee+One:wght@400;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
 <style>
 /* ===== RESET & BASE ===== */
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 html { scroll-behavior: smooth; font-size: 16px; }
 body {
-  font-family: 'Zen Maru Gothic', sans-serif;
-  background: #faf6f0;
+  font-family: 'Klee One', 'Zen Maru Gothic', sans-serif;
+  background: #d4c8b0;
+  background-image:
+    repeating-linear-gradient(0deg, transparent, transparent 40px, rgba(139,119,91,0.04) 40px, rgba(139,119,91,0.04) 41px),
+    repeating-linear-gradient(90deg, transparent, transparent 40px, rgba(139,119,91,0.04) 40px, rgba(139,119,91,0.04) 41px);
   color: #3a3028;
-  line-height: 1.8;
+  line-height: 1.9;
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
+  padding: 0.8rem;
 }
 a { color: inherit; }
 
 /* ===== CSS VARIABLES ===== */
 :root {
-  --onsen-red: #c0392b;
-  --warm-orange: #e67e22;
-  --gold: #d4a017;
-  --deep-navy: #1a2332;
-  --soft-cream: #faf6f0;
+  --stamp-red: #b83a2a;
+  --stamp-red-light: rgba(184,58,42,0.12);
+  --ink-brown: #4a3728;
   --warm-brown: #5d4037;
-  --light-pink: #fce4ec;
-  --sakura: #f8bbd0;
-  --steam-white: rgba(255,255,255,0.85);
-  --shadow-soft: 0 4px 24px rgba(0,0,0,0.08);
-  --shadow-card: 0 8px 32px rgba(0,0,0,0.1);
-  --radius: 20px;
-  --radius-sm: 12px;
+  --paper-cream: #f5efe3;
+  --paper-aged: #ede4d1;
+  --kraft: #d4c8b0;
+  --washi-pink: #e8a0b4;
+  --washi-mint: #8cc0a8;
+  --washi-blue: #7eaac4;
+  --washi-yellow: #d4b84a;
+  --gold: #b8941e;
+  --deep-green: #3a6b4a;
+  --shadow-soft: 0 2px 12px rgba(0,0,0,0.08);
+  --shadow-book: 2px 4px 16px rgba(74,55,40,0.15);
+  --radius: 4px;
+  --radius-sm: 3px;
 }
 
-/* ===== HERO SECTION ===== */
-.hero {
+/* ===== BOOKLET WRAPPER ===== */
+.booklet {
+  max-width: 520px;
+  margin: 0 auto;
+  background: var(--paper-cream);
+  border-radius: 2px;
+  box-shadow:
+    var(--shadow-book),
+    inset 0 0 60px rgba(74,55,40,0.03);
   position: relative;
+  overflow: hidden;
+}
+.booklet::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background:
+    url("data:image/svg+xml,%3Csvg width='100' height='100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100' height='100' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ===== COVER PAGE ===== */
+.cover {
+  position: relative;
+  padding: 3rem 2rem 2.5rem;
+  text-align: center;
+  background:
+    linear-gradient(135deg, var(--paper-cream) 0%, var(--paper-aged) 100%);
+  border-bottom: none;
   min-height: 100dvh;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  text-align: center;
-  padding: 2rem 1.5rem;
-  background: linear-gradient(135deg, #1a2332 0%, #2c3e50 30%, #4a6741 60%, #2c3e50 100%);
-  overflow: hidden;
+  z-index: 1;
 }
-.hero::before {
+/* Decorative border */
+.cover::before {
   content: '';
   position: absolute;
-  top: 0; left: 0; right: 0; bottom: 0;
-  background:
-    radial-gradient(ellipse at 20% 80%, rgba(192,57,43,0.15) 0%, transparent 50%),
-    radial-gradient(ellipse at 80% 20%, rgba(212,160,23,0.1) 0%, transparent 50%);
+  top: 12px; left: 12px; right: 12px; bottom: 12px;
+  border: 2px solid var(--stamp-red);
+  border-radius: 2px;
   pointer-events: none;
 }
-
-/* Steam animation */
-.steam {
+.cover::after {
+  content: '';
   position: absolute;
-  bottom: 0;
-  width: 100%;
-  height: 60%;
+  top: 16px; left: 16px; right: 16px; bottom: 16px;
+  border: 1px solid rgba(184,58,42,0.3);
   pointer-events: none;
-  overflow: hidden;
 }
-.steam span {
+.cover-label {
+  font-size: 0.7rem;
+  letter-spacing: 0.35em;
+  color: var(--stamp-red);
+  font-weight: 600;
+  margin-bottom: 0.8rem;
+  position: relative;
+}
+.cover-label::before,
+.cover-label::after {
+  content: '---';
+  letter-spacing: 0.2em;
+  margin: 0 0.4rem;
+  color: rgba(184,58,42,0.4);
+}
+.cover-title {
+  font-family: 'Shippori Mincho', serif;
+  font-size: clamp(2rem, 7vw, 2.8rem);
+  font-weight: 800;
+  color: var(--ink-brown);
+  line-height: 1.4;
+  margin-bottom: 0.3rem;
+  position: relative;
+}
+.cover-subtitle {
+  font-family: 'Shippori Mincho', serif;
+  font-size: 1.1rem;
+  color: var(--stamp-red);
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+  letter-spacing: 0.15em;
+}
+/* Stamp seal */
+.cover-stamp {
+  width: 80px;
+  height: 80px;
+  border: 3px solid var(--stamp-red);
+  border-radius: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1.5rem;
+  transform: rotate(-8deg);
+  opacity: 0.85;
+  position: relative;
+}
+.cover-stamp::before {
+  content: '';
   position: absolute;
-  bottom: -20px;
+  top: 3px; left: 3px; right: 3px; bottom: 3px;
+  border: 1px solid var(--stamp-red);
+  border-radius: 50%;
+}
+.cover-stamp .stamp-text {
+  font-family: 'Shippori Mincho', serif;
+  font-size: 0.7rem;
+  font-weight: 800;
+  color: var(--stamp-red);
+  letter-spacing: 0.1em;
+  line-height: 1.2;
+}
+.cover-stamp .stamp-date {
+  font-size: 0.55rem;
+  color: var(--stamp-red);
+  margin-top: 1px;
+}
+.cover-info {
+  font-size: 0.88rem;
+  color: var(--warm-brown);
+  line-height: 2;
+  margin-bottom: 1.2rem;
+}
+.cover-members {
+  display: flex;
+  gap: 0.6rem;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+}
+.member-icon {
   width: 40px;
   height: 40px;
-  background: rgba(255,255,255,0.06);
   border-radius: 50%;
-  animation: steam-rise 6s infinite ease-out;
-}
-.steam span:nth-child(1) { left: 10%; animation-delay: 0s; width: 30px; height: 30px; }
-.steam span:nth-child(2) { left: 25%; animation-delay: 1.5s; width: 50px; height: 50px; }
-.steam span:nth-child(3) { left: 50%; animation-delay: 0.8s; width: 35px; height: 35px; }
-.steam span:nth-child(4) { left: 70%; animation-delay: 2.2s; width: 45px; height: 45px; }
-.steam span:nth-child(5) { left: 85%; animation-delay: 3s; width: 30px; height: 30px; }
-.steam span:nth-child(6) { left: 40%; animation-delay: 4s; width: 55px; height: 55px; }
-
-@keyframes steam-rise {
-  0% { transform: translateY(0) scale(1); opacity: 0.5; }
-  50% { opacity: 0.3; }
-  100% { transform: translateY(-500px) scale(2.5); opacity: 0; }
-}
-
-.hero-badge {
-  display: inline-block;
-  padding: 0.4rem 1.2rem;
-  background: rgba(212,160,23,0.2);
-  border: 1px solid rgba(212,160,23,0.4);
-  border-radius: 50px;
-  color: var(--gold);
-  font-size: 0.8rem;
-  font-weight: 500;
-  letter-spacing: 0.15em;
-  margin-bottom: 1.5rem;
-  position: relative;
-  z-index: 1;
-}
-.hero-title {
-  font-family: 'Shippori Mincho', serif;
-  font-size: clamp(2.2rem, 8vw, 3.8rem);
-  font-weight: 800;
-  color: #fff;
-  line-height: 1.3;
-  margin-bottom: 0.5rem;
-  position: relative;
-  z-index: 1;
-}
-.hero-title .accent {
-  color: var(--gold);
-  display: block;
-  font-size: 0.65em;
-  margin-top: 0.2em;
-}
-.hero-subtitle {
-  font-size: 1rem;
-  color: rgba(255,255,255,0.7);
-  margin-bottom: 2rem;
-  position: relative;
-  z-index: 1;
-  line-height: 1.9;
-}
-.hero-date {
-  display: inline-flex;
+  border: 2px solid var(--stamp-red);
+  background: var(--paper-aged);
+  display: flex;
   align-items: center;
-  gap: 0.6rem;
-  padding: 0.8rem 1.6rem;
-  background: rgba(255,255,255,0.08);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255,255,255,0.15);
-  border-radius: 60px;
-  color: #fff;
+  justify-content: center;
   font-size: 1.1rem;
-  font-weight: 700;
-  position: relative;
-  z-index: 1;
-  margin-bottom: 2.5rem;
 }
-.hero-members {
-  display: flex;
-  gap: 0.8rem;
-  justify-content: center;
-  position: relative;
-  z-index: 1;
+.cover-deco {
+  font-size: 0.72rem;
+  color: rgba(74,55,40,0.4);
+  letter-spacing: 0.2em;
+  margin-top: 1rem;
 }
-.member-dot {
-  width: 44px;
-  height: 44px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, var(--warm-orange), var(--onsen-red));
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.2rem;
-  box-shadow: 0 4px 12px rgba(192,57,43,0.3);
-}
-.member-dot:nth-child(2) { background: linear-gradient(135deg, var(--gold), var(--warm-orange)); }
-.member-dot:nth-child(3) { background: linear-gradient(135deg, #4a6741, #6b8e5f); }
-.member-dot:nth-child(4) { background: linear-gradient(135deg, #5d4037, #8d6e63); }
-
 .scroll-hint {
   position: absolute;
   bottom: 2rem;
   left: 50%;
   transform: translateX(-50%);
-  color: rgba(255,255,255,0.4);
-  font-size: 0.75rem;
-  letter-spacing: 0.1em;
-  animation: bounce 2s infinite;
-  z-index: 1;
+  color: rgba(74,55,40,0.35);
+  font-size: 0.65rem;
+  letter-spacing: 0.15em;
+  animation: bounce 2.5s infinite;
 }
 .scroll-hint::after {
   content: '';
   display: block;
   width: 1px;
-  height: 30px;
-  background: rgba(255,255,255,0.3);
-  margin: 0.5rem auto 0;
+  height: 24px;
+  background: rgba(74,55,40,0.25);
+  margin: 0.4rem auto 0;
 }
 @keyframes bounce {
   0%, 100% { transform: translateX(-50%) translateY(0); }
-  50% { transform: translateX(-50%) translateY(-8px); }
+  50% { transform: translateX(-50%) translateY(-6px); }
 }
 
-/* ===== NAVIGATION ===== */
-.nav-bar {
+/* ===== TABLE OF CONTENTS / NAV ===== */
+.toc-nav {
   position: sticky;
   top: 0;
   z-index: 100;
-  background: rgba(250,246,240,0.92);
-  backdrop-filter: blur(12px);
-  border-bottom: 1px solid rgba(0,0,0,0.06);
+  background: var(--paper-cream);
+  border-bottom: 1px dashed rgba(74,55,40,0.2);
+  border-top: 1px dashed rgba(74,55,40,0.2);
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
   scrollbar-width: none;
 }
-.nav-bar::-webkit-scrollbar { display: none; }
-.nav-inner {
+.toc-nav::-webkit-scrollbar { display: none; }
+.toc-inner {
   display: flex;
   gap: 0;
-  padding: 0 0.5rem;
+  padding: 0 0.3rem;
   min-width: max-content;
 }
-.nav-link {
+.toc-link {
   display: block;
-  padding: 0.9rem 0.85rem;
-  font-size: 0.75rem;
-  font-weight: 700;
+  padding: 0.75rem 0.7rem;
+  font-size: 0.7rem;
+  font-weight: 600;
   color: var(--warm-brown);
   text-decoration: none;
   white-space: nowrap;
   border-bottom: 2px solid transparent;
   transition: all 0.2s;
+  letter-spacing: 0.02em;
 }
-.nav-link:hover, .nav-link:active {
-  color: var(--onsen-red);
-  border-bottom-color: var(--onsen-red);
+.toc-link:hover, .toc-link:active {
+  color: var(--stamp-red);
+  border-bottom-color: var(--stamp-red);
 }
 
-/* ===== SECTION COMMON ===== */
-.section {
-  padding: 3rem 1.25rem;
-  max-width: 640px;
-  margin: 0 auto;
+/* ===== PAGE COMMON ===== */
+.page {
+  padding: 2.5rem 1.5rem;
+  position: relative;
+  z-index: 1;
 }
-.section-header {
+/* Dashed page separator */
+.page-sep {
+  border: none;
+  border-top: 1px dashed rgba(74,55,40,0.2);
+  margin: 0;
+  position: relative;
+}
+.page-sep::after {
+  content: '✂';
+  position: absolute;
+  top: -0.55em;
+  left: 1.5rem;
+  background: var(--paper-cream);
+  padding: 0 0.3rem;
+  font-size: 0.75rem;
+  color: rgba(74,55,40,0.3);
+}
+/* Section header with stamp */
+.page-header {
   text-align: center;
-  margin-bottom: 2rem;
+  margin-bottom: 1.8rem;
+  position: relative;
 }
-.section-icon {
-  font-size: 2rem;
-  margin-bottom: 0.5rem;
-  display: block;
-}
-.section-tag {
-  font-size: 0.7rem;
-  font-weight: 700;
-  color: var(--onsen-red);
+.page-number {
+  font-size: 0.6rem;
+  color: rgba(74,55,40,0.3);
   letter-spacing: 0.2em;
-  text-transform: uppercase;
-  margin-bottom: 0.3rem;
+  margin-bottom: 0.6rem;
 }
-.section-title {
+.page-stamp {
+  display: inline-block;
+  padding: 0.2rem 0.8rem;
+  border: 2px solid var(--stamp-red);
+  color: var(--stamp-red);
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  margin-bottom: 0.6rem;
+  transform: rotate(-2deg);
+  opacity: 0.8;
+}
+.page-title {
   font-family: 'Shippori Mincho', serif;
-  font-size: 1.6rem;
+  font-size: 1.4rem;
   font-weight: 800;
-  color: var(--deep-navy);
+  color: var(--ink-brown);
   line-height: 1.4;
 }
-.section-desc {
-  font-size: 0.88rem;
-  color: #7a7068;
-  margin-top: 0.5rem;
+.page-desc {
+  font-size: 0.82rem;
+  color: #8a7e72;
+  margin-top: 0.4rem;
 }
 
-/* ===== HIGHLIGHT STRIP ===== */
-.highlight-strip {
-  background: linear-gradient(135deg, var(--deep-navy), #2c3e50);
-  padding: 2.5rem 1.25rem;
+/* ===== WASHI TAPE DECORATION ===== */
+.washi {
+  position: relative;
 }
-.highlight-strip .section-header { margin-bottom: 1.5rem; }
-.highlight-strip .section-tag { color: var(--gold); }
-.highlight-strip .section-title { color: #fff; }
-.highlight-strip .section-desc { color: rgba(255,255,255,0.6); }
+.washi::before {
+  content: '';
+  position: absolute;
+  top: -6px;
+  left: 50%;
+  transform: translateX(-50%) rotate(-1deg);
+  width: 80px;
+  height: 14px;
+  opacity: 0.6;
+  border-radius: 1px;
+  z-index: 2;
+}
+.washi-pink::before { background: var(--washi-pink); }
+.washi-mint::before { background: var(--washi-mint); }
+.washi-blue::before { background: var(--washi-blue); }
+.washi-yellow::before { background: var(--washi-yellow); }
 
-.info-grid {
+/* ===== TRIP OVERVIEW (highlight page) ===== */
+.overview-page {
+  background: linear-gradient(180deg, var(--paper-aged), var(--paper-cream));
+  padding: 2.5rem 1.5rem;
+  position: relative;
+  z-index: 1;
+}
+.overview-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 0.8rem;
-  max-width: 640px;
-  margin: 0 auto;
+  gap: 0.6rem;
 }
-.info-card {
-  background: rgba(255,255,255,0.06);
-  border: 1px solid rgba(255,255,255,0.1);
-  border-radius: var(--radius-sm);
-  padding: 1.2rem;
+.ov-card {
+  background: #fff;
+  border: 1px dashed rgba(74,55,40,0.2);
+  border-radius: var(--radius);
+  padding: 0.9rem;
   text-align: center;
 }
-.info-card .emoji { font-size: 1.5rem; margin-bottom: 0.4rem; }
-.info-card .label { font-size: 0.7rem; color: rgba(255,255,255,0.5); margin-bottom: 0.15rem; }
-.info-card .value { font-size: 0.95rem; color: #fff; font-weight: 700; }
-.info-card.full { grid-column: 1 / -1; }
+.ov-card .emoji { font-size: 1.3rem; margin-bottom: 0.3rem; }
+.ov-card .label { font-size: 0.62rem; color: #8a7e72; margin-bottom: 0.1rem; letter-spacing: 0.05em; }
+.ov-card .value { font-size: 0.85rem; font-weight: 700; color: var(--ink-brown); }
+.ov-card.full { grid-column: 1 / -1; }
+.ov-card.full .value { font-size: 0.78rem; font-weight: 500; line-height: 1.8; }
 
 /* ===== EVENT CARDS ===== */
-.event-list { display: flex; flex-direction: column; gap: 1rem; }
+.event-list { display: flex; flex-direction: column; gap: 0.9rem; }
 .event-card {
   background: #fff;
+  border: 1px solid rgba(74,55,40,0.1);
   border-radius: var(--radius);
   overflow: hidden;
-  box-shadow: var(--shadow-soft);
-  border: 1px solid rgba(0,0,0,0.04);
-  transition: transform 0.2s;
+  position: relative;
+  box-shadow: 1px 2px 6px rgba(74,55,40,0.06);
 }
-.event-card:active { transform: scale(0.98); }
+.event-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 3px;
+  height: 100%;
+}
+.event-card:nth-child(odd)::before { background: var(--stamp-red); }
+.event-card:nth-child(even)::before { background: var(--deep-green); }
 .event-card a { text-decoration: none; color: inherit; display: block; }
 .event-top {
-  padding: 1.2rem 1.2rem 0.8rem;
+  padding: 1rem 1rem 0.7rem;
+  padding-left: 1.2rem;
 }
 .event-badge {
   display: inline-block;
-  padding: 0.2rem 0.7rem;
-  border-radius: 50px;
-  font-size: 0.65rem;
+  padding: 0.15rem 0.55rem;
+  border-radius: 2px;
+  font-size: 0.6rem;
   font-weight: 700;
-  margin-bottom: 0.6rem;
+  margin-bottom: 0.5rem;
 }
 .badge-ongoing { background: #e8f5e9; color: #2e7d32; }
 .badge-illumination { background: #fff3e0; color: #e65100; }
@@ -323,29 +404,29 @@ a { color: inherit; }
 .badge-nature { background: #e0f2f1; color: #00695c; }
 .event-name {
   font-family: 'Shippori Mincho', serif;
-  font-size: 1.05rem;
+  font-size: 0.98rem;
   font-weight: 600;
-  margin-bottom: 0.3rem;
+  margin-bottom: 0.2rem;
   line-height: 1.5;
 }
 .event-desc {
-  font-size: 0.82rem;
+  font-size: 0.78rem;
   color: #7a7068;
   line-height: 1.7;
 }
 .event-meta {
   display: flex;
-  gap: 1rem;
-  padding: 0.8rem 1.2rem;
-  background: #fafafa;
-  border-top: 1px solid rgba(0,0,0,0.04);
-  font-size: 0.75rem;
+  gap: 0.8rem;
+  padding: 0.6rem 1rem 0.6rem 1.2rem;
+  background: rgba(74,55,40,0.02);
+  border-top: 1px dashed rgba(74,55,40,0.1);
+  font-size: 0.7rem;
   color: #999;
 }
-.event-meta span { display: flex; align-items: center; gap: 0.3rem; }
+.event-meta span { display: flex; align-items: center; gap: 0.2rem; }
 .link-hint {
-  font-size: 0.7rem;
-  color: var(--onsen-red);
+  font-size: 0.65rem;
+  color: var(--stamp-red);
   font-weight: 600;
   margin-left: auto;
   display: flex;
@@ -354,73 +435,75 @@ a { color: inherit; }
 }
 
 /* ===== ONSEN CARDS ===== */
-.onsen-list { display: flex; flex-direction: column; gap: 1.2rem; }
+.onsen-list { display: flex; flex-direction: column; gap: 1rem; }
 .onsen-card {
   background: #fff;
+  border: 1px solid rgba(74,55,40,0.1);
   border-radius: var(--radius);
   overflow: hidden;
-  box-shadow: var(--shadow-soft);
-  border: 1px solid rgba(0,0,0,0.04);
+  box-shadow: 1px 2px 6px rgba(74,55,40,0.06);
+  position: relative;
 }
 .onsen-card > a { text-decoration: none; color: inherit; display: block; }
 .onsen-visual {
-  height: 140px;
+  height: 100px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 3rem;
+  font-size: 2.5rem;
   position: relative;
+  border-bottom: 1px dashed rgba(74,55,40,0.12);
 }
-.onsen-visual.v1 { background: linear-gradient(135deg, #e8d5b7, #f5e6d3); }
-.onsen-visual.v2 { background: linear-gradient(135deg, #b7d5c4, #d3f0e0); }
-.onsen-visual.v3 { background: linear-gradient(135deg, #d5b7c4, #f0d3e0); }
-.onsen-visual.v4 { background: linear-gradient(135deg, #b7c4d5, #d3e0f0); }
-.onsen-visual.v5 { background: linear-gradient(135deg, #d5d1b7, #f0ecd3); }
+.onsen-visual.v1 { background: linear-gradient(135deg, #f2e8d5, #f8f0e3); }
+.onsen-visual.v2 { background: linear-gradient(135deg, #d5e8dc, #e3f0e8); }
+.onsen-visual.v3 { background: linear-gradient(135deg, #e8d5dc, #f0e3e8); }
+.onsen-visual.v4 { background: linear-gradient(135deg, #d5dce8, #e3e8f0); }
+.onsen-visual.v5 { background: linear-gradient(135deg, #e8e5d5, #f0ede3); }
 .onsen-rank {
   position: absolute;
-  top: 0.8rem;
-  left: 0.8rem;
-  width: 32px;
-  height: 32px;
-  background: var(--onsen-red);
+  top: 0.6rem;
+  left: 0.6rem;
+  width: 28px;
+  height: 28px;
+  background: var(--stamp-red);
   color: #fff;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 0.75rem;
+  font-size: 0.7rem;
   font-weight: 900;
 }
-.onsen-body { padding: 1.2rem; }
+.onsen-body { padding: 0.9rem 1rem; }
 .onsen-area {
-  font-size: 0.68rem;
+  font-size: 0.6rem;
   font-weight: 700;
-  color: var(--onsen-red);
+  color: var(--stamp-red);
   letter-spacing: 0.1em;
-  margin-bottom: 0.3rem;
+  margin-bottom: 0.2rem;
 }
 .onsen-name {
   font-family: 'Shippori Mincho', serif;
-  font-size: 1.15rem;
+  font-size: 1.05rem;
   font-weight: 600;
-  margin-bottom: 0.4rem;
+  margin-bottom: 0.3rem;
 }
 .onsen-highlight {
-  font-size: 0.85rem;
+  font-size: 0.78rem;
   color: #7a7068;
-  margin-bottom: 0.8rem;
+  margin-bottom: 0.6rem;
   line-height: 1.7;
 }
 .onsen-tags {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.4rem;
+  gap: 0.3rem;
 }
 .otag {
-  padding: 0.2rem 0.6rem;
-  background: var(--soft-cream);
-  border-radius: 50px;
-  font-size: 0.7rem;
+  padding: 0.15rem 0.5rem;
+  background: var(--paper-aged);
+  border-radius: 2px;
+  font-size: 0.65rem;
   color: var(--warm-brown);
   font-weight: 500;
 }
@@ -428,378 +511,412 @@ a { color: inherit; }
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0.8rem 1.2rem;
-  background: #fafafa;
-  border-top: 1px solid rgba(0,0,0,0.04);
-  font-size: 0.78rem;
+  padding: 0.6rem 1rem;
+  background: rgba(74,55,40,0.02);
+  border-top: 1px dashed rgba(74,55,40,0.1);
+  font-size: 0.72rem;
   color: #999;
 }
-.onsen-price { font-weight: 700; color: var(--onsen-red); }
+.onsen-price { font-weight: 700; color: var(--stamp-red); }
 
 /* ===== GOURMET SECTION ===== */
 .gourmet-area-label {
   font-family: 'Shippori Mincho', serif;
-  font-size: 1.1rem;
+  font-size: 1rem;
   font-weight: 600;
-  color: var(--deep-navy);
-  margin: 2rem 0 1rem;
-  padding-left: 0.8rem;
-  border-left: 3px solid var(--onsen-red);
+  color: var(--ink-brown);
+  margin: 1.5rem 0 0.8rem;
+  padding-left: 0.7rem;
+  border-left: 3px solid var(--stamp-red);
 }
 .gourmet-area-label:first-of-type { margin-top: 0; }
-.gourmet-list { display: flex; flex-direction: column; gap: 1rem; }
+.gourmet-list { display: flex; flex-direction: column; gap: 0.8rem; }
 .gourmet-card {
   display: flex;
-  gap: 1rem;
+  gap: 0.8rem;
   background: #fff;
-  border-radius: var(--radius-sm);
-  padding: 1rem;
-  box-shadow: var(--shadow-soft);
-  border: 1px solid rgba(0,0,0,0.04);
+  border: 1px solid rgba(74,55,40,0.1);
+  border-radius: var(--radius);
+  padding: 0.8rem;
+  box-shadow: 1px 2px 6px rgba(74,55,40,0.06);
   text-decoration: none;
   color: inherit;
-  transition: transform 0.2s;
 }
-.gourmet-card:active { transform: scale(0.98); }
 .gourmet-emoji {
-  width: 60px;
-  height: 60px;
-  border-radius: var(--radius-sm);
+  width: 50px;
+  height: 50px;
+  border-radius: var(--radius);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.8rem;
+  font-size: 1.5rem;
   flex-shrink: 0;
+  border: 1px dashed rgba(74,55,40,0.15);
 }
-.ge1 { background: linear-gradient(135deg, #fff8e1, #ffecb3); }
-.ge2 { background: linear-gradient(135deg, #fce4ec, #f8bbd0); }
-.ge3 { background: linear-gradient(135deg, #e8f5e9, #c8e6c9); }
-.ge4 { background: linear-gradient(135deg, #fff3e0, #ffe0b2); }
-.ge5 { background: linear-gradient(135deg, #e0f7fa, #b2ebf2); }
-.ge6 { background: linear-gradient(135deg, #f3e5f5, #e1bee7); }
+.ge1 { background: #fdf8ec; }
+.ge2 { background: #fdf0f3; }
+.ge3 { background: #eef5f0; }
+.ge4 { background: #fdf5ec; }
+.ge5 { background: #ecf5f8; }
+.ge6 { background: #f5eef8; }
 .gourmet-info { flex: 1; min-width: 0; }
 .gourmet-name {
   font-weight: 700;
-  font-size: 0.95rem;
-  margin-bottom: 0.15rem;
+  font-size: 0.88rem;
+  margin-bottom: 0.1rem;
 }
 .gourmet-menu {
-  font-size: 0.75rem;
-  color: var(--onsen-red);
+  font-size: 0.7rem;
+  color: var(--stamp-red);
   font-weight: 600;
-  margin-bottom: 0.3rem;
+  margin-bottom: 0.2rem;
 }
 .gourmet-desc {
-  font-size: 0.8rem;
+  font-size: 0.75rem;
   color: #7a7068;
   line-height: 1.6;
 }
 .gourmet-price {
-  font-size: 0.75rem;
+  font-size: 0.7rem;
   color: #999;
-  margin-top: 0.3rem;
+  margin-top: 0.2rem;
 }
 
 /* ===== TABEARUKI (Street Food) ===== */
-.street-food-strip {
-  background: linear-gradient(135deg, #c0392b, #e74c3c);
-  padding: 2.5rem 1.25rem;
-  margin: 0;
+.street-food-page {
+  background: var(--paper-aged);
+  padding: 2.5rem 1.5rem;
+  position: relative;
+  z-index: 1;
 }
-.street-food-strip .section-tag { color: rgba(255,255,255,0.7); }
-.street-food-strip .section-title { color: #fff; }
-.street-food-strip .section-desc { color: rgba(255,255,255,0.7); }
 .sf-scroll {
   display: flex;
-  gap: 0.8rem;
+  gap: 0.7rem;
   overflow-x: auto;
   scroll-snap-type: x mandatory;
   -webkit-overflow-scrolling: touch;
   padding: 0.5rem 0;
-  max-width: 640px;
-  margin: 0 auto;
   scrollbar-width: none;
 }
 .sf-scroll::-webkit-scrollbar { display: none; }
 .sf-item {
-  flex: 0 0 150px;
+  flex: 0 0 130px;
   scroll-snap-align: start;
-  background: rgba(255,255,255,0.12);
-  border: 1px solid rgba(255,255,255,0.15);
-  border-radius: var(--radius-sm);
-  padding: 1rem;
+  background: #fff;
+  border: 1px dashed rgba(74,55,40,0.2);
+  border-radius: var(--radius);
+  padding: 0.8rem;
   text-align: center;
-  backdrop-filter: blur(4px);
+  position: relative;
 }
-.sf-item .emoji { font-size: 2rem; margin-bottom: 0.5rem; display: block; }
-.sf-item .name { font-size: 0.82rem; font-weight: 700; color: #fff; margin-bottom: 0.2rem; }
-.sf-item .shop { font-size: 0.7rem; color: rgba(255,255,255,0.7); margin-bottom: 0.3rem; }
-.sf-item .price { font-size: 0.75rem; color: var(--gold); font-weight: 700; }
+/* Tape on top of card */
+.sf-item::before {
+  content: '';
+  position: absolute;
+  top: -5px;
+  left: 50%;
+  transform: translateX(-50%) rotate(-1deg);
+  width: 50px;
+  height: 10px;
+  background: var(--washi-pink);
+  opacity: 0.5;
+  border-radius: 1px;
+}
+.sf-item:nth-child(2)::before { background: var(--washi-mint); transform: translateX(-50%) rotate(1deg); }
+.sf-item:nth-child(3)::before { background: var(--washi-blue); transform: translateX(-50%) rotate(-2deg); }
+.sf-item:nth-child(4)::before { background: var(--washi-yellow); }
+.sf-item:nth-child(5)::before { background: var(--washi-pink); transform: translateX(-50%) rotate(2deg); }
+.sf-item:nth-child(6)::before { background: var(--washi-mint); transform: translateX(-50%) rotate(-1deg); }
+.sf-item:nth-child(7)::before { background: var(--washi-blue); }
+.sf-item .emoji { font-size: 1.6rem; margin-bottom: 0.3rem; display: block; }
+.sf-item .name { font-size: 0.75rem; font-weight: 700; color: var(--ink-brown); margin-bottom: 0.15rem; }
+.sf-item .shop { font-size: 0.62rem; color: #8a7e72; margin-bottom: 0.2rem; }
+.sf-item .price { font-size: 0.68rem; color: var(--stamp-red); font-weight: 700; }
 
 /* ===== ITINERARY ===== */
 .itinerary-day {
-  margin-bottom: 2.5rem;
+  margin-bottom: 2rem;
 }
 .day-header {
   display: flex;
   align-items: center;
-  gap: 0.8rem;
-  margin-bottom: 1.2rem;
+  gap: 0.7rem;
+  margin-bottom: 1rem;
 }
 .day-number {
-  width: 48px;
-  height: 48px;
-  background: linear-gradient(135deg, var(--onsen-red), var(--warm-orange));
+  width: 44px;
+  height: 44px;
+  border: 2px solid var(--stamp-red);
   border-radius: 50%;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  color: #fff;
+  color: var(--stamp-red);
   flex-shrink: 0;
+  background: #fff;
 }
-.day-number .num { font-size: 1.2rem; font-weight: 900; line-height: 1; }
-.day-number .label { font-size: 0.55rem; font-weight: 500; line-height: 1; }
+.day-number .num { font-size: 1.1rem; font-weight: 900; line-height: 1; }
+.day-number .label { font-size: 0.5rem; font-weight: 600; line-height: 1; letter-spacing: 0.05em; }
 .day-title {
   font-family: 'Shippori Mincho', serif;
-  font-size: 1.15rem;
+  font-size: 1.05rem;
   font-weight: 600;
 }
-.day-subtitle { font-size: 0.78rem; color: #999; }
+.day-subtitle { font-size: 0.72rem; color: #8a7e72; }
 
-.timeline { position: relative; padding-left: 2rem; }
+.timeline { position: relative; padding-left: 1.8rem; }
 .timeline::before {
   content: '';
   position: absolute;
-  left: 7px;
+  left: 6px;
   top: 8px;
   bottom: 8px;
-  width: 2px;
-  background: linear-gradient(to bottom, var(--onsen-red), var(--gold));
-  border-radius: 1px;
+  width: 0;
+  border-left: 2px dashed rgba(184,58,42,0.3);
 }
 .tl-item {
   position: relative;
-  padding-bottom: 1.5rem;
+  padding-bottom: 1.3rem;
 }
 .tl-item:last-child { padding-bottom: 0; }
 .tl-dot {
   position: absolute;
-  left: -2rem;
+  left: -1.8rem;
   top: 2px;
-  width: 16px;
-  height: 16px;
+  width: 14px;
+  height: 14px;
   background: #fff;
-  border: 3px solid var(--onsen-red);
+  border: 2.5px solid var(--stamp-red);
   border-radius: 50%;
   z-index: 1;
 }
-.tl-item:last-child .tl-dot { border-color: var(--gold); }
+.tl-item:last-child .tl-dot { border-color: var(--deep-green); background: var(--deep-green); }
+.tl-item:last-child .tl-dot::after {
+  content: '';
+  position: absolute;
+  top: 2px; left: 2px; right: 2px; bottom: 2px;
+  background: #fff;
+  border-radius: 50%;
+}
 .tl-time {
-  font-size: 0.72rem;
+  font-size: 0.68rem;
   font-weight: 700;
-  color: var(--onsen-red);
-  margin-bottom: 0.15rem;
+  color: var(--stamp-red);
+  margin-bottom: 0.1rem;
+  letter-spacing: 0.05em;
 }
 .tl-title {
   font-weight: 700;
-  font-size: 0.95rem;
-  margin-bottom: 0.2rem;
+  font-size: 0.88rem;
+  margin-bottom: 0.15rem;
+  color: var(--ink-brown);
 }
 .tl-desc {
-  font-size: 0.82rem;
+  font-size: 0.78rem;
   color: #7a7068;
   line-height: 1.7;
 }
 .tl-tip {
   display: inline-block;
-  margin-top: 0.4rem;
-  padding: 0.3rem 0.7rem;
-  background: #fff8e1;
-  border-radius: 8px;
-  font-size: 0.72rem;
-  color: #e65100;
+  margin-top: 0.3rem;
+  padding: 0.25rem 0.6rem;
+  background: #fef9e7;
+  border: 1px dashed rgba(212,184,74,0.4);
+  border-radius: 2px;
+  font-size: 0.68rem;
+  color: #8a6914;
   font-weight: 600;
 }
 
 /* ===== ACCESS SECTION ===== */
-.access-strip {
-  background: linear-gradient(135deg, #4a6741, #6b8e5f);
-  padding: 2.5rem 1.25rem;
+.access-page {
+  background: var(--paper-aged);
+  padding: 2.5rem 1.5rem;
+  position: relative;
+  z-index: 1;
 }
-.access-strip .section-tag { color: rgba(255,255,255,0.7); }
-.access-strip .section-title { color: #fff; }
-.access-strip .section-desc { color: rgba(255,255,255,0.6); }
-
 .access-cards {
   display: flex;
   flex-direction: column;
-  gap: 0.8rem;
-  max-width: 640px;
-  margin: 0 auto;
+  gap: 0.7rem;
 }
 .access-card {
-  background: rgba(255,255,255,0.1);
-  border: 1px solid rgba(255,255,255,0.15);
-  border-radius: var(--radius-sm);
-  padding: 1.2rem;
-  backdrop-filter: blur(4px);
+  background: #fff;
+  border: 1px solid rgba(74,55,40,0.1);
+  border-radius: var(--radius);
+  padding: 1rem;
+  box-shadow: 1px 2px 6px rgba(74,55,40,0.06);
 }
 .access-card.recommended {
-  background: rgba(255,255,255,0.18);
-  border-color: var(--gold);
+  border-color: var(--stamp-red);
+  border-width: 2px;
 }
 .ac-badge {
   display: inline-block;
-  padding: 0.15rem 0.5rem;
-  background: var(--gold);
-  border-radius: 4px;
-  font-size: 0.6rem;
+  padding: 0.12rem 0.5rem;
+  background: var(--stamp-red);
+  border-radius: 2px;
+  font-size: 0.58rem;
   font-weight: 700;
-  color: var(--deep-navy);
-  margin-bottom: 0.5rem;
+  color: #fff;
+  margin-bottom: 0.4rem;
 }
 .ac-name {
   font-weight: 700;
-  font-size: 1rem;
-  color: #fff;
-  margin-bottom: 0.3rem;
+  font-size: 0.92rem;
+  color: var(--ink-brown);
+  margin-bottom: 0.2rem;
 }
 .ac-route {
-  font-size: 0.82rem;
-  color: rgba(255,255,255,0.8);
+  font-size: 0.75rem;
+  color: #7a7068;
   line-height: 1.6;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.4rem;
 }
 .ac-stats {
   display: flex;
-  gap: 1rem;
+  gap: 0.8rem;
   flex-wrap: wrap;
 }
 .ac-stat {
-  font-size: 0.75rem;
-  color: rgba(255,255,255,0.6);
+  font-size: 0.7rem;
+  color: #8a7e72;
 }
 .ac-stat strong {
-  color: #fff;
-  font-size: 0.9rem;
+  color: var(--ink-brown);
+  font-size: 0.82rem;
 }
 
 .parking-box {
-  background: rgba(212,160,23,0.15);
-  border: 1px solid rgba(212,160,23,0.3);
-  border-radius: var(--radius-sm);
-  padding: 1.2rem;
-  max-width: 640px;
-  margin: 1rem auto 0;
+  background: #fff;
+  border: 1px dashed rgba(184,58,42,0.3);
+  border-radius: var(--radius);
+  padding: 1rem;
+  margin-top: 0.8rem;
 }
 .parking-title {
   font-weight: 700;
-  color: var(--gold);
-  font-size: 0.95rem;
-  margin-bottom: 0.4rem;
+  color: var(--stamp-red);
+  font-size: 0.88rem;
+  margin-bottom: 0.3rem;
 }
 .parking-desc {
-  font-size: 0.8rem;
-  color: rgba(255,255,255,0.75);
-  line-height: 1.7;
+  font-size: 0.75rem;
+  color: #7a7068;
+  line-height: 1.8;
 }
 
 /* ===== TIPS SECTION ===== */
-.tip-list { display: flex; flex-direction: column; gap: 0.8rem; }
+.tip-list { display: flex; flex-direction: column; gap: 0.7rem; }
 .tip-card {
   display: flex;
-  gap: 0.8rem;
+  gap: 0.7rem;
   background: #fff;
-  border-radius: var(--radius-sm);
-  padding: 1rem;
-  box-shadow: var(--shadow-soft);
-  border: 1px solid rgba(0,0,0,0.04);
+  border: 1px solid rgba(74,55,40,0.1);
+  border-radius: var(--radius);
+  padding: 0.8rem;
+  box-shadow: 1px 2px 6px rgba(74,55,40,0.06);
   align-items: flex-start;
 }
 .tip-icon {
-  width: 42px;
-  height: 42px;
+  width: 36px;
+  height: 36px;
   border-radius: 50%;
-  background: var(--light-pink);
+  background: var(--paper-aged);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.2rem;
+  font-size: 1.05rem;
   flex-shrink: 0;
+  border: 1px dashed rgba(74,55,40,0.15);
 }
 .tip-content { flex: 1; }
-.tip-title { font-weight: 700; font-size: 0.88rem; margin-bottom: 0.15rem; }
-.tip-desc { font-size: 0.8rem; color: #7a7068; line-height: 1.6; }
+.tip-title { font-weight: 700; font-size: 0.82rem; margin-bottom: 0.1rem; color: var(--ink-brown); }
+.tip-desc { font-size: 0.75rem; color: #7a7068; line-height: 1.6; }
 
 /* ===== BUDGET BOX ===== */
 .budget-box {
-  background: linear-gradient(135deg, var(--deep-navy), #2c3e50);
+  background: #fff;
+  border: 2px solid var(--ink-brown);
   border-radius: var(--radius);
-  padding: 1.5rem;
-  color: #fff;
-  margin-top: 2rem;
+  padding: 1.2rem;
+  margin-top: 1.5rem;
+  position: relative;
+}
+.budget-box::before {
+  content: '';
+  position: absolute;
+  top: -6px;
+  left: 50%;
+  transform: translateX(-50%) rotate(1deg);
+  width: 90px;
+  height: 13px;
+  background: var(--washi-yellow);
+  opacity: 0.5;
+  border-radius: 1px;
 }
 .budget-title {
   font-family: 'Shippori Mincho', serif;
-  font-size: 1.1rem;
+  font-size: 1rem;
   font-weight: 600;
-  margin-bottom: 1rem;
+  margin-bottom: 0.8rem;
   text-align: center;
+  color: var(--ink-brown);
 }
 .budget-row {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0.5rem 0;
-  border-bottom: 1px solid rgba(255,255,255,0.08);
-  font-size: 0.85rem;
+  padding: 0.35rem 0;
+  border-bottom: 1px dotted rgba(74,55,40,0.15);
+  font-size: 0.78rem;
 }
 .budget-row:last-of-type { border-bottom: none; }
-.budget-row .item { color: rgba(255,255,255,0.7); }
-.budget-row .cost { font-weight: 700; }
+.budget-row .item { color: #7a7068; }
+.budget-row .cost { font-weight: 700; color: var(--ink-brown); }
 .budget-total {
-  margin-top: 0.8rem;
-  padding-top: 0.8rem;
-  border-top: 2px solid rgba(212,160,23,0.4);
+  margin-top: 0.6rem;
+  padding-top: 0.6rem;
+  border-top: 2px solid var(--stamp-red);
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font-size: 1rem;
+  font-size: 0.92rem;
 }
-.budget-total .cost { font-size: 1.2rem; color: var(--gold); font-weight: 900; }
+.budget-total .cost { font-size: 1.05rem; color: var(--stamp-red); font-weight: 900; }
 
 /* ===== MAP SECTION ===== */
 .map-section {
-  padding: 3rem 0 0;
+  padding: 2.5rem 0 0;
+  position: relative;
+  z-index: 1;
 }
-.map-section .section-header {
-  padding: 0 1.25rem;
+.map-section .page-header {
+  padding: 0 1.5rem;
   text-align: center;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1.2rem;
 }
 .map-tabs {
   display: flex;
-  max-width: 640px;
-  margin: 0 auto 0;
+  margin: 0;
   border-bottom: none;
 }
 .map-tab {
   flex: 1;
-  padding: 0.8rem;
+  padding: 0.65rem;
   text-align: center;
-  font-size: 0.82rem;
+  font-size: 0.75rem;
   font-weight: 700;
   cursor: pointer;
   border: none;
-  background: #e8e0d8;
+  background: var(--paper-aged);
   color: var(--warm-brown);
   transition: all 0.2s;
+  font-family: 'Klee One', 'Zen Maru Gothic', sans-serif;
 }
-.map-tab:first-child { border-radius: var(--radius-sm) 0 0 0; }
-.map-tab:last-child { border-radius: 0 var(--radius-sm) 0 0; }
 .map-tab.active {
-  background: var(--onsen-red);
+  background: var(--stamp-red);
   color: #fff;
 }
 .map-container {
@@ -815,177 +932,208 @@ a { color: inherit; }
 }
 #hakone-map {
   width: 100%;
-  height: 520px;
-  border-top: 3px solid var(--onsen-red);
-  border-bottom: 3px solid var(--onsen-red);
+  height: 450px;
+  border-top: 2px solid var(--stamp-red);
+  border-bottom: 2px solid var(--stamp-red);
 }
 .gmap-frame {
   width: 100%;
-  height: 520px;
+  height: 450px;
   border: none;
-  border-top: 3px solid var(--onsen-red);
-  border-bottom: 3px solid var(--onsen-red);
+  border-top: 2px solid var(--stamp-red);
+  border-bottom: 2px solid var(--stamp-red);
   display: block;
 }
 .map-zoom-hint {
   text-align: center;
-  font-size: 0.72rem;
-  color: #999;
-  padding: 0.6rem;
-  background: #f5f0ea;
+  font-size: 0.65rem;
+  color: #8a7e72;
+  padding: 0.5rem;
+  background: var(--paper-aged);
 }
 .leaflet-popup-content-wrapper {
-  border-radius: 12px !important;
-  font-family: 'Zen Maru Gothic', sans-serif !important;
+  border-radius: 4px !important;
+  font-family: 'Klee One', 'Zen Maru Gothic', sans-serif !important;
 }
 .leaflet-popup-content {
-  margin: 12px 16px !important;
-  font-size: 0.85rem !important;
+  margin: 10px 14px !important;
+  font-size: 0.82rem !important;
   line-height: 1.5 !important;
 }
 .popup-title {
   font-weight: 700;
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   margin-bottom: 2px;
 }
 .popup-cat {
-  font-size: 0.7rem;
-  color: var(--onsen-red);
+  font-size: 0.65rem;
+  color: var(--stamp-red);
   font-weight: 600;
 }
 .popup-link {
   display: inline-block;
   margin-top: 4px;
-  font-size: 0.75rem;
-  color: var(--onsen-red);
+  font-size: 0.7rem;
+  color: var(--stamp-red);
   text-decoration: underline;
 }
 .popup-gmaps {
   display: inline-block;
   margin-top: 2px;
-  margin-left: 8px;
-  font-size: 0.75rem;
+  margin-left: 6px;
+  font-size: 0.7rem;
   color: #1a73e8;
   text-decoration: underline;
 }
 
-/* ===== FOOTER ===== */
-.footer {
+/* ===== BACK COVER / FOOTER ===== */
+.back-cover {
   text-align: center;
-  padding: 3rem 1.25rem;
-  background: var(--deep-navy);
-  color: rgba(255,255,255,0.4);
-  font-size: 0.75rem;
+  padding: 3rem 1.5rem;
+  background: var(--paper-aged);
+  position: relative;
+  z-index: 1;
 }
-.footer-title {
+.back-cover::before {
+  content: '';
+  position: absolute;
+  top: 12px; left: 12px; right: 12px; bottom: 12px;
+  border: 1px solid rgba(74,55,40,0.15);
+  pointer-events: none;
+}
+.back-title {
   font-family: 'Shippori Mincho', serif;
-  font-size: 1.4rem;
-  color: #fff;
+  font-size: 1.3rem;
+  color: var(--ink-brown);
   font-weight: 800;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.4rem;
 }
-.footer-msg {
-  font-size: 0.85rem;
-  color: rgba(255,255,255,0.6);
-  margin-bottom: 2rem;
-  line-height: 1.8;
+.back-msg {
+  font-size: 0.82rem;
+  color: #8a7e72;
+  margin-bottom: 1.5rem;
+  line-height: 1.9;
 }
-
-/* ===== UTILITIES ===== */
-.divider {
-  height: 1px;
-  background: linear-gradient(to right, transparent, rgba(0,0,0,0.08), transparent);
-  margin: 0;
+.back-stamp {
+  width: 70px;
+  height: 70px;
+  border: 3px solid var(--stamp-red);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1rem;
+  transform: rotate(5deg);
+  opacity: 0.7;
+}
+.back-stamp::before {
+  content: '';
+  position: absolute;
+  top: 3px; left: 3px; right: 3px; bottom: 3px;
+  border: 1px solid var(--stamp-red);
+  border-radius: 50%;
+}
+.back-stamp-text {
+  font-family: 'Shippori Mincho', serif;
+  font-size: 0.75rem;
+  font-weight: 800;
+  color: var(--stamp-red);
+  line-height: 1.2;
+}
+.back-credit {
+  font-size: 0.62rem;
+  color: rgba(74,55,40,0.3);
+  margin-top: 1rem;
 }
 </style>
 </head>
 <body>
 
-<!-- ===== HERO ===== -->
-<section class="hero" id="top">
-  <div class="steam">
-    <span></span><span></span><span></span>
-    <span></span><span></span><span></span>
+<div class="booklet">
+
+<!-- ===== COVER ===== -->
+<section class="cover" id="top">
+  <div class="cover-label">TRAVEL BOOKLET</div>
+  <div class="cover-stamp">
+    <span class="stamp-text">箱根<br>温泉</span>
+    <span class="stamp-date">2026</span>
   </div>
-  <div class="hero-badge">HAKONE ONSEN TRIP</div>
-  <h1 class="hero-title">
-    箱根温泉<br>冬の旅
-    <span class="accent">2026.2.22 - 2.23</span>
-  </h1>
-  <p class="hero-subtitle">
-    冬の澄んだ空気、雪化粧の富士山、<br>
-    湯けむりに包まれる至福の週末へ。
-  </p>
-  <div class="hero-date">
-    &#128663; 2月22日(日) 13:00 東京駅発
+  <h1 class="cover-title">旅のしおり</h1>
+  <div class="cover-subtitle">箱根温泉 冬の旅</div>
+  <div class="cover-info">
+    2026年 2月22日(日) - 23日(月・祝)<br>
+    &#128663; 東京駅 13:00発 車で出発
   </div>
-  <div class="hero-members">
-    <div class="member-dot">&#128102;</div>
-    <div class="member-dot">&#128103;</div>
-    <div class="member-dot">&#128104;</div>
-    <div class="member-dot">&#128105;</div>
+  <div class="cover-members">
+    <div class="member-icon">&#128102;</div>
+    <div class="member-icon">&#128103;</div>
+    <div class="member-icon">&#128104;</div>
+    <div class="member-icon">&#128105;</div>
   </div>
+  <div class="cover-deco">- - - - - - - - - - - - -</div>
   <div class="scroll-hint">SCROLL</div>
 </section>
 
-<!-- ===== NAVIGATION ===== -->
-<nav class="nav-bar">
-  <div class="nav-inner">
-    <a href="#events" class="nav-link">&#127878; イベント</a>
-    <a href="#onsen" class="nav-link">&#9832; 温泉</a>
-    <a href="#gourmet" class="nav-link">&#127836; グルメ</a>
-    <a href="#tabearuki" class="nav-link">&#127858; 食べ歩き</a>
-    <a href="#itinerary" class="nav-link">&#128506; コース</a>
-    <a href="#access" class="nav-link">&#128663; アクセス</a>
-    <a href="#map" class="nav-link">&#128205; マップ</a>
-    <a href="#tips" class="nav-link">&#128161; 豆知識</a>
+<!-- ===== TABLE OF CONTENTS ===== -->
+<nav class="toc-nav">
+  <div class="toc-inner">
+    <a href="#events" class="toc-link">&#127878; イベント</a>
+    <a href="#onsen" class="toc-link">&#9832; 温泉</a>
+    <a href="#gourmet" class="toc-link">&#127836; グルメ</a>
+    <a href="#tabearuki" class="toc-link">&#127858; 食べ歩き</a>
+    <a href="#itinerary" class="toc-link">&#128506; 旅程</a>
+    <a href="#access" class="toc-link">&#128663; アクセス</a>
+    <a href="#map" class="toc-link">&#128205; マップ</a>
+    <a href="#tips" class="toc-link">&#128161; 豆知識</a>
   </div>
 </nav>
 
 <!-- ===== TRIP OVERVIEW ===== -->
-<section class="highlight-strip">
-  <div class="section-header">
-    <span class="section-icon">&#127967;</span>
-    <div class="section-tag">TRIP OVERVIEW</div>
-    <h2 class="section-title">旅のハイライト</h2>
-    <p class="section-desc">冬の箱根は魅力がいっぱい</p>
+<section class="overview-page">
+  <div class="page-header">
+    <div class="page-number">- 01 -</div>
+    <div class="page-stamp">TRIP OVERVIEW</div>
+    <h2 class="page-title">旅のハイライト</h2>
+    <p class="page-desc">冬の箱根は魅力がいっぱい</p>
   </div>
-  <div class="info-grid">
-    <div class="info-card">
+  <div class="overview-grid">
+    <div class="ov-card">
       <div class="emoji">&#128663;</div>
       <div class="label">移動手段</div>
       <div class="value">車（東京駅発）</div>
     </div>
-    <div class="info-card">
+    <div class="ov-card">
       <div class="emoji">&#128101;</div>
       <div class="label">メンバー</div>
       <div class="value">大人4人</div>
     </div>
-    <div class="info-card">
+    <div class="ov-card">
       <div class="emoji">&#9728;&#65039;</div>
       <div class="label">天気・気温</div>
-      <div class="value">5〜8℃</div>
+      <div class="value">5〜8&#8451;</div>
     </div>
-    <div class="info-card">
+    <div class="ov-card">
       <div class="emoji">&#128149;</div>
       <div class="label">旅のテーマ</div>
       <div class="value">湯けむり満喫</div>
     </div>
-    <div class="info-card full">
+    <div class="ov-card full">
       <div class="emoji">&#127755;</div>
       <div class="label">2月の箱根の魅力</div>
-      <div class="value" style="font-size:0.82rem;font-weight:500;line-height:1.7;">冬は空気が澄んで富士山の絶景日和。<br>露天風呂は冷たい空気と温かい湯のコントラストが最高。<br>観光客も少なめでゆったり過ごせます。</div>
+      <div class="value">冬は空気が澄んで富士山の絶景日和。<br>露天風呂は冷たい空気と温かい湯のコントラストが最高。<br>観光客も少なめでゆったり過ごせます。</div>
     </div>
   </div>
 </section>
 
+<hr class="page-sep">
+
 <!-- ===== EVENTS ===== -->
-<section class="section" id="events">
-  <div class="section-header">
-    <span class="section-icon">&#127878;</span>
-    <div class="section-tag">EVENTS</div>
-    <h2 class="section-title">2/22-23 開催中イベント</h2>
-    <p class="section-desc">ちょうど楽しめるイベントが盛りだくさん</p>
+<section class="page" id="events">
+  <div class="page-header">
+    <div class="page-number">- 02 -</div>
+    <div class="page-stamp">EVENTS</div>
+    <h2 class="page-title">2/22-23 開催中イベント</h2>
+    <p class="page-desc">ちょうど楽しめるイベントが盛りだくさん</p>
   </div>
 
   <div class="event-list">
@@ -1081,15 +1229,15 @@ a { color: inherit; }
   </div>
 </section>
 
-<div class="divider"></div>
+<hr class="page-sep">
 
 <!-- ===== ONSEN ===== -->
-<section class="section" id="onsen">
-  <div class="section-header">
-    <span class="section-icon">&#9832;&#65039;</span>
-    <div class="section-tag">HOT SPRINGS</div>
-    <h2 class="section-title">おすすめ温泉スポット</h2>
-    <p class="section-desc">箱根十七湯から厳選。冬こそ露天風呂！</p>
+<section class="page" id="onsen">
+  <div class="page-header">
+    <div class="page-number">- 03 -</div>
+    <div class="page-stamp">HOT SPRINGS</div>
+    <h2 class="page-title">おすすめ温泉スポット</h2>
+    <p class="page-desc">箱根十七湯から厳選。冬こそ露天風呂！</p>
   </div>
 
   <div class="onsen-list">
@@ -1210,15 +1358,15 @@ a { color: inherit; }
   </div>
 </section>
 
-<div class="divider"></div>
+<hr class="page-sep">
 
 <!-- ===== GOURMET ===== -->
-<section class="section" id="gourmet">
-  <div class="section-header">
-    <span class="section-icon">&#127860;</span>
-    <div class="section-tag">GOURMET</div>
-    <h2 class="section-title">箱根グルメガイド</h2>
-    <p class="section-desc">冬の身体に染みる絶品グルメたち</p>
+<section class="page" id="gourmet">
+  <div class="page-header">
+    <div class="page-number">- 04 -</div>
+    <div class="page-stamp">GOURMET</div>
+    <h2 class="page-title">箱根グルメガイド</h2>
+    <p class="page-desc">冬の身体に染みる絶品グルメたち</p>
   </div>
 
   <div class="gourmet-area-label">&#128205; 箱根湯本エリア</div>
@@ -1293,12 +1441,12 @@ a { color: inherit; }
 </section>
 
 <!-- ===== STREET FOOD ===== -->
-<section class="street-food-strip" id="tabearuki">
-  <div class="section-header">
-    <span class="section-icon">&#128523;</span>
-    <div class="section-tag">STREET FOOD</div>
-    <h2 class="section-title">湯本で食べ歩き</h2>
-    <p class="section-desc">箱根湯本駅前通りは食べ歩き天国</p>
+<section class="street-food-page" id="tabearuki">
+  <div class="page-header">
+    <div class="page-number">- 05 -</div>
+    <div class="page-stamp">STREET FOOD</div>
+    <h2 class="page-title">湯本で食べ歩き</h2>
+    <p class="page-desc">箱根湯本駅前通りは食べ歩き天国</p>
   </div>
 
   <div class="sf-scroll">
@@ -1347,13 +1495,15 @@ a { color: inherit; }
   </div>
 </section>
 
+<hr class="page-sep">
+
 <!-- ===== ITINERARY ===== -->
-<section class="section" id="itinerary">
-  <div class="section-header">
-    <span class="section-icon">&#128506;</span>
-    <div class="section-tag">MODEL COURSE</div>
-    <h2 class="section-title">1泊2日モデルコース</h2>
-    <p class="section-desc">東京駅13:00発・車で巡る冬の箱根</p>
+<section class="page" id="itinerary">
+  <div class="page-header">
+    <div class="page-number">- 06 -</div>
+    <div class="page-stamp">MODEL COURSE</div>
+    <h2 class="page-title">1泊2日モデルコース</h2>
+    <p class="page-desc">東京駅13:00発・車で巡る冬の箱根</p>
   </div>
 
   <!-- DAY 1 -->
@@ -1487,12 +1637,12 @@ a { color: inherit; }
 </section>
 
 <!-- ===== ACCESS ===== -->
-<section class="access-strip" id="access">
-  <div class="section-header">
-    <span class="section-icon">&#128663;</span>
-    <div class="section-tag">ACCESS BY CAR</div>
-    <h2 class="section-title">東京駅から車でのアクセス</h2>
-    <p class="section-desc">約1.5〜2時間のドライブ</p>
+<section class="access-page" id="access">
+  <div class="page-header">
+    <div class="page-number">- 07 -</div>
+    <div class="page-stamp">ACCESS BY CAR</div>
+    <h2 class="page-title">東京駅から車でのアクセス</h2>
+    <p class="page-desc">約1.5〜2時間のドライブ</p>
   </div>
 
   <div class="access-cards">
@@ -1529,13 +1679,15 @@ a { color: inherit; }
   </div>
 </section>
 
+<hr class="page-sep">
+
 <!-- ===== MAP ===== -->
 <section class="map-section" id="map">
-  <div class="section-header">
-    <span class="section-icon">&#128205;</span>
-    <div class="section-tag">SPOT MAP</div>
-    <h2 class="section-title">おすすめスポットマップ</h2>
-    <p class="section-desc">ピンチ・スワイプで拡大縮小できます</p>
+  <div class="page-header">
+    <div class="page-number">- 08 -</div>
+    <div class="page-stamp">SPOT MAP</div>
+    <h2 class="page-title">おすすめスポットマップ</h2>
+    <p class="page-desc">ピンチ・スワイプで拡大縮小できます</p>
   </div>
   <div class="map-tabs">
     <button class="map-tab active" onclick="switchMap('spots')">&#128205; スポットマップ</button>
@@ -1547,19 +1699,21 @@ a { color: inherit; }
       <div class="map-zoom-hint">&#9757; ピンチで拡大縮小 / タップでスポット詳細</div>
     </div>
     <div id="panel-google" class="map-panel">
-      <iframe class="gmap-frame" src="https://www.google.com/maps/d/embed?mid=1&q=箱根温泉&ll=35.2350,139.055&z=13&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
+      <iframe class="gmap-frame" src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d52000!2d139.055!3d35.235!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sja!2sjp!4v1700000000000!5m2!1sja!2sjp" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
       <div class="map-zoom-hint">&#9757; ピンチで拡大縮小 / Google Mapの全機能が使えます</div>
     </div>
   </div>
 </section>
 
+<hr class="page-sep">
+
 <!-- ===== TIPS ===== -->
-<section class="section" id="tips">
-  <div class="section-header">
-    <span class="section-icon">&#128161;</span>
-    <div class="section-tag">TIPS</div>
-    <h2 class="section-title">冬の箱根 旅の豆知識</h2>
-    <p class="section-desc">知っておくと旅がもっと快適に</p>
+<section class="page" id="tips">
+  <div class="page-header">
+    <div class="page-number">- 09 -</div>
+    <div class="page-stamp">TIPS</div>
+    <h2 class="page-title">冬の箱根 旅の豆知識</h2>
+    <p class="page-desc">知っておくと旅がもっと快適に</p>
   </div>
 
   <div class="tip-list">
@@ -1645,15 +1799,20 @@ a { color: inherit; }
   </div>
 </section>
 
-<!-- ===== FOOTER ===== -->
-<footer class="footer">
-  <div class="footer-title">箱根温泉 冬の旅</div>
-  <div class="footer-msg">
+<!-- ===== BACK COVER ===== -->
+<footer class="back-cover">
+  <div class="back-stamp">
+    <span class="back-stamp-text">良い<br>旅を</span>
+  </div>
+  <div class="back-title">箱根温泉 冬の旅</div>
+  <div class="back-msg">
     最高の週末にしよう！<br>
     2026.2.22 - 2.23
   </div>
-  <div>Made with care for our Hakone trip</div>
+  <div class="back-credit">Made with care for our Hakone trip</div>
 </footer>
+
+</div><!-- /.booklet -->
 
 <!-- ===== LEAFLET MAP ===== -->
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
@@ -1669,11 +1828,6 @@ function switchMap(type) {
   } else {
     document.querySelectorAll('.map-tab')[1].classList.add('active');
     document.getElementById('panel-google').classList.add('active');
-    // Lazy load Google Maps iframe
-    var iframe = document.querySelector('.gmap-frame');
-    if (!iframe.src || iframe.src.indexOf('google.com/maps') === -1) {
-      iframe.src = 'https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d52000!2d139.055!3d35.235!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sja!2sjp!4v1700000000000!5m2!1sja!2sjp';
-    }
   }
 }
 
@@ -1697,26 +1851,24 @@ function switchMap(type) {
     maxZoom: 18
   }).addTo(map);
 
-  // +/- zoom buttons position
   map.zoomControl.setPosition('topright');
 
-  // Custom icons
   function makeIcon(color, emoji) {
     return L.divIcon({
       className: '',
-      html: '<div style="background:' + color + ';width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:19px;box-shadow:0 3px 10px rgba(0,0,0,0.35);border:2.5px solid #fff;">' + emoji + '</div>',
-      iconSize: [38, 38],
-      iconAnchor: [19, 19],
-      popupAnchor: [0, -22]
+      html: '<div style="background:' + color + ';width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:16px;box-shadow:0 2px 8px rgba(0,0,0,0.3);border:2px solid #fff;">' + emoji + '</div>',
+      iconSize: [34, 34],
+      iconAnchor: [17, 17],
+      popupAnchor: [0, -20]
     });
   }
 
-  var onsenIcon = makeIcon('#c0392b', '&#9832;&#65039;');
-  var foodIcon = makeIcon('#e67e22', '&#127836;');
+  var onsenIcon = makeIcon('#b83a2a', '&#9832;&#65039;');
+  var foodIcon = makeIcon('#c47a2a', '&#127836;');
   var shrineIcon = makeIcon('#7b1fa2', '&#9961;&#65039;');
-  var artIcon = makeIcon('#2e7d32', '&#127912;');
-  var natureIcon = makeIcon('#1565c0', '&#127956;');
-  var shopIcon = makeIcon('#d4a017', '&#127857;');
+  var artIcon = makeIcon('#3a6b4a', '&#127912;');
+  var natureIcon = makeIcon('#2a5e8a', '&#127956;');
+  var shopIcon = makeIcon('#8a6914', '&#127857;');
 
   var spots = [
     { lat: 35.2338, lng: 139.1095, name: '天成園', cat: '温泉', url: 'https://www.tenseien.co.jp/', icon: onsenIcon },
@@ -1753,13 +1905,12 @@ function switchMap(type) {
       );
   });
 
-  // Legend
   var legend = L.control({ position: 'bottomright' });
   legend.onAdd = function() {
     var div = L.DomUtil.create('div');
-    div.style.cssText = 'background:#fff;padding:8px 12px;border-radius:8px;font-size:11px;line-height:1.8;box-shadow:0 2px 8px rgba(0,0,0,0.15);font-family:Zen Maru Gothic,sans-serif;';
+    div.style.cssText = 'background:#f5efe3;padding:6px 10px;border-radius:3px;font-size:10px;line-height:1.8;box-shadow:0 1px 6px rgba(0,0,0,0.12);font-family:Klee One,Zen Maru Gothic,sans-serif;border:1px solid rgba(74,55,40,0.15);';
     div.innerHTML =
-      '<div style="font-weight:700;margin-bottom:2px;">凡例</div>' +
+      '<div style="font-weight:700;margin-bottom:1px;">凡例</div>' +
       '<div>&#9832;&#65039; 温泉　&#127836; グルメ</div>' +
       '<div>&#9961;&#65039; 神社　&#127912; 美術館</div>' +
       '<div>&#127956; 自然・観光</div>';
