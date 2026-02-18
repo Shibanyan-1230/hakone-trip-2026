@@ -778,11 +778,61 @@ a { color: inherit; }
   text-align: center;
   margin-bottom: 1.5rem;
 }
-#map {
+.map-tabs {
+  display: flex;
+  max-width: 640px;
+  margin: 0 auto 0;
+  border-bottom: none;
+}
+.map-tab {
+  flex: 1;
+  padding: 0.8rem;
+  text-align: center;
+  font-size: 0.82rem;
+  font-weight: 700;
+  cursor: pointer;
+  border: none;
+  background: #e8e0d8;
+  color: var(--warm-brown);
+  transition: all 0.2s;
+}
+.map-tab:first-child { border-radius: var(--radius-sm) 0 0 0; }
+.map-tab:last-child { border-radius: 0 var(--radius-sm) 0 0; }
+.map-tab.active {
+  background: var(--onsen-red);
+  color: #fff;
+}
+.map-container {
+  position: relative;
   width: 100%;
-  height: 480px;
+}
+.map-panel {
+  display: none;
+  width: 100%;
+}
+.map-panel.active {
+  display: block;
+}
+#hakone-map {
+  width: 100%;
+  height: 520px;
   border-top: 3px solid var(--onsen-red);
   border-bottom: 3px solid var(--onsen-red);
+}
+.gmap-frame {
+  width: 100%;
+  height: 520px;
+  border: none;
+  border-top: 3px solid var(--onsen-red);
+  border-bottom: 3px solid var(--onsen-red);
+  display: block;
+}
+.map-zoom-hint {
+  text-align: center;
+  font-size: 0.72rem;
+  color: #999;
+  padding: 0.6rem;
+  background: #f5f0ea;
 }
 .leaflet-popup-content-wrapper {
   border-radius: 12px !important;
@@ -808,6 +858,14 @@ a { color: inherit; }
   margin-top: 4px;
   font-size: 0.75rem;
   color: var(--onsen-red);
+  text-decoration: underline;
+}
+.popup-gmaps {
+  display: inline-block;
+  margin-top: 2px;
+  margin-left: 8px;
+  font-size: 0.75rem;
+  color: #1a73e8;
   text-decoration: underline;
 }
 
@@ -1477,9 +1535,22 @@ a { color: inherit; }
     <span class="section-icon">&#128205;</span>
     <div class="section-tag">SPOT MAP</div>
     <h2 class="section-title">おすすめスポットマップ</h2>
-    <p class="section-desc">タップで詳細 &rarr; リンクから公式サイトへ</p>
+    <p class="section-desc">ピンチ・スワイプで拡大縮小できます</p>
   </div>
-  <div id="hakone-map"></div>
+  <div class="map-tabs">
+    <button class="map-tab active" onclick="switchMap('spots')">&#128205; スポットマップ</button>
+    <button class="map-tab" onclick="switchMap('google')">&#128506; Google Map</button>
+  </div>
+  <div class="map-container">
+    <div id="panel-spots" class="map-panel active">
+      <div id="hakone-map"></div>
+      <div class="map-zoom-hint">&#9757; ピンチで拡大縮小 / タップでスポット詳細</div>
+    </div>
+    <div id="panel-google" class="map-panel">
+      <iframe class="gmap-frame" src="https://www.google.com/maps/d/embed?mid=1&q=箱根温泉&ll=35.2350,139.055&z=13&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
+      <div class="map-zoom-hint">&#9757; ピンチで拡大縮小 / Google Mapの全機能が使えます</div>
+    </div>
+  </div>
 </section>
 
 <!-- ===== TIPS ===== -->
@@ -1587,27 +1658,56 @@ a { color: inherit; }
 <!-- ===== LEAFLET MAP ===== -->
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script>
+// Tab switching
+function switchMap(type) {
+  document.querySelectorAll('.map-tab').forEach(function(t) { t.classList.remove('active'); });
+  document.querySelectorAll('.map-panel').forEach(function(p) { p.classList.remove('active'); });
+  if (type === 'spots') {
+    document.querySelectorAll('.map-tab')[0].classList.add('active');
+    document.getElementById('panel-spots').classList.add('active');
+    if (window._leafletMap) window._leafletMap.invalidateSize();
+  } else {
+    document.querySelectorAll('.map-tab')[1].classList.add('active');
+    document.getElementById('panel-google').classList.add('active');
+    // Lazy load Google Maps iframe
+    var iframe = document.querySelector('.gmap-frame');
+    if (!iframe.src || iframe.src.indexOf('google.com/maps') === -1) {
+      iframe.src = 'https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d52000!2d139.055!3d35.235!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sja!2sjp!4v1700000000000!5m2!1sja!2sjp';
+    }
+  }
+}
+
 (function() {
   var map = L.map('hakone-map', {
-    center: [35.2350, 139.055],
+    center: [35.2300, 139.060],
     zoom: 13,
     zoomControl: true,
-    scrollWheelZoom: false
+    scrollWheelZoom: true,
+    touchZoom: true,
+    pinchZoom: true,
+    doubleClickZoom: true,
+    dragging: true,
+    minZoom: 11,
+    maxZoom: 18
   });
+  window._leafletMap = map;
 
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; OpenStreetMap contributors',
     maxZoom: 18
   }).addTo(map);
 
+  // +/- zoom buttons position
+  map.zoomControl.setPosition('topright');
+
   // Custom icons
   function makeIcon(color, emoji) {
     return L.divIcon({
       className: '',
-      html: '<div style="background:' + color + ';width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:18px;box-shadow:0 2px 8px rgba(0,0,0,0.3);border:2px solid #fff;">' + emoji + '</div>',
-      iconSize: [36, 36],
-      iconAnchor: [18, 18],
-      popupAnchor: [0, -20]
+      html: '<div style="background:' + color + ';width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:19px;box-shadow:0 3px 10px rgba(0,0,0,0.35);border:2.5px solid #fff;">' + emoji + '</div>',
+      iconSize: [38, 38],
+      iconAnchor: [19, 19],
+      popupAnchor: [0, -22]
     });
   }
 
@@ -1619,23 +1719,19 @@ a { color: inherit; }
   var shopIcon = makeIcon('#d4a017', '&#127857;');
 
   var spots = [
-    // Onsen
     { lat: 35.2338, lng: 139.1095, name: '天成園', cat: '温泉', url: 'https://www.tenseien.co.jp/', icon: onsenIcon },
     { lat: 35.2365, lng: 139.1015, name: '箱根湯寮', cat: '温泉', url: 'https://www.hakoneyuryo.jp/', icon: onsenIcon },
     { lat: 35.2410, lng: 139.0530, name: 'ユネッサン', cat: '温泉テーマパーク', url: 'https://www.yunessun.com/', icon: onsenIcon },
     { lat: 35.2048, lng: 139.0212, name: '龍宮殿本館', cat: '温泉', url: 'https://www.princehotels.co.jp/ryuguden/', icon: onsenIcon },
     { lat: 35.2332, lng: 139.1070, name: '函嶺', cat: '温泉', url: 'https://www.hakonenavi.jp/spot/473', icon: onsenIcon },
-    // Gourmet
     { lat: 35.2322, lng: 139.1055, name: '湯葉丼 直吉', cat: 'グルメ', url: 'https://www.hakonenavi.jp/spot/1251', icon: foodIcon },
     { lat: 35.2316, lng: 139.1060, name: 'はつ花そば 本店', cat: 'グルメ', url: 'https://www.hatsuhana.co.jp/', icon: foodIcon },
     { lat: 35.2448, lng: 139.0638, name: '田むら銀かつ亭', cat: 'グルメ', url: 'https://www.ginkatsutei.jp/', icon: shopIcon },
     { lat: 35.2378, lng: 139.0548, name: '渡邊ベーカリー', cat: 'グルメ', url: 'https://watanabebakery.jp/', icon: foodIcon },
     { lat: 35.2382, lng: 139.0540, name: 'NARAYA CAFE', cat: 'カフェ', url: 'https://naraya-cafe.com/', icon: foodIcon },
     { lat: 35.2433, lng: 139.0267, name: '大涌谷 黒たまご', cat: 'グルメ・観光', url: 'https://www.owakudani.com/', icon: natureIcon },
-    // Shrine & Sightseeing
     { lat: 35.2068, lng: 139.0320, name: '箱根神社', cat: '神社', url: 'https://hakonejinja.or.jp/', icon: shrineIcon },
     { lat: 35.2050, lng: 139.0330, name: '芦ノ湖 海賊船', cat: '観光船', url: 'https://www.hakone-kankosen.co.jp/', icon: natureIcon },
-    // Art Museums
     { lat: 35.2440, lng: 139.0588, name: '彫刻の森美術館', cat: '美術館', url: 'https://www.hakone-oam.or.jp/', icon: artIcon },
     { lat: 35.2608, lng: 139.0340, name: 'ポーラ美術館', cat: '美術館', url: 'https://www.polamuseum.or.jp/', icon: artIcon },
     { lat: 35.2488, lng: 139.0475, name: '岡田美術館', cat: '美術館', url: 'https://www.okada-museum.com/', icon: artIcon },
@@ -1644,12 +1740,16 @@ a { color: inherit; }
   ];
 
   spots.forEach(function(s) {
+    var gmapsUrl = 'https://www.google.com/maps/search/?api=1&query=' + s.lat + ',' + s.lng;
     L.marker([s.lat, s.lng], { icon: s.icon })
       .addTo(map)
       .bindPopup(
         '<div class="popup-title">' + s.name + '</div>' +
         '<div class="popup-cat">' + s.cat + '</div>' +
-        '<a class="popup-link" href="' + s.url + '" target="_blank" rel="noopener">&#128279; 公式サイトを開く</a>'
+        '<div>' +
+          '<a class="popup-link" href="' + s.url + '" target="_blank" rel="noopener">&#128279; 公式サイト</a>' +
+          '<a class="popup-gmaps" href="' + gmapsUrl + '" target="_blank" rel="noopener">&#128506; Google Map</a>' +
+        '</div>'
       );
   });
 
