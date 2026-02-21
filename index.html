@@ -3,1691 +3,729 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>旅のしおり - 箱根温泉 2026.2.22-23</title>
+<title>箱根温泉旅行 2026.2.22-23</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400;500;700;900&family=Shippori+Mincho:wght@400;600;800&family=Klee+One:wght@400;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400;500;700;900&family=Shippori+Mincho:wght@400;600;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
 <style>
-/* ===== RESET & BASE ===== */
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 html { scroll-behavior: smooth; font-size: 16px; }
 body {
-  font-family: 'Klee One', 'Zen Maru Gothic', sans-serif;
-  background: #d4c8b0;
-  background-image:
-    repeating-linear-gradient(0deg, transparent, transparent 40px, rgba(139,119,91,0.04) 40px, rgba(139,119,91,0.04) 41px),
-    repeating-linear-gradient(90deg, transparent, transparent 40px, rgba(139,119,91,0.04) 40px, rgba(139,119,91,0.04) 41px);
+  font-family: 'Zen Maru Gothic', sans-serif;
+  background: #faf6f0;
   color: #3a3028;
-  line-height: 1.9;
+  line-height: 1.8;
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
-  padding: 0.8rem;
 }
 a { color: inherit; }
 
-/* ===== CSS VARIABLES ===== */
 :root {
-  --stamp-red: #b83a2a;
-  --stamp-red-light: rgba(184,58,42,0.12);
-  --ink-brown: #4a3728;
-  --warm-brown: #5d4037;
-  --paper-cream: #f5efe3;
-  --paper-aged: #ede4d1;
-  --kraft: #d4c8b0;
-  --washi-pink: #e8a0b4;
-  --washi-mint: #8cc0a8;
-  --washi-blue: #7eaac4;
-  --washi-yellow: #d4b84a;
-  --gold: #b8941e;
-  --deep-green: #3a6b4a;
-  --shadow-soft: 0 2px 12px rgba(0,0,0,0.08);
-  --shadow-book: 2px 4px 16px rgba(74,55,40,0.15);
-  --radius: 4px;
-  --radius-sm: 3px;
+  --red: #c0392b;
+  --orange: #e67e22;
+  --gold: #d4a017;
+  --navy: #1a2332;
+  --cream: #faf6f0;
+  --brown: #5d4037;
+  --pink: #fce4ec;
+  --bz-purple: #6c3483;
+  --bz-bg: linear-gradient(135deg, #f5eef8, #ebdef0);
+  --shadow: 0 4px 24px rgba(0,0,0,0.08);
+  --shadow-card: 0 8px 32px rgba(0,0,0,0.1);
+  --r: 20px;
+  --rs: 12px;
 }
 
-/* ===== BOOKLET WRAPPER ===== */
-.booklet {
-  max-width: 520px;
-  margin: 0 auto;
-  background: var(--paper-cream);
-  border-radius: 2px;
-  box-shadow:
-    var(--shadow-book),
-    inset 0 0 60px rgba(74,55,40,0.03);
+/* ===== HERO ===== */
+.hero {
   position: relative;
+  min-height: 100dvh;
+  display: flex; flex-direction: column; justify-content: center; align-items: center;
+  text-align: center;
+  padding: 2rem 1.5rem;
+  background: linear-gradient(135deg, #1a2332 0%, #2c3e50 30%, #4a6741 60%, #2c3e50 100%);
   overflow: hidden;
 }
-.booklet::before {
+.hero::before {
   content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
+  position: absolute; top: 0; left: 0; right: 0; bottom: 0;
   background:
-    url("data:image/svg+xml,%3Csvg width='100' height='100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100' height='100' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
-  pointer-events: none;
-  z-index: 0;
-}
-
-/* ===== COVER PAGE ===== */
-.cover {
-  position: relative;
-  padding: 3rem 2rem 2.5rem;
-  text-align: center;
-  background:
-    linear-gradient(135deg, var(--paper-cream) 0%, var(--paper-aged) 100%);
-  border-bottom: none;
-  min-height: 100dvh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  z-index: 1;
-}
-/* Decorative border */
-.cover::before {
-  content: '';
-  position: absolute;
-  top: 12px; left: 12px; right: 12px; bottom: 12px;
-  border: 2px solid var(--stamp-red);
-  border-radius: 2px;
+    radial-gradient(ellipse at 20% 80%, rgba(192,57,43,0.15) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 20%, rgba(212,160,23,0.1) 0%, transparent 50%);
   pointer-events: none;
 }
-.cover::after {
-  content: '';
-  position: absolute;
-  top: 16px; left: 16px; right: 16px; bottom: 16px;
-  border: 1px solid rgba(184,58,42,0.3);
-  pointer-events: none;
+.steam { position: absolute; bottom: 0; width: 100%; height: 60%; pointer-events: none; overflow: hidden; }
+.steam span {
+  position: absolute; bottom: -20px; width: 40px; height: 40px;
+  background: rgba(255,255,255,0.06); border-radius: 50%;
+  animation: steam-rise 6s infinite ease-out;
 }
-.cover-label {
-  font-size: 0.7rem;
-  letter-spacing: 0.35em;
-  color: var(--stamp-red);
-  font-weight: 600;
-  margin-bottom: 0.8rem;
-  position: relative;
+.steam span:nth-child(1) { left: 10%; animation-delay: 0s; width: 30px; height: 30px; }
+.steam span:nth-child(2) { left: 25%; animation-delay: 1.5s; width: 50px; height: 50px; }
+.steam span:nth-child(3) { left: 50%; animation-delay: 0.8s; width: 35px; height: 35px; }
+.steam span:nth-child(4) { left: 70%; animation-delay: 2.2s; width: 45px; height: 45px; }
+.steam span:nth-child(5) { left: 85%; animation-delay: 3s; width: 30px; height: 30px; }
+.steam span:nth-child(6) { left: 40%; animation-delay: 4s; width: 55px; height: 55px; }
+@keyframes steam-rise {
+  0% { transform: translateY(0) scale(1); opacity: 0.5; }
+  50% { opacity: 0.3; }
+  100% { transform: translateY(-500px) scale(2.5); opacity: 0; }
 }
-.cover-label::before,
-.cover-label::after {
-  content: '---';
-  letter-spacing: 0.2em;
-  margin: 0 0.4rem;
-  color: rgba(184,58,42,0.4);
+.hero-badge {
+  display: inline-block; padding: 0.4rem 1.2rem;
+  background: rgba(212,160,23,0.2); border: 1px solid rgba(212,160,23,0.4);
+  border-radius: 50px; color: var(--gold);
+  font-size: 0.8rem; font-weight: 500; letter-spacing: 0.15em;
+  margin-bottom: 1.5rem; position: relative; z-index: 1;
 }
-.cover-title {
+.hero-title {
   font-family: 'Shippori Mincho', serif;
-  font-size: clamp(2rem, 7vw, 2.8rem);
-  font-weight: 800;
-  color: var(--ink-brown);
-  line-height: 1.4;
-  margin-bottom: 0.3rem;
-  position: relative;
+  font-size: clamp(2.2rem, 8vw, 3.8rem);
+  font-weight: 800; color: #fff; line-height: 1.3;
+  margin-bottom: 0.5rem; position: relative; z-index: 1;
 }
-.cover-subtitle {
-  font-family: 'Shippori Mincho', serif;
-  font-size: 1.1rem;
-  color: var(--stamp-red);
-  font-weight: 600;
-  margin-bottom: 1.5rem;
-  letter-spacing: 0.15em;
+.hero-title .accent { color: var(--gold); display: block; font-size: 0.65em; margin-top: 0.2em; }
+.hero-subtitle {
+  font-size: 1rem; color: rgba(255,255,255,0.7);
+  margin-bottom: 2rem; position: relative; z-index: 1; line-height: 1.9;
 }
-/* Stamp seal */
-.cover-stamp {
-  width: 80px;
-  height: 80px;
-  border: 3px solid var(--stamp-red);
-  border-radius: 50%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  margin: 0 auto 1.5rem;
-  transform: rotate(-8deg);
-  opacity: 0.85;
-  position: relative;
+.hero-date {
+  display: inline-flex; align-items: center; gap: 0.6rem;
+  padding: 0.8rem 1.6rem;
+  background: rgba(255,255,255,0.08); backdrop-filter: blur(10px);
+  border: 1px solid rgba(255,255,255,0.15); border-radius: 60px;
+  color: #fff; font-size: 1.1rem; font-weight: 700;
+  position: relative; z-index: 1; margin-bottom: 2.5rem;
 }
-.cover-stamp::before {
-  content: '';
-  position: absolute;
-  top: 3px; left: 3px; right: 3px; bottom: 3px;
-  border: 1px solid var(--stamp-red);
-  border-radius: 50%;
+.hero-members { display: flex; gap: 0.8rem; justify-content: center; position: relative; z-index: 1; }
+.member-dot {
+  width: 44px; height: 44px; border-radius: 50%;
+  background: linear-gradient(135deg, var(--orange), var(--red));
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.2rem; box-shadow: 0 4px 12px rgba(192,57,43,0.3);
 }
-.cover-stamp .stamp-text {
-  font-family: 'Shippori Mincho', serif;
-  font-size: 0.7rem;
-  font-weight: 800;
-  color: var(--stamp-red);
-  letter-spacing: 0.1em;
-  line-height: 1.2;
-}
-.cover-stamp .stamp-date {
-  font-size: 0.55rem;
-  color: var(--stamp-red);
-  margin-top: 1px;
-}
-.cover-info {
-  font-size: 0.88rem;
-  color: var(--warm-brown);
-  line-height: 2;
-  margin-bottom: 1.2rem;
-}
-.cover-members {
-  display: flex;
-  gap: 0.6rem;
-  justify-content: center;
-  margin-bottom: 1.5rem;
-}
-.member-icon {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  border: 2px solid var(--stamp-red);
-  background: var(--paper-aged);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.1rem;
-}
-.cover-deco {
-  font-size: 0.72rem;
-  color: rgba(74,55,40,0.4);
-  letter-spacing: 0.2em;
-  margin-top: 1rem;
-}
+.member-dot:nth-child(2) { background: linear-gradient(135deg, var(--gold), var(--orange)); }
+.member-dot:nth-child(3) { background: linear-gradient(135deg, #4a6741, #6b8e5f); }
+.member-dot:nth-child(4) { background: linear-gradient(135deg, #5d4037, #8d6e63); }
 .scroll-hint {
-  position: absolute;
-  bottom: 2rem;
-  left: 50%;
-  transform: translateX(-50%);
-  color: rgba(74,55,40,0.35);
-  font-size: 0.65rem;
-  letter-spacing: 0.15em;
-  animation: bounce 2.5s infinite;
+  position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%);
+  color: rgba(255,255,255,0.4); font-size: 0.75rem; letter-spacing: 0.1em;
+  animation: bounce 2s infinite; z-index: 1;
 }
 .scroll-hint::after {
-  content: '';
-  display: block;
-  width: 1px;
-  height: 24px;
-  background: rgba(74,55,40,0.25);
-  margin: 0.4rem auto 0;
+  content: ''; display: block; width: 1px; height: 30px;
+  background: rgba(255,255,255,0.3); margin: 0.5rem auto 0;
 }
 @keyframes bounce {
   0%, 100% { transform: translateX(-50%) translateY(0); }
-  50% { transform: translateX(-50%) translateY(-6px); }
+  50% { transform: translateX(-50%) translateY(-8px); }
 }
 
-/* ===== TABLE OF CONTENTS / NAV ===== */
-.toc-nav {
-  position: sticky;
-  top: 0;
-  z-index: 100;
-  background: var(--paper-cream);
-  border-bottom: 1px dashed rgba(74,55,40,0.2);
-  border-top: 1px dashed rgba(74,55,40,0.2);
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
-  scrollbar-width: none;
+/* ===== NAV ===== */
+.nav-bar {
+  position: sticky; top: 0; z-index: 100;
+  background: rgba(250,246,240,0.92); backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(0,0,0,0.06);
+  overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none;
 }
-.toc-nav::-webkit-scrollbar { display: none; }
-.toc-inner {
-  display: flex;
-  gap: 0;
-  padding: 0 0.3rem;
-  min-width: max-content;
+.nav-bar::-webkit-scrollbar { display: none; }
+.nav-inner { display: flex; gap: 0; padding: 0 0.5rem; min-width: max-content; }
+.nav-link {
+  display: block; padding: 0.9rem 0.85rem;
+  font-size: 0.75rem; font-weight: 700; color: var(--brown);
+  text-decoration: none; white-space: nowrap;
+  border-bottom: 2px solid transparent; transition: all 0.2s;
 }
-.toc-link {
-  display: block;
-  padding: 0.75rem 0.7rem;
-  font-size: 0.7rem;
-  font-weight: 600;
-  color: var(--warm-brown);
-  text-decoration: none;
-  white-space: nowrap;
-  border-bottom: 2px solid transparent;
-  transition: all 0.2s;
-  letter-spacing: 0.02em;
-}
-.toc-link:hover, .toc-link:active {
-  color: var(--stamp-red);
-  border-bottom-color: var(--stamp-red);
-}
+.nav-link:hover, .nav-link:active { color: var(--red); border-bottom-color: var(--red); }
 
-/* ===== PAGE COMMON ===== */
-.page {
-  padding: 2.5rem 1.5rem;
-  position: relative;
-  z-index: 1;
+/* ===== SECTION ===== */
+.section { padding: 3rem 1.25rem; max-width: 640px; margin: 0 auto; }
+.section-header { text-align: center; margin-bottom: 2rem; }
+.section-icon { font-size: 2rem; margin-bottom: 0.5rem; display: block; }
+.section-tag {
+  font-size: 0.7rem; font-weight: 700; color: var(--red);
+  letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 0.3rem;
 }
-/* Dashed page separator */
-.page-sep {
-  border: none;
-  border-top: 1px dashed rgba(74,55,40,0.2);
-  margin: 0;
-  position: relative;
-}
-.page-sep::after {
-  content: '✂';
-  position: absolute;
-  top: -0.55em;
-  left: 1.5rem;
-  background: var(--paper-cream);
-  padding: 0 0.3rem;
-  font-size: 0.75rem;
-  color: rgba(74,55,40,0.3);
-}
-/* Section header with stamp */
-.page-header {
-  text-align: center;
-  margin-bottom: 1.8rem;
-  position: relative;
-}
-.page-number {
-  font-size: 0.6rem;
-  color: rgba(74,55,40,0.3);
-  letter-spacing: 0.2em;
-  margin-bottom: 0.6rem;
-}
-.page-stamp {
-  display: inline-block;
-  padding: 0.2rem 0.8rem;
-  border: 2px solid var(--stamp-red);
-  color: var(--stamp-red);
-  font-size: 0.65rem;
-  font-weight: 700;
-  letter-spacing: 0.15em;
-  margin-bottom: 0.6rem;
-  transform: rotate(-2deg);
-  opacity: 0.8;
-}
-.page-title {
+.section-title {
   font-family: 'Shippori Mincho', serif;
-  font-size: 1.4rem;
-  font-weight: 800;
-  color: var(--ink-brown);
-  line-height: 1.4;
+  font-size: 1.6rem; font-weight: 800; color: var(--navy); line-height: 1.4;
 }
-.page-desc {
-  font-size: 0.82rem;
-  color: #8a7e72;
-  margin-top: 0.4rem;
-}
+.section-desc { font-size: 0.88rem; color: #7a7068; margin-top: 0.5rem; }
 
-/* ===== WASHI TAPE DECORATION ===== */
-.washi {
+/* ===== HIGHLIGHT STRIP ===== */
+.highlight-strip { background: linear-gradient(135deg, var(--navy), #2c3e50); padding: 2.5rem 1.25rem; }
+.highlight-strip .section-header { margin-bottom: 1.5rem; }
+.highlight-strip .section-tag { color: var(--gold); }
+.highlight-strip .section-title { color: #fff; }
+.highlight-strip .section-desc { color: rgba(255,255,255,0.6); }
+.info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.8rem; max-width: 640px; margin: 0 auto; }
+.info-card {
+  background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1);
+  border-radius: var(--rs); padding: 1.2rem; text-align: center;
+}
+.info-card .emoji { font-size: 1.5rem; margin-bottom: 0.4rem; }
+.info-card .label { font-size: 0.7rem; color: rgba(255,255,255,0.5); margin-bottom: 0.15rem; }
+.info-card .value { font-size: 0.95rem; color: #fff; font-weight: 700; }
+.info-card.full { grid-column: 1 / -1; }
+
+/* ===== B'z TRIVIA BOX ===== */
+.bz-box {
+  background: var(--bz-bg);
+  border: 1px solid rgba(108,52,131,0.2);
+  border-left: 4px solid var(--bz-purple);
+  border-radius: var(--rs);
+  padding: 1rem 1.2rem;
+  margin: 1.2rem 0;
   position: relative;
 }
-.washi::before {
-  content: '';
-  position: absolute;
-  top: -6px;
-  left: 50%;
-  transform: translateX(-50%) rotate(-1deg);
-  width: 80px;
-  height: 14px;
-  opacity: 0.6;
-  border-radius: 1px;
-  z-index: 2;
+.bz-box .bz-label {
+  display: inline-block;
+  font-size: 0.65rem; font-weight: 700; color: var(--bz-purple);
+  letter-spacing: 0.1em; margin-bottom: 0.3rem;
 }
-.washi-pink::before { background: var(--washi-pink); }
-.washi-mint::before { background: var(--washi-mint); }
-.washi-blue::before { background: var(--washi-blue); }
-.washi-yellow::before { background: var(--washi-yellow); }
-
-/* ===== TRIP OVERVIEW (highlight page) ===== */
-.overview-page {
-  background: linear-gradient(180deg, var(--paper-aged), var(--paper-cream));
-  padding: 2.5rem 1.5rem;
-  position: relative;
-  z-index: 1;
+.bz-box .bz-text {
+  font-size: 0.82rem; color: #4a235a; line-height: 1.7;
 }
-.overview-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 0.6rem;
+.bz-box .bz-text strong { color: var(--bz-purple); }
+/* dark strip version */
+.bz-box-dark {
+  background: rgba(108,52,131,0.12);
+  border: 1px solid rgba(108,52,131,0.2);
+  border-left: 4px solid #9b59b6;
+  border-radius: var(--rs);
+  padding: 1rem 1.2rem;
+  margin: 1.2rem 0;
+  max-width: 640px;
+  margin-left: auto;
+  margin-right: auto;
 }
-.ov-card {
-  background: #fff;
-  border: 1px dashed rgba(74,55,40,0.2);
-  border-radius: var(--radius);
-  padding: 0.9rem;
-  text-align: center;
-}
-.ov-card .emoji { font-size: 1.3rem; margin-bottom: 0.3rem; }
-.ov-card .label { font-size: 0.62rem; color: #8a7e72; margin-bottom: 0.1rem; letter-spacing: 0.05em; }
-.ov-card .value { font-size: 0.85rem; font-weight: 700; color: var(--ink-brown); }
-.ov-card.full { grid-column: 1 / -1; }
-.ov-card.full .value { font-size: 0.78rem; font-weight: 500; line-height: 1.8; }
+.bz-box-dark .bz-label { display: inline-block; font-size: 0.65rem; font-weight: 700; color: #d7bde2; letter-spacing: 0.1em; margin-bottom: 0.3rem; }
+.bz-box-dark .bz-text { font-size: 0.82rem; color: rgba(255,255,255,0.85); line-height: 1.7; }
+.bz-box-dark .bz-text strong { color: #d7bde2; }
 
 /* ===== EVENT CARDS ===== */
-.event-list { display: flex; flex-direction: column; gap: 0.9rem; }
+.event-list { display: flex; flex-direction: column; gap: 1rem; }
 .event-card {
-  background: #fff;
-  border: 1px solid rgba(74,55,40,0.1);
-  border-radius: var(--radius);
-  overflow: hidden;
-  position: relative;
-  box-shadow: 1px 2px 6px rgba(74,55,40,0.06);
+  background: #fff; border-radius: var(--r); overflow: hidden;
+  box-shadow: var(--shadow); border: 1px solid rgba(0,0,0,0.04); transition: transform 0.2s;
 }
-.event-card::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 3px;
-  height: 100%;
-}
-.event-card:nth-child(odd)::before { background: var(--stamp-red); }
-.event-card:nth-child(even)::before { background: var(--deep-green); }
+.event-card:active { transform: scale(0.98); }
 .event-card a { text-decoration: none; color: inherit; display: block; }
-.event-top {
-  padding: 1rem 1rem 0.7rem;
-  padding-left: 1.2rem;
-}
+.event-top { padding: 1.2rem 1.2rem 0.8rem; }
 .event-badge {
-  display: inline-block;
-  padding: 0.15rem 0.55rem;
-  border-radius: 2px;
-  font-size: 0.6rem;
-  font-weight: 700;
-  margin-bottom: 0.5rem;
+  display: inline-block; padding: 0.2rem 0.7rem; border-radius: 50px;
+  font-size: 0.65rem; font-weight: 700; margin-bottom: 0.6rem;
 }
-.badge-ongoing { background: #e8f5e9; color: #2e7d32; }
 .badge-illumination { background: #fff3e0; color: #e65100; }
 .badge-art { background: #f3e5f5; color: #7b1fa2; }
 .badge-food { background: #fce4ec; color: #c62828; }
 .badge-nature { background: #e0f2f1; color: #00695c; }
 .event-name {
   font-family: 'Shippori Mincho', serif;
-  font-size: 0.98rem;
-  font-weight: 600;
-  margin-bottom: 0.2rem;
-  line-height: 1.5;
+  font-size: 1.05rem; font-weight: 600; margin-bottom: 0.3rem; line-height: 1.5;
 }
-.event-desc {
-  font-size: 0.78rem;
-  color: #7a7068;
-  line-height: 1.7;
-}
+.event-desc { font-size: 0.82rem; color: #7a7068; line-height: 1.7; }
 .event-meta {
-  display: flex;
-  gap: 0.8rem;
-  padding: 0.6rem 1rem 0.6rem 1.2rem;
-  background: rgba(74,55,40,0.02);
-  border-top: 1px dashed rgba(74,55,40,0.1);
-  font-size: 0.7rem;
-  color: #999;
+  display: flex; gap: 1rem; padding: 0.8rem 1.2rem;
+  background: #fafafa; border-top: 1px solid rgba(0,0,0,0.04);
+  font-size: 0.75rem; color: #999;
 }
-.event-meta span { display: flex; align-items: center; gap: 0.2rem; }
-.link-hint {
-  font-size: 0.65rem;
-  color: var(--stamp-red);
-  font-weight: 600;
-  margin-left: auto;
-  display: flex;
-  align-items: center;
-  gap: 0.2rem;
-}
+.event-meta span { display: flex; align-items: center; gap: 0.3rem; }
+.link-hint { font-size: 0.7rem; color: var(--red); font-weight: 600; margin-left: auto; display: flex; align-items: center; gap: 0.2rem; }
 
 /* ===== ONSEN CARDS ===== */
-.onsen-list { display: flex; flex-direction: column; gap: 1rem; }
+.onsen-list { display: flex; flex-direction: column; gap: 1.2rem; }
 .onsen-card {
-  background: #fff;
-  border: 1px solid rgba(74,55,40,0.1);
-  border-radius: var(--radius);
-  overflow: hidden;
-  box-shadow: 1px 2px 6px rgba(74,55,40,0.06);
-  position: relative;
+  background: #fff; border-radius: var(--r); overflow: hidden;
+  box-shadow: var(--shadow); border: 1px solid rgba(0,0,0,0.04);
 }
 .onsen-card > a { text-decoration: none; color: inherit; display: block; }
 .onsen-visual {
-  height: 100px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 2.5rem;
-  position: relative;
-  border-bottom: 1px dashed rgba(74,55,40,0.12);
+  height: 140px; display: flex; align-items: center; justify-content: center;
+  font-size: 3rem; position: relative;
 }
-.onsen-visual.v1 { background: linear-gradient(135deg, #f2e8d5, #f8f0e3); }
-.onsen-visual.v2 { background: linear-gradient(135deg, #d5e8dc, #e3f0e8); }
-.onsen-visual.v3 { background: linear-gradient(135deg, #e8d5dc, #f0e3e8); }
-.onsen-visual.v4 { background: linear-gradient(135deg, #d5dce8, #e3e8f0); }
-.onsen-visual.v5 { background: linear-gradient(135deg, #e8e5d5, #f0ede3); }
+.onsen-visual.v1 { background: linear-gradient(135deg, #e8d5b7, #f5e6d3); }
+.onsen-visual.v2 { background: linear-gradient(135deg, #b7d5c4, #d3f0e0); }
+.onsen-visual.v3 { background: linear-gradient(135deg, #d5b7c4, #f0d3e0); }
+.onsen-visual.v4 { background: linear-gradient(135deg, #b7c4d5, #d3e0f0); }
+.onsen-visual.v5 { background: linear-gradient(135deg, #d5d1b7, #f0ecd3); }
 .onsen-rank {
-  position: absolute;
-  top: 0.6rem;
-  left: 0.6rem;
-  width: 28px;
-  height: 28px;
-  background: var(--stamp-red);
-  color: #fff;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 0.7rem;
-  font-weight: 900;
+  position: absolute; top: 0.8rem; left: 0.8rem;
+  width: 32px; height: 32px; background: var(--red); color: #fff;
+  border-radius: 50%; display: flex; align-items: center; justify-content: center;
+  font-size: 0.75rem; font-weight: 900;
 }
-.onsen-body { padding: 0.9rem 1rem; }
-.onsen-area {
-  font-size: 0.6rem;
-  font-weight: 700;
-  color: var(--stamp-red);
-  letter-spacing: 0.1em;
-  margin-bottom: 0.2rem;
-}
-.onsen-name {
-  font-family: 'Shippori Mincho', serif;
-  font-size: 1.05rem;
-  font-weight: 600;
-  margin-bottom: 0.3rem;
-}
-.onsen-highlight {
-  font-size: 0.78rem;
-  color: #7a7068;
-  margin-bottom: 0.6rem;
-  line-height: 1.7;
-}
-.onsen-tags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.3rem;
-}
-.otag {
-  padding: 0.15rem 0.5rem;
-  background: var(--paper-aged);
-  border-radius: 2px;
-  font-size: 0.65rem;
-  color: var(--warm-brown);
-  font-weight: 500;
-}
+.onsen-body { padding: 1.2rem; }
+.onsen-area { font-size: 0.68rem; font-weight: 700; color: var(--red); letter-spacing: 0.1em; margin-bottom: 0.3rem; }
+.onsen-name { font-family: 'Shippori Mincho', serif; font-size: 1.15rem; font-weight: 600; margin-bottom: 0.4rem; }
+.onsen-highlight { font-size: 0.85rem; color: #7a7068; margin-bottom: 0.8rem; line-height: 1.7; }
+.onsen-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+.otag { padding: 0.2rem 0.6rem; background: var(--cream); border-radius: 50px; font-size: 0.7rem; color: var(--brown); font-weight: 500; }
 .onsen-info {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0.6rem 1rem;
-  background: rgba(74,55,40,0.02);
-  border-top: 1px dashed rgba(74,55,40,0.1);
-  font-size: 0.72rem;
-  color: #999;
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 0.8rem 1.2rem; background: #fafafa; border-top: 1px solid rgba(0,0,0,0.04);
+  font-size: 0.78rem; color: #999;
 }
-.onsen-price { font-weight: 700; color: var(--stamp-red); }
+.onsen-price { font-weight: 700; color: var(--red); }
 
-/* ===== GOURMET SECTION ===== */
+/* ===== GOURMET ===== */
 .gourmet-area-label {
   font-family: 'Shippori Mincho', serif;
-  font-size: 1rem;
-  font-weight: 600;
-  color: var(--ink-brown);
-  margin: 1.5rem 0 0.8rem;
-  padding-left: 0.7rem;
-  border-left: 3px solid var(--stamp-red);
+  font-size: 1.1rem; font-weight: 600; color: var(--navy);
+  margin: 2rem 0 1rem; padding-left: 0.8rem; border-left: 3px solid var(--red);
 }
 .gourmet-area-label:first-of-type { margin-top: 0; }
-.gourmet-list { display: flex; flex-direction: column; gap: 0.8rem; }
+.gourmet-list { display: flex; flex-direction: column; gap: 1rem; }
 .gourmet-card {
-  display: flex;
-  gap: 0.8rem;
-  background: #fff;
-  border: 1px solid rgba(74,55,40,0.1);
-  border-radius: var(--radius);
-  padding: 0.8rem;
-  box-shadow: 1px 2px 6px rgba(74,55,40,0.06);
-  text-decoration: none;
-  color: inherit;
+  display: flex; gap: 1rem; background: #fff; border-radius: var(--rs);
+  padding: 1rem; box-shadow: var(--shadow); border: 1px solid rgba(0,0,0,0.04);
+  text-decoration: none; color: inherit; transition: transform 0.2s;
 }
+.gourmet-card:active { transform: scale(0.98); }
 .gourmet-emoji {
-  width: 50px;
-  height: 50px;
-  border-radius: var(--radius);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.5rem;
-  flex-shrink: 0;
-  border: 1px dashed rgba(74,55,40,0.15);
+  width: 60px; height: 60px; border-radius: var(--rs);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.8rem; flex-shrink: 0;
 }
-.ge1 { background: #fdf8ec; }
-.ge2 { background: #fdf0f3; }
-.ge3 { background: #eef5f0; }
-.ge4 { background: #fdf5ec; }
-.ge5 { background: #ecf5f8; }
-.ge6 { background: #f5eef8; }
+.ge1 { background: linear-gradient(135deg, #fff8e1, #ffecb3); }
+.ge2 { background: linear-gradient(135deg, #fce4ec, #f8bbd0); }
+.ge3 { background: linear-gradient(135deg, #e8f5e9, #c8e6c9); }
+.ge4 { background: linear-gradient(135deg, #fff3e0, #ffe0b2); }
+.ge5 { background: linear-gradient(135deg, #e0f7fa, #b2ebf2); }
+.ge6 { background: linear-gradient(135deg, #f3e5f5, #e1bee7); }
 .gourmet-info { flex: 1; min-width: 0; }
-.gourmet-name {
-  font-weight: 700;
-  font-size: 0.88rem;
-  margin-bottom: 0.1rem;
-}
-.gourmet-menu {
-  font-size: 0.7rem;
-  color: var(--stamp-red);
-  font-weight: 600;
-  margin-bottom: 0.2rem;
-}
-.gourmet-desc {
-  font-size: 0.75rem;
-  color: #7a7068;
-  line-height: 1.6;
-}
-.gourmet-price {
-  font-size: 0.7rem;
-  color: #999;
-  margin-top: 0.2rem;
-}
+.gourmet-name { font-weight: 700; font-size: 0.95rem; margin-bottom: 0.15rem; }
+.gourmet-menu { font-size: 0.75rem; color: var(--red); font-weight: 600; margin-bottom: 0.3rem; }
+.gourmet-desc { font-size: 0.8rem; color: #7a7068; line-height: 1.6; }
+.gourmet-price { font-size: 0.75rem; color: #999; margin-top: 0.3rem; }
 
-/* ===== TABEARUKI (Street Food) ===== */
-.street-food-page {
-  background: var(--paper-aged);
-  padding: 2.5rem 1.5rem;
-  position: relative;
-  z-index: 1;
-}
+/* ===== STREET FOOD ===== */
+.street-food-strip { background: linear-gradient(135deg, #c0392b, #e74c3c); padding: 2.5rem 1.25rem; }
+.street-food-strip .section-tag { color: rgba(255,255,255,0.7); }
+.street-food-strip .section-title { color: #fff; }
+.street-food-strip .section-desc { color: rgba(255,255,255,0.7); }
 .sf-scroll {
-  display: flex;
-  gap: 0.7rem;
-  overflow-x: auto;
-  scroll-snap-type: x mandatory;
-  -webkit-overflow-scrolling: touch;
-  padding: 0.5rem 0;
-  scrollbar-width: none;
+  display: flex; gap: 0.8rem; overflow-x: auto; scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch; padding: 0.5rem 0;
+  max-width: 640px; margin: 0 auto; scrollbar-width: none;
 }
 .sf-scroll::-webkit-scrollbar { display: none; }
 .sf-item {
-  flex: 0 0 130px;
-  scroll-snap-align: start;
-  background: #fff;
-  border: 1px dashed rgba(74,55,40,0.2);
-  border-radius: var(--radius);
-  padding: 0.8rem;
-  text-align: center;
-  position: relative;
+  flex: 0 0 150px; scroll-snap-align: start;
+  background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.15);
+  border-radius: var(--rs); padding: 1rem; text-align: center; backdrop-filter: blur(4px);
 }
-/* Tape on top of card */
-.sf-item::before {
-  content: '';
-  position: absolute;
-  top: -5px;
-  left: 50%;
-  transform: translateX(-50%) rotate(-1deg);
-  width: 50px;
-  height: 10px;
-  background: var(--washi-pink);
-  opacity: 0.5;
-  border-radius: 1px;
-}
-.sf-item:nth-child(2)::before { background: var(--washi-mint); transform: translateX(-50%) rotate(1deg); }
-.sf-item:nth-child(3)::before { background: var(--washi-blue); transform: translateX(-50%) rotate(-2deg); }
-.sf-item:nth-child(4)::before { background: var(--washi-yellow); }
-.sf-item:nth-child(5)::before { background: var(--washi-pink); transform: translateX(-50%) rotate(2deg); }
-.sf-item:nth-child(6)::before { background: var(--washi-mint); transform: translateX(-50%) rotate(-1deg); }
-.sf-item:nth-child(7)::before { background: var(--washi-blue); }
-.sf-item .emoji { font-size: 1.6rem; margin-bottom: 0.3rem; display: block; }
-.sf-item .name { font-size: 0.75rem; font-weight: 700; color: var(--ink-brown); margin-bottom: 0.15rem; }
-.sf-item .shop { font-size: 0.62rem; color: #8a7e72; margin-bottom: 0.2rem; }
-.sf-item .price { font-size: 0.68rem; color: var(--stamp-red); font-weight: 700; }
+.sf-item .emoji { font-size: 2rem; margin-bottom: 0.5rem; display: block; }
+.sf-item .name { font-size: 0.82rem; font-weight: 700; color: #fff; margin-bottom: 0.2rem; }
+.sf-item .shop { font-size: 0.7rem; color: rgba(255,255,255,0.7); margin-bottom: 0.3rem; }
+.sf-item .price { font-size: 0.75rem; color: var(--gold); font-weight: 700; }
 
 /* ===== ITINERARY ===== */
-.itinerary-day {
-  margin-bottom: 2rem;
-}
-.day-header {
-  display: flex;
-  align-items: center;
-  gap: 0.7rem;
-  margin-bottom: 1rem;
-}
+.itinerary-day { margin-bottom: 2.5rem; }
+.day-header { display: flex; align-items: center; gap: 0.8rem; margin-bottom: 1.2rem; }
 .day-number {
-  width: 44px;
-  height: 44px;
-  border: 2px solid var(--stamp-red);
-  border-radius: 50%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  color: var(--stamp-red);
-  flex-shrink: 0;
-  background: #fff;
+  width: 48px; height: 48px;
+  background: linear-gradient(135deg, var(--red), var(--orange));
+  border-radius: 50%; display: flex; flex-direction: column;
+  align-items: center; justify-content: center; color: #fff; flex-shrink: 0;
 }
-.day-number .num { font-size: 1.1rem; font-weight: 900; line-height: 1; }
-.day-number .label { font-size: 0.5rem; font-weight: 600; line-height: 1; letter-spacing: 0.05em; }
-.day-title {
-  font-family: 'Shippori Mincho', serif;
-  font-size: 1.05rem;
-  font-weight: 600;
-}
-.day-subtitle { font-size: 0.72rem; color: #8a7e72; }
-
-.timeline { position: relative; padding-left: 1.8rem; }
+.day-number .num { font-size: 1.2rem; font-weight: 900; line-height: 1; }
+.day-number .label { font-size: 0.55rem; font-weight: 500; line-height: 1; }
+.day-title { font-family: 'Shippori Mincho', serif; font-size: 1.15rem; font-weight: 600; }
+.day-subtitle { font-size: 0.78rem; color: #999; }
+.timeline { position: relative; padding-left: 2rem; }
 .timeline::before {
-  content: '';
-  position: absolute;
-  left: 6px;
-  top: 8px;
-  bottom: 8px;
-  width: 0;
-  border-left: 2px dashed rgba(184,58,42,0.3);
+  content: ''; position: absolute; left: 7px; top: 8px; bottom: 8px; width: 2px;
+  background: linear-gradient(to bottom, var(--red), var(--gold)); border-radius: 1px;
 }
-.tl-item {
-  position: relative;
-  padding-bottom: 1.3rem;
-}
+.tl-item { position: relative; padding-bottom: 1.5rem; }
 .tl-item:last-child { padding-bottom: 0; }
 .tl-dot {
-  position: absolute;
-  left: -1.8rem;
-  top: 2px;
-  width: 14px;
-  height: 14px;
-  background: #fff;
-  border: 2.5px solid var(--stamp-red);
-  border-radius: 50%;
-  z-index: 1;
+  position: absolute; left: -2rem; top: 2px; width: 16px; height: 16px;
+  background: #fff; border: 3px solid var(--red); border-radius: 50%; z-index: 1;
 }
-.tl-item:last-child .tl-dot { border-color: var(--deep-green); background: var(--deep-green); }
-.tl-item:last-child .tl-dot::after {
-  content: '';
-  position: absolute;
-  top: 2px; left: 2px; right: 2px; bottom: 2px;
-  background: #fff;
-  border-radius: 50%;
-}
-.tl-time {
-  font-size: 0.68rem;
-  font-weight: 700;
-  color: var(--stamp-red);
-  margin-bottom: 0.1rem;
-  letter-spacing: 0.05em;
-}
-.tl-title {
-  font-weight: 700;
-  font-size: 0.88rem;
-  margin-bottom: 0.15rem;
-  color: var(--ink-brown);
-}
-.tl-desc {
-  font-size: 0.78rem;
-  color: #7a7068;
-  line-height: 1.7;
-}
+.tl-item:last-child .tl-dot { border-color: var(--gold); }
+.tl-time { font-size: 0.72rem; font-weight: 700; color: var(--red); margin-bottom: 0.15rem; }
+.tl-title { font-weight: 700; font-size: 0.95rem; margin-bottom: 0.2rem; }
+.tl-desc { font-size: 0.82rem; color: #7a7068; line-height: 1.7; }
 .tl-tip {
-  display: inline-block;
-  margin-top: 0.3rem;
-  padding: 0.25rem 0.6rem;
-  background: #fef9e7;
-  border: 1px dashed rgba(212,184,74,0.4);
-  border-radius: 2px;
-  font-size: 0.68rem;
-  color: #8a6914;
-  font-weight: 600;
+  display: inline-block; margin-top: 0.4rem; padding: 0.3rem 0.7rem;
+  background: #fff8e1; border-radius: 8px;
+  font-size: 0.72rem; color: #e65100; font-weight: 600;
 }
 
-/* ===== ACCESS SECTION ===== */
-.access-page {
-  background: var(--paper-aged);
-  padding: 2.5rem 1.5rem;
-  position: relative;
-  z-index: 1;
-}
-.access-cards {
-  display: flex;
-  flex-direction: column;
-  gap: 0.7rem;
-}
+/* ===== ACCESS ===== */
+.access-strip { background: linear-gradient(135deg, #4a6741, #6b8e5f); padding: 2.5rem 1.25rem; }
+.access-strip .section-tag { color: rgba(255,255,255,0.7); }
+.access-strip .section-title { color: #fff; }
+.access-strip .section-desc { color: rgba(255,255,255,0.6); }
+.access-cards { display: flex; flex-direction: column; gap: 0.8rem; max-width: 640px; margin: 0 auto; }
 .access-card {
-  background: #fff;
-  border: 1px solid rgba(74,55,40,0.1);
-  border-radius: var(--radius);
-  padding: 1rem;
-  box-shadow: 1px 2px 6px rgba(74,55,40,0.06);
+  background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.15);
+  border-radius: var(--rs); padding: 1.2rem; backdrop-filter: blur(4px);
 }
-.access-card.recommended {
-  border-color: var(--stamp-red);
-  border-width: 2px;
-}
-.ac-badge {
-  display: inline-block;
-  padding: 0.12rem 0.5rem;
-  background: var(--stamp-red);
-  border-radius: 2px;
-  font-size: 0.58rem;
-  font-weight: 700;
-  color: #fff;
-  margin-bottom: 0.4rem;
-}
-.ac-name {
-  font-weight: 700;
-  font-size: 0.92rem;
-  color: var(--ink-brown);
-  margin-bottom: 0.2rem;
-}
-.ac-route {
-  font-size: 0.75rem;
-  color: #7a7068;
-  line-height: 1.6;
-  margin-bottom: 0.4rem;
-}
-.ac-stats {
-  display: flex;
-  gap: 0.8rem;
-  flex-wrap: wrap;
-}
-.ac-stat {
-  font-size: 0.7rem;
-  color: #8a7e72;
-}
-.ac-stat strong {
-  color: var(--ink-brown);
-  font-size: 0.82rem;
-}
-
+.access-card.recommended { background: rgba(255,255,255,0.18); border-color: var(--gold); }
+.ac-badge { display: inline-block; padding: 0.15rem 0.5rem; background: var(--gold); border-radius: 4px; font-size: 0.6rem; font-weight: 700; color: var(--navy); margin-bottom: 0.5rem; }
+.ac-name { font-weight: 700; font-size: 1rem; color: #fff; margin-bottom: 0.3rem; }
+.ac-route { font-size: 0.82rem; color: rgba(255,255,255,0.8); line-height: 1.6; margin-bottom: 0.5rem; }
+.ac-stats { display: flex; gap: 1rem; flex-wrap: wrap; }
+.ac-stat { font-size: 0.75rem; color: rgba(255,255,255,0.6); }
+.ac-stat strong { color: #fff; font-size: 0.9rem; }
 .parking-box {
-  background: #fff;
-  border: 1px dashed rgba(184,58,42,0.3);
-  border-radius: var(--radius);
-  padding: 1rem;
-  margin-top: 0.8rem;
+  background: rgba(212,160,23,0.15); border: 1px solid rgba(212,160,23,0.3);
+  border-radius: var(--rs); padding: 1.2rem; max-width: 640px; margin: 1rem auto 0;
 }
-.parking-title {
-  font-weight: 700;
-  color: var(--stamp-red);
-  font-size: 0.88rem;
-  margin-bottom: 0.3rem;
-}
-.parking-desc {
-  font-size: 0.75rem;
-  color: #7a7068;
-  line-height: 1.8;
-}
+.parking-title { font-weight: 700; color: var(--gold); font-size: 0.95rem; margin-bottom: 0.4rem; }
+.parking-desc { font-size: 0.8rem; color: rgba(255,255,255,0.75); line-height: 1.7; }
 
-/* ===== TIPS SECTION ===== */
-.tip-list { display: flex; flex-direction: column; gap: 0.7rem; }
+/* ===== TIPS ===== */
+.tip-list { display: flex; flex-direction: column; gap: 0.8rem; }
 .tip-card {
-  display: flex;
-  gap: 0.7rem;
-  background: #fff;
-  border: 1px solid rgba(74,55,40,0.1);
-  border-radius: var(--radius);
-  padding: 0.8rem;
-  box-shadow: 1px 2px 6px rgba(74,55,40,0.06);
-  align-items: flex-start;
+  display: flex; gap: 0.8rem; background: #fff; border-radius: var(--rs);
+  padding: 1rem; box-shadow: var(--shadow); border: 1px solid rgba(0,0,0,0.04); align-items: flex-start;
 }
 .tip-icon {
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  background: var(--paper-aged);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.05rem;
-  flex-shrink: 0;
-  border: 1px dashed rgba(74,55,40,0.15);
+  width: 42px; height: 42px; border-radius: 50%; background: var(--pink);
+  display: flex; align-items: center; justify-content: center; font-size: 1.2rem; flex-shrink: 0;
 }
 .tip-content { flex: 1; }
-.tip-title { font-weight: 700; font-size: 0.82rem; margin-bottom: 0.1rem; color: var(--ink-brown); }
-.tip-desc { font-size: 0.75rem; color: #7a7068; line-height: 1.6; }
+.tip-title { font-weight: 700; font-size: 0.88rem; margin-bottom: 0.15rem; }
+.tip-desc { font-size: 0.8rem; color: #7a7068; line-height: 1.6; }
 
-/* ===== BUDGET BOX ===== */
+/* ===== BUDGET ===== */
 .budget-box {
-  background: #fff;
-  border: 2px solid var(--ink-brown);
-  border-radius: var(--radius);
-  padding: 1.2rem;
-  margin-top: 1.5rem;
-  position: relative;
+  background: linear-gradient(135deg, var(--navy), #2c3e50);
+  border-radius: var(--r); padding: 1.5rem; color: #fff; margin-top: 2rem;
 }
-.budget-box::before {
-  content: '';
-  position: absolute;
-  top: -6px;
-  left: 50%;
-  transform: translateX(-50%) rotate(1deg);
-  width: 90px;
-  height: 13px;
-  background: var(--washi-yellow);
-  opacity: 0.5;
-  border-radius: 1px;
-}
-.budget-title {
-  font-family: 'Shippori Mincho', serif;
-  font-size: 1rem;
-  font-weight: 600;
-  margin-bottom: 0.8rem;
-  text-align: center;
-  color: var(--ink-brown);
-}
+.budget-title { font-family: 'Shippori Mincho', serif; font-size: 1.1rem; font-weight: 600; margin-bottom: 1rem; text-align: center; }
 .budget-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0.35rem 0;
-  border-bottom: 1px dotted rgba(74,55,40,0.15);
-  font-size: 0.78rem;
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 0.5rem 0; border-bottom: 1px solid rgba(255,255,255,0.08); font-size: 0.85rem;
 }
 .budget-row:last-of-type { border-bottom: none; }
-.budget-row .item { color: #7a7068; }
-.budget-row .cost { font-weight: 700; color: var(--ink-brown); }
+.budget-row .item { color: rgba(255,255,255,0.7); }
+.budget-row .cost { font-weight: 700; }
 .budget-total {
-  margin-top: 0.6rem;
-  padding-top: 0.6rem;
-  border-top: 2px solid var(--stamp-red);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-size: 0.92rem;
+  margin-top: 0.8rem; padding-top: 0.8rem;
+  border-top: 2px solid rgba(212,160,23,0.4);
+  display: flex; justify-content: space-between; align-items: center; font-size: 1rem;
 }
-.budget-total .cost { font-size: 1.05rem; color: var(--stamp-red); font-weight: 900; }
+.budget-total .cost { font-size: 1.2rem; color: var(--gold); font-weight: 900; }
 
-/* ===== MAP SECTION ===== */
-.map-section {
-  padding: 2.5rem 0 0;
-  position: relative;
-  z-index: 1;
-}
-.map-section .page-header {
-  padding: 0 1.5rem;
-  text-align: center;
-  margin-bottom: 1.2rem;
-}
-.map-tabs {
-  display: flex;
-  margin: 0;
-  border-bottom: none;
-}
+/* ===== MAP ===== */
+.map-section { padding: 3rem 0 0; }
+.map-section .section-header { padding: 0 1.25rem; text-align: center; margin-bottom: 1.5rem; }
+.map-tabs { display: flex; max-width: 640px; margin: 0 auto; }
 .map-tab {
-  flex: 1;
-  padding: 0.65rem;
-  text-align: center;
-  font-size: 0.75rem;
-  font-weight: 700;
-  cursor: pointer;
-  border: none;
-  background: var(--paper-aged);
-  color: var(--warm-brown);
-  transition: all 0.2s;
-  font-family: 'Klee One', 'Zen Maru Gothic', sans-serif;
+  flex: 1; padding: 0.8rem; text-align: center; font-size: 0.82rem; font-weight: 700;
+  cursor: pointer; border: none; background: #e8e0d8; color: var(--brown);
+  transition: all 0.2s; font-family: 'Zen Maru Gothic', sans-serif;
 }
-.map-tab.active {
-  background: var(--stamp-red);
-  color: #fff;
+.map-tab:first-child { border-radius: var(--rs) 0 0 0; }
+.map-tab:last-child { border-radius: 0 var(--rs) 0 0; }
+.map-tab.active { background: var(--red); color: #fff; }
+.map-container { position: relative; width: 100%; }
+.map-panel { display: none; width: 100%; }
+.map-panel.active { display: block; }
+#hakone-map { width: 100%; height: 520px; border-top: 3px solid var(--red); border-bottom: 3px solid var(--red); }
+.gmap-frame { width: 100%; height: 520px; border: none; border-top: 3px solid var(--red); border-bottom: 3px solid var(--red); display: block; }
+.map-zoom-hint { text-align: center; font-size: 0.72rem; color: #999; padding: 0.6rem; background: #f5f0ea; }
+.leaflet-popup-content-wrapper { border-radius: 12px !important; font-family: 'Zen Maru Gothic', sans-serif !important; }
+.leaflet-popup-content { margin: 12px 16px !important; font-size: 0.85rem !important; line-height: 1.5 !important; }
+.popup-title { font-weight: 700; font-size: 0.9rem; margin-bottom: 2px; }
+.popup-cat { font-size: 0.7rem; color: var(--red); font-weight: 600; }
+.popup-link { display: inline-block; margin-top: 4px; font-size: 0.75rem; color: var(--red); text-decoration: underline; }
+.popup-gmaps { display: inline-block; margin-top: 2px; margin-left: 8px; font-size: 0.75rem; color: #1a73e8; text-decoration: underline; }
+
+/* ===== CARD GAMES ===== */
+.games-strip { background: linear-gradient(135deg, #1a2332, #34495e); padding: 2.5rem 1.25rem; }
+.games-strip .section-tag { color: var(--gold); }
+.games-strip .section-title { color: #fff; }
+.games-strip .section-desc { color: rgba(255,255,255,0.6); }
+.game-list { display: flex; flex-direction: column; gap: 1rem; max-width: 640px; margin: 0 auto; }
+.game-card {
+  background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1);
+  border-radius: var(--r); overflow: hidden; transition: transform 0.2s;
 }
-.map-container {
-  position: relative;
-  width: 100%;
+.game-header {
+  padding: 1rem 1.2rem 0.6rem; display: flex; align-items: center; gap: 0.8rem;
 }
-.map-panel {
-  display: none;
-  width: 100%;
+.game-icon {
+  width: 48px; height: 48px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.5rem; flex-shrink: 0;
 }
-.map-panel.active {
-  display: block;
+.gi-skull { background: linear-gradient(135deg, #e74c3c, #c0392b); }
+.gi-insider { background: linear-gradient(135deg, #27ae60, #229954); }
+.gi-mind { background: linear-gradient(135deg, #3498db, #2980b9); }
+.gi-nanja { background: linear-gradient(135deg, #f39c12, #e67e22); }
+.gi-uno { background: linear-gradient(135deg, #9b59b6, #8e44ad); }
+.game-title-wrap { flex: 1; }
+.game-name { font-weight: 900; font-size: 1.05rem; color: #fff; }
+.game-meta-info { font-size: 0.7rem; color: rgba(255,255,255,0.5); }
+.game-body { padding: 0 1.2rem 1.2rem; }
+.game-how { font-size: 0.7rem; font-weight: 700; color: var(--gold); letter-spacing: 0.1em; margin-bottom: 0.3rem; }
+.game-rules {
+  font-size: 0.8rem; color: rgba(255,255,255,0.8); line-height: 1.8;
 }
-#hakone-map {
-  width: 100%;
-  height: 450px;
-  border-top: 2px solid var(--stamp-red);
-  border-bottom: 2px solid var(--stamp-red);
-}
-.gmap-frame {
-  width: 100%;
-  height: 450px;
-  border: none;
-  border-top: 2px solid var(--stamp-red);
-  border-bottom: 2px solid var(--stamp-red);
-  display: block;
-}
-.map-zoom-hint {
-  text-align: center;
-  font-size: 0.65rem;
-  color: #8a7e72;
-  padding: 0.5rem;
-  background: var(--paper-aged);
-}
-.leaflet-popup-content-wrapper {
-  border-radius: 4px !important;
-  font-family: 'Klee One', 'Zen Maru Gothic', sans-serif !important;
-}
-.leaflet-popup-content {
-  margin: 10px 14px !important;
-  font-size: 0.82rem !important;
-  line-height: 1.5 !important;
-}
-.popup-title {
-  font-weight: 700;
-  font-size: 0.85rem;
-  margin-bottom: 2px;
-}
-.popup-cat {
-  font-size: 0.65rem;
-  color: var(--stamp-red);
-  font-weight: 600;
-}
-.popup-link {
-  display: inline-block;
-  margin-top: 4px;
-  font-size: 0.7rem;
-  color: var(--stamp-red);
-  text-decoration: underline;
-}
-.popup-gmaps {
-  display: inline-block;
-  margin-top: 2px;
-  margin-left: 6px;
-  font-size: 0.7rem;
-  color: #1a73e8;
-  text-decoration: underline;
+.game-rules ol, .game-rules ul { padding-left: 1.2rem; }
+.game-rules li { margin-bottom: 0.3rem; }
+.game-win {
+  display: inline-block; margin-top: 0.5rem; padding: 0.3rem 0.8rem;
+  background: rgba(212,160,23,0.2); border: 1px solid rgba(212,160,23,0.3);
+  border-radius: 8px; font-size: 0.72rem; color: var(--gold); font-weight: 700;
 }
 
-/* ===== BACK COVER / FOOTER ===== */
-.back-cover {
-  text-align: center;
-  padding: 3rem 1.5rem;
-  background: var(--paper-aged);
-  position: relative;
-  z-index: 1;
+/* ===== FOOTER ===== */
+.footer {
+  text-align: center; padding: 3rem 1.25rem; background: var(--navy);
+  color: rgba(255,255,255,0.4); font-size: 0.75rem;
 }
-.back-cover::before {
-  content: '';
-  position: absolute;
-  top: 12px; left: 12px; right: 12px; bottom: 12px;
-  border: 1px solid rgba(74,55,40,0.15);
-  pointer-events: none;
-}
-.back-title {
-  font-family: 'Shippori Mincho', serif;
-  font-size: 1.3rem;
-  color: var(--ink-brown);
-  font-weight: 800;
-  margin-bottom: 0.4rem;
-}
-.back-msg {
-  font-size: 0.82rem;
-  color: #8a7e72;
-  margin-bottom: 1.5rem;
-  line-height: 1.9;
-}
-.back-stamp {
-  width: 70px;
-  height: 70px;
-  border: 3px solid var(--stamp-red);
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 0 auto 1rem;
-  transform: rotate(5deg);
-  opacity: 0.7;
-}
-.back-stamp::before {
-  content: '';
-  position: absolute;
-  top: 3px; left: 3px; right: 3px; bottom: 3px;
-  border: 1px solid var(--stamp-red);
-  border-radius: 50%;
-}
-.back-stamp-text {
-  font-family: 'Shippori Mincho', serif;
-  font-size: 0.75rem;
-  font-weight: 800;
-  color: var(--stamp-red);
-  line-height: 1.2;
-}
-.back-credit {
-  font-size: 0.62rem;
-  color: rgba(74,55,40,0.3);
-  margin-top: 1rem;
-}
+.footer-title { font-family: 'Shippori Mincho', serif; font-size: 1.4rem; color: #fff; font-weight: 800; margin-bottom: 0.5rem; }
+.footer-msg { font-size: 0.85rem; color: rgba(255,255,255,0.6); margin-bottom: 2rem; line-height: 1.8; }
+
+.divider { height: 1px; background: linear-gradient(to right, transparent, rgba(0,0,0,0.08), transparent); margin: 0; }
 </style>
 </head>
 <body>
 
-<div class="booklet">
-
-<!-- ===== COVER ===== -->
-<section class="cover" id="top">
-  <div class="cover-label">TRAVEL BOOKLET</div>
-  <div class="cover-stamp">
-    <span class="stamp-text">箱根<br>温泉</span>
-    <span class="stamp-date">2026</span>
+<!-- ===== HERO ===== -->
+<section class="hero" id="top">
+  <div class="steam"><span></span><span></span><span></span><span></span><span></span><span></span></div>
+  <div class="hero-badge">HAKONE ONSEN TRIP</div>
+  <h1 class="hero-title">箱根温泉<br>冬の旅<span class="accent">2026.2.22 - 2.23</span></h1>
+  <p class="hero-subtitle">冬の澄んだ空気、雪化粧の富士山、<br>湯けむりに包まれる至福の週末へ。</p>
+  <div class="hero-date">&#128663; 2月22日(日) 13:00 東京駅発</div>
+  <div class="hero-members">
+    <div class="member-dot">&#128102;</div>
+    <div class="member-dot">&#128103;</div>
+    <div class="member-dot">&#128104;</div>
+    <div class="member-dot">&#128105;</div>
   </div>
-  <h1 class="cover-title">旅のしおり</h1>
-  <div class="cover-subtitle">箱根温泉 冬の旅</div>
-  <div class="cover-info">
-    2026年 2月22日(日) - 23日(月・祝)<br>
-    &#128663; 東京駅 13:00発 車で出発
-  </div>
-  <div class="cover-members">
-    <div class="member-icon">&#128102;</div>
-    <div class="member-icon">&#128103;</div>
-    <div class="member-icon">&#128104;</div>
-    <div class="member-icon">&#128105;</div>
-  </div>
-  <div class="cover-deco">- - - - - - - - - - - - -</div>
   <div class="scroll-hint">SCROLL</div>
 </section>
 
-<!-- ===== TABLE OF CONTENTS ===== -->
-<nav class="toc-nav">
-  <div class="toc-inner">
-    <a href="#events" class="toc-link">&#127878; イベント</a>
-    <a href="#onsen" class="toc-link">&#9832; 温泉</a>
-    <a href="#gourmet" class="toc-link">&#127836; グルメ</a>
-    <a href="#tabearuki" class="toc-link">&#127858; 食べ歩き</a>
-    <a href="#itinerary" class="toc-link">&#128506; 旅程</a>
-    <a href="#access" class="toc-link">&#128663; アクセス</a>
-    <a href="#map" class="toc-link">&#128205; マップ</a>
-    <a href="#tips" class="toc-link">&#128161; 豆知識</a>
+<!-- ===== NAV ===== -->
+<nav class="nav-bar">
+  <div class="nav-inner">
+    <a href="#events" class="nav-link">&#127878; イベント</a>
+    <a href="#onsen" class="nav-link">&#9832; 温泉</a>
+    <a href="#gourmet" class="nav-link">&#127836; グルメ</a>
+    <a href="#tabearuki" class="nav-link">&#127858; 食べ歩き</a>
+    <a href="#itinerary" class="nav-link">&#128506; コース</a>
+    <a href="#access" class="nav-link">&#128663; アクセス</a>
+    <a href="#map" class="nav-link">&#128205; マップ</a>
+    <a href="#games" class="nav-link">&#127183; ゲーム</a>
+    <a href="#tips" class="nav-link">&#128161; 豆知識</a>
   </div>
 </nav>
 
-<!-- ===== TRIP OVERVIEW ===== -->
-<section class="overview-page">
-  <div class="page-header">
-    <div class="page-number">- 01 -</div>
-    <div class="page-stamp">TRIP OVERVIEW</div>
-    <h2 class="page-title">旅のハイライト</h2>
-    <p class="page-desc">冬の箱根は魅力がいっぱい</p>
+<!-- ===== OVERVIEW ===== -->
+<section class="highlight-strip">
+  <div class="section-header">
+    <span class="section-icon">&#127967;</span>
+    <div class="section-tag">TRIP OVERVIEW</div>
+    <h2 class="section-title">旅のハイライト</h2>
+    <p class="section-desc">冬の箱根は魅力がいっぱい</p>
   </div>
-  <div class="overview-grid">
-    <div class="ov-card">
+  <div class="info-grid">
+    <div class="info-card">
       <div class="emoji">&#128663;</div>
       <div class="label">移動手段</div>
       <div class="value">車（東京駅発）</div>
     </div>
-    <div class="ov-card">
+    <div class="info-card">
       <div class="emoji">&#128101;</div>
       <div class="label">メンバー</div>
       <div class="value">大人4人</div>
     </div>
-    <div class="ov-card">
+    <div class="info-card">
       <div class="emoji">&#9728;&#65039;</div>
       <div class="label">天気・気温</div>
       <div class="value">5〜8&#8451;</div>
     </div>
-    <div class="ov-card">
+    <div class="info-card">
       <div class="emoji">&#128149;</div>
       <div class="label">旅のテーマ</div>
       <div class="value">湯けむり満喫</div>
     </div>
-    <div class="ov-card full">
+    <div class="info-card full">
       <div class="emoji">&#127755;</div>
       <div class="label">2月の箱根の魅力</div>
-      <div class="value">冬は空気が澄んで富士山の絶景日和。<br>露天風呂は冷たい空気と温かい湯のコントラストが最高。<br>観光客も少なめでゆったり過ごせます。</div>
+      <div class="value" style="font-size:0.82rem;font-weight:500;line-height:1.7;">冬は空気が澄んで富士山の絶景日和。露天風呂は冷たい空気と温かい湯のコントラストが最高。観光客も少なめでゆったり過ごせます。</div>
     </div>
   </div>
+  <div class="bz-box-dark">
+    <div class="bz-label">&#127928; B'z 豆知識 #1</div>
+    <div class="bz-text"><strong>稲葉さんも温泉好き！</strong> 稲葉浩志さんは大の温泉好きとして知られ、ツアーの合間に各地の温泉を巡ることも。露天風呂で歌うB'zの名曲…想像するだけでテンション上がる！車内BGMは「ultra soul」で箱根に向かおう&#127925;</div>
+  </div>
 </section>
-
-<hr class="page-sep">
 
 <!-- ===== EVENTS ===== -->
-<section class="page" id="events">
-  <div class="page-header">
-    <div class="page-number">- 02 -</div>
-    <div class="page-stamp">EVENTS</div>
-    <h2 class="page-title">2/22-23 開催中イベント</h2>
-    <p class="page-desc">ちょうど楽しめるイベントが盛りだくさん</p>
+<section class="section" id="events">
+  <div class="section-header">
+    <span class="section-icon">&#127878;</span>
+    <div class="section-tag">EVENTS</div>
+    <h2 class="section-title">2/22-23 開催中イベント</h2>
+    <p class="section-desc">ちょうど楽しめるイベントが盛りだくさん</p>
   </div>
-
   <div class="event-list">
-    <div class="event-card">
-      <a href="https://www.hakone.or.jp/9912" target="_blank" rel="noopener">
-        <div class="event-top">
-          <span class="event-badge badge-illumination">&#10024; イルミネーション</span>
-          <div class="event-name">箱根・すてきな灯り 2025-2026</div>
-          <div class="event-desc">「箱根黄金伝説」をテーマに、箱根の各所が幻想的な光に包まれる冬限定イベント。仙石原すすき草原の「黄金に輝く道」、ガラスの森美術館のクリスタルツリーなど、冬の夜を彩るスポットが点在。<strong>2月末で終了予定なのでラストチャンス！</strong></div>
-        </div>
-        <div class="event-meta">
-          <span>&#128197; 〜2月下旬</span>
-          <span>&#128205; 箱根各所</span>
-          <span class="link-hint">&#128279; 公式サイト</span>
-        </div>
-      </a>
-    </div>
-
-    <div class="event-card">
-      <a href="https://www.yunessun.com/" target="_blank" rel="noopener">
-        <div class="event-top">
-          <span class="event-badge badge-food">&#127853; コラボイベント</span>
-          <div class="event-name">ユネッサン × ミルキー<br>ANNIVERSARY FESTA</div>
-          <div class="event-desc">不二家ミルキーとのコラボレーション！ミルキー風味のお風呂やサウナなど、甘くて楽しい特別体験が満載。遊び心あふれるユネッサンならではの企画。</div>
-        </div>
-        <div class="event-meta">
-          <span>&#128197; 〜3/3</span>
-          <span>&#128205; ユネッサン</span>
-          <span class="link-hint">&#128279; 公式サイト</span>
-        </div>
-      </a>
-    </div>
-
-    <div class="event-card">
-      <a href="https://www.polamuseum.or.jp/" target="_blank" rel="noopener">
-        <div class="event-top">
-          <span class="event-badge badge-art">&#127912; アート展</span>
-          <div class="event-name">ポーラ美術館「SPRING ── 湧きあがる鼓動」</div>
-          <div class="event-desc">モネ、ゴッホ、ゴーギャン、ルソー、歌川広重からアンゼルム・キーファー、杉本博司まで──「箱根」をテーマにした初の大型企画展。絵画・彫刻・工芸・インスタレーションが集結。</div>
-        </div>
-        <div class="event-meta">
-          <span>&#128197; 〜5/31</span>
-          <span>&#128205; ポーラ美術館</span>
-          <span class="link-hint">&#128279; 公式サイト</span>
-        </div>
-      </a>
-    </div>
-
-    <div class="event-card">
-      <a href="https://www.okada-museum.com/" target="_blank" rel="noopener">
-        <div class="event-top">
-          <span class="event-badge badge-art">&#127912; アート展</span>
-          <div class="event-name">少女革命計画 × 岡田美術館<br>「絢爛革命 心/罪」</div>
-          <div class="event-desc">新世代アーティストと岡田美術館のコラボレーション展。伝統美術と現代アートが交差する斬新な空間を体験できます。</div>
-        </div>
-        <div class="event-meta">
-          <span>&#128197; 1/31〜3/31</span>
-          <span>&#128205; 岡田美術館</span>
-          <span class="link-hint">&#128279; 公式サイト</span>
-        </div>
-      </a>
-    </div>
-
-    <div class="event-card">
-      <a href="https://www.hakone-oam.or.jp/" target="_blank" rel="noopener">
-        <div class="event-top">
-          <span class="event-badge badge-art">&#127912; 特別展示</span>
-          <div class="event-name">彫刻の森美術館<br>「ユニークコレクション」</div>
-          <div class="event-desc">名作コレクションを新しいキュレーションで再構成。屋外に展示された約120点の彫刻と冬の山並みのコラボレーションは圧巻。ピカソ館も必見。</div>
-        </div>
-        <div class="event-meta">
-          <span>&#128197; 1/31〜</span>
-          <span>&#128205; 彫刻の森美術館</span>
-          <span class="link-hint">&#128279; 公式サイト</span>
-        </div>
-      </a>
-    </div>
-
-    <div class="event-card">
-      <a href="https://www.nicolaibergmann.com/" target="_blank" rel="noopener">
-        <div class="event-top">
-          <span class="event-badge badge-nature">&#127807; ガーデン</span>
-          <div class="event-name">ニコライ・バーグマン箱根ガーデンズ<br>冬の特別イベント</div>
-          <div class="event-desc">デンマークのクラフトアーティストを招いたワークショップやガイドツアー。カフェでは冬野菜のポタージュなど北欧メニューも。</div>
-        </div>
-        <div class="event-meta">
-          <span>&#128197; 冬季開催中</span>
-          <span>&#128205; ニコライ・バーグマン箱根</span>
-          <span class="link-hint">&#128279; 公式サイト</span>
-        </div>
-      </a>
-    </div>
+    <div class="event-card"><a href="https://www.hakone.or.jp/9912" target="_blank" rel="noopener"><div class="event-top"><span class="event-badge badge-illumination">&#10024; イルミネーション</span><div class="event-name">箱根・すてきな灯り 2025-2026</div><div class="event-desc">「箱根黄金伝説」をテーマに、箱根の各所が幻想的な光に包まれる冬限定イベント。仙石原すすき草原の「黄金に輝く道」、ガラスの森美術館のクリスタルツリーなど。<strong>2月末で終了予定なのでラストチャンス！</strong></div></div><div class="event-meta"><span>&#128197; 〜2月下旬</span><span>&#128205; 箱根各所</span><span class="link-hint">&#128279; 公式サイト</span></div></a></div>
+    <div class="event-card"><a href="https://www.yunessun.com/" target="_blank" rel="noopener"><div class="event-top"><span class="event-badge badge-food">&#127853; コラボイベント</span><div class="event-name">ユネッサン × ミルキー ANNIVERSARY FESTA</div><div class="event-desc">不二家ミルキーとのコラボレーション！ミルキー風味のお風呂やサウナなど、甘くて楽しい特別体験が満載。</div></div><div class="event-meta"><span>&#128197; 〜3/3</span><span>&#128205; ユネッサン</span><span class="link-hint">&#128279; 公式サイト</span></div></a></div>
+    <div class="event-card"><a href="https://www.polamuseum.or.jp/" target="_blank" rel="noopener"><div class="event-top"><span class="event-badge badge-art">&#127912; アート展</span><div class="event-name">ポーラ美術館「SPRING ── 湧きあがる鼓動」</div><div class="event-desc">モネ、ゴッホ、ゴーギャンから杉本博司まで──「箱根」をテーマにした初の大型企画展。絵画・彫刻・インスタレーションが集結。</div></div><div class="event-meta"><span>&#128197; 〜5/31</span><span>&#128205; ポーラ美術館</span><span class="link-hint">&#128279; 公式サイト</span></div></a></div>
+    <div class="event-card"><a href="https://www.okada-museum.com/" target="_blank" rel="noopener"><div class="event-top"><span class="event-badge badge-art">&#127912; アート展</span><div class="event-name">少女革命計画 × 岡田美術館「絢爛革命 心/罪」</div><div class="event-desc">新世代アーティストと岡田美術館のコラボレーション展。伝統美術と現代アートが交差する斬新な空間。</div></div><div class="event-meta"><span>&#128197; 1/31〜3/31</span><span>&#128205; 岡田美術館</span><span class="link-hint">&#128279; 公式サイト</span></div></a></div>
+    <div class="event-card"><a href="https://www.hakone-oam.or.jp/" target="_blank" rel="noopener"><div class="event-top"><span class="event-badge badge-art">&#127912; 特別展示</span><div class="event-name">彫刻の森美術館「ユニークコレクション」</div><div class="event-desc">名作コレクションを新しいキュレーションで再構成。屋外約120点の彫刻と冬の山並みのコラボレーションは圧巻。</div></div><div class="event-meta"><span>&#128197; 1/31〜</span><span>&#128205; 彫刻の森美術館</span><span class="link-hint">&#128279; 公式サイト</span></div></a></div>
+    <div class="event-card"><a href="https://www.nicolaibergmann.com/" target="_blank" rel="noopener"><div class="event-top"><span class="event-badge badge-nature">&#127807; ガーデン</span><div class="event-name">ニコライ・バーグマン箱根ガーデンズ 冬の特別イベント</div><div class="event-desc">デンマークのクラフトアーティストを招いたワークショップやガイドツアー。カフェでは北欧メニューも。</div></div><div class="event-meta"><span>&#128197; 冬季開催中</span><span>&#128205; ニコライ・バーグマン箱根</span><span class="link-hint">&#128279; 公式サイト</span></div></a></div>
+  </div>
+  <div class="bz-box">
+    <div class="bz-label">&#127928; B'z 豆知識 #2</div>
+    <div class="bz-text"><strong>B'zはCDトータルセールス日本歴代1位！</strong> 約8,262万枚を売り上げ、2位のAKB48に2000万枚以上の差をつける圧倒的記録。シングル1位獲得数は<strong>50作連続</strong>でギネス世界記録にも認定。稲葉さんのソロ作品も合わせると更にとんでもない数字に&#128293;</div>
   </div>
 </section>
 
-<hr class="page-sep">
+<div class="divider"></div>
 
 <!-- ===== ONSEN ===== -->
-<section class="page" id="onsen">
-  <div class="page-header">
-    <div class="page-number">- 03 -</div>
-    <div class="page-stamp">HOT SPRINGS</div>
-    <h2 class="page-title">おすすめ温泉スポット</h2>
-    <p class="page-desc">箱根十七湯から厳選。冬こそ露天風呂！</p>
+<section class="section" id="onsen">
+  <div class="section-header">
+    <span class="section-icon">&#9832;&#65039;</span>
+    <div class="section-tag">HOT SPRINGS</div>
+    <h2 class="section-title">おすすめ温泉スポット</h2>
+    <p class="section-desc">箱根十七湯から厳選。冬こそ露天風呂！</p>
   </div>
-
   <div class="onsen-list">
-    <div class="onsen-card">
-      <a href="https://www.tenseien.co.jp/" target="_blank" rel="noopener">
-        <div class="onsen-visual v1">
-          <div class="onsen-rank">1</div>
-          &#127777;&#65039;
-        </div>
-        <div class="onsen-body">
-          <div class="onsen-area">HAKONE YUMOTO</div>
-          <div class="onsen-name">天成園（てんせいえん）</div>
-          <div class="onsen-highlight">全長17mの屋上天空大露天風呂が圧巻！源泉かけ流しで、山々を見渡しながらの入浴は至福。23時間営業で時間を気にせず楽しめる。</div>
-          <div class="onsen-tags">
-            <span class="otag">&#127748; 屋上露天</span>
-            <span class="otag">&#128167; 源泉かけ流し</span>
-            <span class="otag">&#128337; 23時間営業</span>
-          </div>
-        </div>
-        <div class="onsen-info">
-          <span>箱根湯本駅 徒歩3分</span>
-          <span class="onsen-price">2,730円</span>
-        </div>
-      </a>
-    </div>
-
-    <div class="onsen-card">
-      <a href="https://www.hakoneyuryo.jp/" target="_blank" rel="noopener">
-        <div class="onsen-visual v2">
-          <div class="onsen-rank">2</div>
-          &#127811;
-        </div>
-        <div class="onsen-body">
-          <div class="onsen-area">HAKONE YUMOTO</div>
-          <div class="onsen-name">箱根湯寮（はこねゆりょう）</div>
-          <div class="onsen-highlight">古民家風の「里山温泉」がコンセプト。首都圏最大級の貸切個室露天風呂19室を完備。プライベートな空間でゆっくり温泉を楽しみたい方に最適。</div>
-          <div class="onsen-tags">
-            <span class="otag">&#127969; 古民家風</span>
-            <span class="otag">&#128273; 貸切露天19室</span>
-            <span class="otag">&#128652; 無料送迎</span>
-          </div>
-        </div>
-        <div class="onsen-info">
-          <span>箱根湯本駅 送迎バス3分</span>
-          <span class="onsen-price">1,600円〜</span>
-        </div>
-      </a>
-    </div>
-
-    <div class="onsen-card">
-      <a href="https://www.yunessun.com/" target="_blank" rel="noopener">
-        <div class="onsen-visual v3">
-          <div class="onsen-rank">3</div>
-          &#127904;
-        </div>
-        <div class="onsen-body">
-          <div class="onsen-area">KOWAKUDANI</div>
-          <div class="onsen-name">箱根小涌園ユネッサン</div>
-          <div class="onsen-highlight">温泉テーマパーク！ワイン風呂、コーヒー風呂など変わり種が満載の水着ゾーンと、本格的な「森の湯」の裸浴ゾーンで2度楽しめる。ミルキーコラボも開催中！</div>
-          <div class="onsen-tags">
-            <span class="otag">&#127881; テーマパーク</span>
-            <span class="otag">&#127863; 変わり種風呂</span>
-            <span class="otag">&#128102; グループ向け</span>
-          </div>
-        </div>
-        <div class="onsen-info">
-          <span>箱根湯本から車約15分</span>
-          <span class="onsen-price">2,500円〜</span>
-        </div>
-      </a>
-    </div>
-
-    <div class="onsen-card">
-      <a href="https://www.princehotels.co.jp/ryuguden/" target="_blank" rel="noopener">
-        <div class="onsen-visual v4">
-          <div class="onsen-rank">4</div>
-          &#128507;
-        </div>
-        <div class="onsen-body">
-          <div class="onsen-area">LAKE ASHI</div>
-          <div class="onsen-name">龍宮殿本館（りゅうぐうでんほんかん）</div>
-          <div class="onsen-highlight">芦ノ湖畔に佇む絶景温泉。湯船から一望する芦ノ湖と富士山のパノラマは息を呑む美しさ。冬の澄んだ空気でさらにクリアな眺望。</div>
-          <div class="onsen-tags">
-            <span class="otag">&#128507; 芦ノ湖ビュー</span>
-            <span class="otag">&#128508; 富士山一望</span>
-            <span class="otag">&#10024; 絶景</span>
-          </div>
-        </div>
-        <div class="onsen-info">
-          <span>芦ノ湖畔</span>
-          <span class="onsen-price">2,200円〜</span>
-        </div>
-      </a>
-    </div>
-
-    <div class="onsen-card">
-      <a href="https://www.hakonenavi.jp/spot/473" target="_blank" rel="noopener">
-        <div class="onsen-visual v5">
-          <div class="onsen-rank">5</div>
-          &#127813;
-        </div>
-        <div class="onsen-body">
-          <div class="onsen-area">HAKONE YUMOTO</div>
-          <div class="onsen-name">函嶺（かんれい）</div>
-          <div class="onsen-highlight">大正時代の洋館を改装した隠れ家的温泉。竹林に囲まれた露天風呂から渓流を眺める贅沢な時間。貸切風呂も1時間1,500円とリーズナブル。</div>
-          <div class="onsen-tags">
-            <span class="otag">&#127966; 竹林の隠れ家</span>
-            <span class="otag">&#128176; お手頃貸切</span>
-            <span class="otag">&#127956; 渓流ビュー</span>
-          </div>
-        </div>
-        <div class="onsen-info">
-          <span>箱根湯本エリア</span>
-          <span class="onsen-price">1,200円〜</span>
-        </div>
-      </a>
-    </div>
+    <div class="onsen-card"><a href="https://www.tenseien.co.jp/" target="_blank" rel="noopener"><div class="onsen-visual v1"><div class="onsen-rank">1</div>&#127777;&#65039;</div><div class="onsen-body"><div class="onsen-area">HAKONE YUMOTO</div><div class="onsen-name">天成園（てんせいえん）</div><div class="onsen-highlight">全長17mの屋上天空大露天風呂が圧巻！源泉かけ流しで、山々を見渡しながらの入浴は至福。23時間営業で時間を気にせず楽しめる。</div><div class="onsen-tags"><span class="otag">&#127748; 屋上露天</span><span class="otag">&#128167; 源泉かけ流し</span><span class="otag">&#128337; 23時間営業</span></div></div><div class="onsen-info"><span>箱根湯本駅 徒歩3分</span><span class="onsen-price">2,730円</span></div></a></div>
+    <div class="onsen-card"><a href="https://www.hakoneyuryo.jp/" target="_blank" rel="noopener"><div class="onsen-visual v2"><div class="onsen-rank">2</div>&#127811;</div><div class="onsen-body"><div class="onsen-area">HAKONE YUMOTO</div><div class="onsen-name">箱根湯寮（はこねゆりょう）</div><div class="onsen-highlight">古民家風の「里山温泉」がコンセプト。首都圏最大級の貸切個室露天風呂19室を完備。プライベートな空間でゆっくり温泉を楽しみたい方に最適。</div><div class="onsen-tags"><span class="otag">&#127969; 古民家風</span><span class="otag">&#128273; 貸切露天19室</span><span class="otag">&#128652; 無料送迎</span></div></div><div class="onsen-info"><span>箱根湯本駅 送迎バス3分</span><span class="onsen-price">1,600円〜</span></div></a></div>
+    <div class="onsen-card"><a href="https://www.yunessun.com/" target="_blank" rel="noopener"><div class="onsen-visual v3"><div class="onsen-rank">3</div>&#127904;</div><div class="onsen-body"><div class="onsen-area">KOWAKUDANI</div><div class="onsen-name">箱根小涌園ユネッサン</div><div class="onsen-highlight">温泉テーマパーク！ワイン風呂、コーヒー風呂など変わり種が満載。ミルキーコラボも開催中！</div><div class="onsen-tags"><span class="otag">&#127881; テーマパーク</span><span class="otag">&#127863; 変わり種風呂</span><span class="otag">&#128102; グループ向け</span></div></div><div class="onsen-info"><span>箱根湯本から車約15分</span><span class="onsen-price">2,500円〜</span></div></a></div>
+    <div class="onsen-card"><a href="https://www.princehotels.co.jp/ryuguden/" target="_blank" rel="noopener"><div class="onsen-visual v4"><div class="onsen-rank">4</div>&#128507;</div><div class="onsen-body"><div class="onsen-area">LAKE ASHI</div><div class="onsen-name">龍宮殿本館（りゅうぐうでんほんかん）</div><div class="onsen-highlight">芦ノ湖畔に佇む絶景温泉。湯船から一望する芦ノ湖と富士山のパノラマは息を呑む美しさ。冬の澄んだ空気でさらにクリアな眺望。</div><div class="onsen-tags"><span class="otag">&#128507; 芦ノ湖ビュー</span><span class="otag">&#128508; 富士山一望</span><span class="otag">&#10024; 絶景</span></div></div><div class="onsen-info"><span>芦ノ湖畔</span><span class="onsen-price">2,200円〜</span></div></a></div>
+    <div class="onsen-card"><a href="https://www.hakonenavi.jp/spot/473" target="_blank" rel="noopener"><div class="onsen-visual v5"><div class="onsen-rank">5</div>&#127813;</div><div class="onsen-body"><div class="onsen-area">HAKONE YUMOTO</div><div class="onsen-name">函嶺（かんれい）</div><div class="onsen-highlight">大正時代の洋館を改装した隠れ家的温泉。竹林に囲まれた露天風呂から渓流を眺める贅沢な時間。貸切風呂も1時間1,500円とリーズナブル。</div><div class="onsen-tags"><span class="otag">&#127966; 竹林の隠れ家</span><span class="otag">&#128176; お手頃貸切</span><span class="otag">&#127956; 渓流ビュー</span></div></div><div class="onsen-info"><span>箱根湯本エリア</span><span class="onsen-price">1,200円〜</span></div></a></div>
+  </div>
+  <div class="bz-box">
+    <div class="bz-label">&#127928; B'z 豆知識 #3</div>
+    <div class="bz-text"><strong>稲葉さんは岡山県津山市出身！</strong> 横浜国立大学教育学部を卒業後、数学の教員免許を持っている。あの圧倒的な歌唱力の持ち主がもし先生になっていたら…日本の音楽史は大きく変わっていたかも&#128170; ちなみに実家は化粧品店「イナバ化粧品店」で聖地巡礼スポットとしてファンの間で有名。</div>
   </div>
 </section>
 
-<hr class="page-sep">
+<div class="divider"></div>
 
 <!-- ===== GOURMET ===== -->
-<section class="page" id="gourmet">
-  <div class="page-header">
-    <div class="page-number">- 04 -</div>
-    <div class="page-stamp">GOURMET</div>
-    <h2 class="page-title">箱根グルメガイド</h2>
-    <p class="page-desc">冬の身体に染みる絶品グルメたち</p>
+<section class="section" id="gourmet">
+  <div class="section-header">
+    <span class="section-icon">&#127860;</span>
+    <div class="section-tag">GOURMET</div>
+    <h2 class="section-title">箱根グルメガイド</h2>
+    <p class="section-desc">冬の身体に染みる絶品グルメたち</p>
   </div>
-
   <div class="gourmet-area-label">&#128205; 箱根湯本エリア</div>
   <div class="gourmet-list">
-    <a href="https://www.hakonenavi.jp/spot/1251" target="_blank" rel="noopener" class="gourmet-card">
-      <div class="gourmet-emoji ge1">&#129478;</div>
-      <div class="gourmet-info">
-        <div class="gourmet-name">湯葉丼 直吉 &#128279;</div>
-        <div class="gourmet-menu">名物：湯葉丼</div>
-        <div class="gourmet-desc">箱根の名水「姫の水」で作る自家製湯葉を、出汁でふわふわ卵とじに。一人前の土鍋で提供される箱根グルメの代名詞。</div>
-        <div class="gourmet-price">湯葉丼 1,100円〜 / セット 2,300円</div>
-      </div>
-    </a>
-    <a href="https://www.hatsuhana.co.jp/" target="_blank" rel="noopener" class="gourmet-card">
-      <div class="gourmet-emoji ge2">&#127836;</div>
-      <div class="gourmet-info">
-        <div class="gourmet-name">はつ花そば 本店 &#128279;</div>
-        <div class="gourmet-menu">名物：せいろそば</div>
-        <div class="gourmet-desc">1934年創業の老舗。山芋と卵をつなぎに使い、小麦粉不使用の独自製法。風味豊かなそばは箱根の定番。</div>
-        <div class="gourmet-price">せいろそば 900円〜</div>
-      </div>
-    </a>
+    <a href="https://www.hakonenavi.jp/spot/1251" target="_blank" rel="noopener" class="gourmet-card"><div class="gourmet-emoji ge1">&#129478;</div><div class="gourmet-info"><div class="gourmet-name">湯葉丼 直吉 &#128279;</div><div class="gourmet-menu">名物：湯葉丼</div><div class="gourmet-desc">箱根の名水「姫の水」で作る自家製湯葉を、出汁でふわふわ卵とじに。一人前の土鍋で提供される箱根グルメの代名詞。</div><div class="gourmet-price">湯葉丼 1,100円〜 / セット 2,300円</div></div></a>
+    <a href="https://www.hatsuhana.co.jp/" target="_blank" rel="noopener" class="gourmet-card"><div class="gourmet-emoji ge2">&#127836;</div><div class="gourmet-info"><div class="gourmet-name">はつ花そば 本店 &#128279;</div><div class="gourmet-menu">名物：せいろそば</div><div class="gourmet-desc">1934年創業の老舗。山芋と卵をつなぎに使い、小麦粉不使用の独自製法。風味豊かなそばは箱根の定番。</div><div class="gourmet-price">せいろそば 900円〜</div></div></a>
   </div>
-
   <div class="gourmet-area-label">&#128205; 強羅エリア</div>
   <div class="gourmet-list">
-    <a href="https://www.ginkatsutei.jp/" target="_blank" rel="noopener" class="gourmet-card">
-      <div class="gourmet-emoji ge3">&#127857;</div>
-      <div class="gourmet-info">
-        <div class="gourmet-name">田むら銀かつ亭 &#128279;</div>
-        <div class="gourmet-menu">名物：豆腐かつ煮</div>
-        <div class="gourmet-desc">地元の「銀豆腐」に豚挽肉を詰めて米油で揚げ、甘辛出汁でとじた土鍋料理。冬にぴったりのアツアツの一品。1972年創業の名店。</div>
-        <div class="gourmet-price">豆腐かつ煮定食 1,500円〜</div>
-      </div>
-    </a>
+    <a href="https://www.ginkatsutei.jp/" target="_blank" rel="noopener" class="gourmet-card"><div class="gourmet-emoji ge3">&#127857;</div><div class="gourmet-info"><div class="gourmet-name">田むら銀かつ亭 &#128279;</div><div class="gourmet-menu">名物：豆腐かつ煮</div><div class="gourmet-desc">地元の「銀豆腐」に豚挽肉を詰めて米油で揚げ、甘辛出汁でとじた土鍋料理。冬にぴったりのアツアツの一品。</div><div class="gourmet-price">豆腐かつ煮定食 1,500円〜</div></div></a>
   </div>
-
   <div class="gourmet-area-label">&#128205; 宮ノ下エリア</div>
   <div class="gourmet-list">
-    <a href="https://watanabebakery.jp/" target="_blank" rel="noopener" class="gourmet-card">
-      <div class="gourmet-emoji ge4">&#127838;</div>
-      <div class="gourmet-info">
-        <div class="gourmet-name">渡邊ベーカリー &#128279;</div>
-        <div class="gourmet-menu">名物：温泉シチューパン</div>
-        <div class="gourmet-desc">1891年創業！くり抜いたフランスパンに熱々のビーフシチューを注いだ冬の最強メニュー。梅干しあんぱんも名物。</div>
-        <div class="gourmet-price">温泉シチューパン 750円〜</div>
-      </div>
-    </a>
-    <a href="https://naraya-cafe.com/" target="_blank" rel="noopener" class="gourmet-card">
-      <div class="gourmet-emoji ge5">&#127845;</div>
-      <div class="gourmet-info">
-        <div class="gourmet-name">NARAYA CAFE &#128279;</div>
-        <div class="gourmet-menu">名物：ならやん（最中）</div>
-        <div class="gourmet-desc">ひょうたん型の最中に好みの餡を詰める体験型スイーツ。足湯に浸かりながらいただける最高のロケーション。</div>
-        <div class="gourmet-price">ならやん 400円〜</div>
-      </div>
-    </a>
+    <a href="https://watanabebakery.jp/" target="_blank" rel="noopener" class="gourmet-card"><div class="gourmet-emoji ge4">&#127838;</div><div class="gourmet-info"><div class="gourmet-name">渡邊ベーカリー &#128279;</div><div class="gourmet-menu">名物：温泉シチューパン</div><div class="gourmet-desc">1891年創業！くり抜いたフランスパンに熱々のビーフシチューを注いだ冬の最強メニュー。</div><div class="gourmet-price">温泉シチューパン 750円〜</div></div></a>
+    <a href="https://naraya-cafe.com/" target="_blank" rel="noopener" class="gourmet-card"><div class="gourmet-emoji ge5">&#127845;</div><div class="gourmet-info"><div class="gourmet-name">NARAYA CAFE &#128279;</div><div class="gourmet-menu">名物：ならやん（最中）</div><div class="gourmet-desc">ひょうたん型の最中に好みの餡を詰める体験型スイーツ。足湯に浸かりながらいただける最高のロケーション。</div><div class="gourmet-price">ならやん 400円〜</div></div></a>
   </div>
-
   <div class="gourmet-area-label">&#128205; 大涌谷</div>
   <div class="gourmet-list">
-    <a href="https://www.owakudani.com/" target="_blank" rel="noopener" class="gourmet-card">
-      <div class="gourmet-emoji ge6">&#129370;</div>
-      <div class="gourmet-info">
-        <div class="gourmet-name">大涌谷 黒たまご &#128279;</div>
-        <div class="gourmet-menu">名物：黒たまご</div>
-        <div class="gourmet-desc">火山の温泉で茹でると硫化水素で殻が真っ黒に。1個食べれば寿命が7年延びるという伝説。冬は湯気がもうもうと立ち上る迫力の景色も楽しめる。</div>
-        <div class="gourmet-price">5個入 500円</div>
-      </div>
-    </a>
+    <a href="https://www.owakudani.com/" target="_blank" rel="noopener" class="gourmet-card"><div class="gourmet-emoji ge6">&#129370;</div><div class="gourmet-info"><div class="gourmet-name">大涌谷 黒たまご &#128279;</div><div class="gourmet-menu">名物：黒たまご</div><div class="gourmet-desc">火山の温泉で茹でると硫化水素で殻が真っ黒に。1個食べれば寿命が7年延びるという伝説。</div><div class="gourmet-price">5個入 500円</div></div></a>
+  </div>
+  <div class="bz-box">
+    <div class="bz-label">&#127928; B'z 豆知識 #4</div>
+    <div class="bz-text"><strong>稲葉さんは60歳を超えても驚異のボディ！</strong> 日課のランニングと筋トレで鍛え上げた体は業界屈指。ライブでは2時間以上のステージを走り回りながら歌い続ける超人ぶり。「黒たまごで寿命+7年」どころか、稲葉さんの体力は時間を超越している&#128170;&#128293;</div>
   </div>
 </section>
 
 <!-- ===== STREET FOOD ===== -->
-<section class="street-food-page" id="tabearuki">
-  <div class="page-header">
-    <div class="page-number">- 05 -</div>
-    <div class="page-stamp">STREET FOOD</div>
-    <h2 class="page-title">湯本で食べ歩き</h2>
-    <p class="page-desc">箱根湯本駅前通りは食べ歩き天国</p>
+<section class="street-food-strip" id="tabearuki">
+  <div class="section-header">
+    <span class="section-icon">&#128523;</span>
+    <div class="section-tag">STREET FOOD</div>
+    <h2 class="section-title">湯本で食べ歩き</h2>
+    <p class="section-desc">箱根湯本駅前通りは食べ歩き天国</p>
   </div>
-
   <div class="sf-scroll">
-    <div class="sf-item">
-      <span class="emoji">&#127832;</span>
-      <div class="name">箱根まんじゅう</div>
-      <div class="shop">まんじゅう屋 菜の花</div>
-      <div class="price">120円〜</div>
-    </div>
-    <div class="sf-item">
-      <span class="emoji">&#127846;</span>
-      <div class="name">ジェラート</div>
-      <div class="shop">DOLCE STELLA</div>
-      <div class="price">400円〜</div>
-    </div>
-    <div class="sf-item">
-      <span class="emoji">&#127862;</span>
-      <div class="name">てゑらみす</div>
-      <div class="shop">箱根てゑらみす</div>
-      <div class="price">600円</div>
-    </div>
-    <div class="sf-item">
-      <span class="emoji">&#127834;</span>
-      <div class="name">手焼きせんべい</div>
-      <div class="shop">手焼堂</div>
-      <div class="price">450円</div>
-    </div>
-    <div class="sf-item">
-      <span class="emoji">&#128031;</span>
-      <div class="name">かまぼこ棒</div>
-      <div class="shop">籠屋清次郎</div>
-      <div class="price">300円〜</div>
-    </div>
-    <div class="sf-item">
-      <span class="emoji">&#129472;</span>
-      <div class="name">金目鯛おにぎり</div>
-      <div class="shop">徳造丸</div>
-      <div class="price">500円</div>
-    </div>
-    <div class="sf-item">
-      <span class="emoji">&#127839;</span>
-      <div class="name">カレーパン</div>
-      <div class="shop">ピコット</div>
-      <div class="price">280円〜</div>
-    </div>
+    <div class="sf-item"><span class="emoji">&#127832;</span><div class="name">箱根まんじゅう</div><div class="shop">まんじゅう屋 菜の花</div><div class="price">120円〜</div></div>
+    <div class="sf-item"><span class="emoji">&#127846;</span><div class="name">ジェラート</div><div class="shop">DOLCE STELLA</div><div class="price">400円〜</div></div>
+    <div class="sf-item"><span class="emoji">&#127862;</span><div class="name">てゑらみす</div><div class="shop">箱根てゑらみす</div><div class="price">600円</div></div>
+    <div class="sf-item"><span class="emoji">&#127834;</span><div class="name">手焼きせんべい</div><div class="shop">手焼堂</div><div class="price">450円</div></div>
+    <div class="sf-item"><span class="emoji">&#128031;</span><div class="name">かまぼこ棒</div><div class="shop">籠屋清次郎</div><div class="price">300円〜</div></div>
+    <div class="sf-item"><span class="emoji">&#129472;</span><div class="name">金目鯛おにぎり</div><div class="shop">徳造丸</div><div class="price">500円</div></div>
+    <div class="sf-item"><span class="emoji">&#127839;</span><div class="name">カレーパン</div><div class="shop">ピコット</div><div class="price">280円〜</div></div>
   </div>
 </section>
 
-<hr class="page-sep">
-
 <!-- ===== ITINERARY ===== -->
-<section class="page" id="itinerary">
-  <div class="page-header">
-    <div class="page-number">- 06 -</div>
-    <div class="page-stamp">MODEL COURSE</div>
-    <h2 class="page-title">1泊2日モデルコース</h2>
-    <p class="page-desc">東京駅13:00発・車で巡る冬の箱根</p>
+<section class="section" id="itinerary">
+  <div class="section-header">
+    <span class="section-icon">&#128506;</span>
+    <div class="section-tag">MODEL COURSE</div>
+    <h2 class="section-title">1泊2日モデルコース</h2>
+    <p class="section-desc">東京駅13:00発・車で巡る冬の箱根</p>
   </div>
-
-  <!-- DAY 1 -->
   <div class="itinerary-day">
-    <div class="day-header">
-      <div class="day-number">
-        <span class="num">1</span>
-        <span class="label">DAY</span>
-      </div>
-      <div>
-        <div class="day-title">2月22日（日）</div>
-        <div class="day-subtitle">東京駅 &rarr; 箱根湯本散策 &rarr; 宿 &rarr; 温泉</div>
-      </div>
-    </div>
+    <div class="day-header"><div class="day-number"><span class="num">1</span><span class="label">DAY</span></div><div><div class="day-title">2月22日（日）</div><div class="day-subtitle">東京駅 &rarr; 箱根湯本散策 &rarr; 宿 &rarr; 温泉</div></div></div>
     <div class="timeline">
-      <div class="tl-item">
-        <div class="tl-dot"></div>
-        <div class="tl-time">13:00</div>
-        <div class="tl-title">東京駅 出発</div>
-        <div class="tl-desc">首都高速 &rarr; 東名高速 &rarr; 小田原厚木道路 &rarr; 箱根口IC &rarr; 国道1号で箱根湯本へ。日曜午後なので渋滞少なめ。</div>
-        <div class="tl-tip">&#128161; 高速料金 約2,500円（ETC）/ 所要約1.5〜2時間</div>
-      </div>
-      <div class="tl-item">
-        <div class="tl-dot"></div>
-        <div class="tl-time">14:45</div>
-        <div class="tl-title">箱根湯本に到着</div>
-        <div class="tl-desc">湯本の駐車場に車を停めて、駅前商店街を散策。箱根まんじゅう、かまぼこ棒、てゑらみすなど名物を食べ歩き。</div>
-        <div class="tl-tip">&#127359;&#65039; 湯本周辺にコインP多数（1時間500円〜）</div>
-      </div>
-      <div class="tl-item">
-        <div class="tl-dot"></div>
-        <div class="tl-time">15:30</div>
-        <div class="tl-title">遅めランチ：湯葉丼 直吉 or はつ花そば</div>
-        <div class="tl-desc">午後の遅い時間なら行列も落ち着き気味。箱根の名水で作る湯葉丼か、1934年創業の手打ちそばで腹ごしらえ。</div>
-      </div>
-      <div class="tl-item">
-        <div class="tl-dot"></div>
-        <div class="tl-time">16:30</div>
-        <div class="tl-title">宿にチェックイン</div>
-        <div class="tl-desc">車なので箱根エリア内どこの旅館でもアクセス自由。チェックイン後は旅館の露天風呂でゆっくり。冬の冷たい空気と温かい湯のコントラストを堪能。</div>
-      </div>
-      <div class="tl-item">
-        <div class="tl-dot"></div>
-        <div class="tl-time">18:30</div>
-        <div class="tl-title">旅館で懐石ディナー</div>
-        <div class="tl-desc">旬の食材を使った懐石料理。箱根の冬は根菜や魚介が美味しい季節。みんなでゆっくり食事を楽しもう。</div>
-      </div>
-      <div class="tl-item">
-        <div class="tl-dot"></div>
-        <div class="tl-time">20:30</div>
-        <div class="tl-title">夜の露天風呂 &amp; すてきな灯り鑑賞</div>
-        <div class="tl-desc">冬の星空の下での露天風呂は格別。車があるので近くのイルミネーションスポットへドライブするのも◎。ガラスの森美術館のクリスタルツリーは必見。</div>
-      </div>
+      <div class="tl-item"><div class="tl-dot"></div><div class="tl-time">13:00</div><div class="tl-title">東京駅 出発</div><div class="tl-desc">首都高速 &rarr; 東名高速 &rarr; 小田原厚木道路 &rarr; 箱根口IC &rarr; 国道1号で箱根湯本へ。日曜午後なので渋滞少なめ。</div><div class="tl-tip">&#128161; 高速料金 約2,500円（ETC）/ 所要約1.5〜2時間</div></div>
+      <div class="tl-item"><div class="tl-dot"></div><div class="tl-time">14:45</div><div class="tl-title">箱根湯本に到着</div><div class="tl-desc">湯本の駐車場に車を停めて、駅前商店街を散策。箱根まんじゅう、かまぼこ棒、てゑらみすなど名物を食べ歩き。</div><div class="tl-tip">&#127359;&#65039; 湯本周辺にコインP多数（1時間500円〜）</div></div>
+      <div class="tl-item"><div class="tl-dot"></div><div class="tl-time">15:30</div><div class="tl-title">遅めランチ：湯葉丼 直吉 or はつ花そば</div><div class="tl-desc">午後の遅い時間なら行列も落ち着き気味。箱根の名水で作る湯葉丼か、1934年創業の手打ちそばで腹ごしらえ。</div></div>
+      <div class="tl-item"><div class="tl-dot"></div><div class="tl-time">16:30</div><div class="tl-title">宿にチェックイン</div><div class="tl-desc">車なので箱根エリア内どこの旅館でもアクセス自由。チェックイン後は旅館の露天風呂でゆっくり。</div></div>
+      <div class="tl-item"><div class="tl-dot"></div><div class="tl-time">18:30</div><div class="tl-title">旅館で懐石ディナー</div><div class="tl-desc">旬の食材を使った懐石料理。箱根の冬は根菜や魚介が美味しい季節。みんなでゆっくり食事を楽しもう。</div></div>
+      <div class="tl-item"><div class="tl-dot"></div><div class="tl-time">20:30</div><div class="tl-title">夜の露天風呂 &amp; すてきな灯り鑑賞</div><div class="tl-desc">冬の星空の下での露天風呂は格別。車があるので近くのイルミネーションスポットへドライブするのも◎。</div></div>
+      <div class="tl-item"><div class="tl-dot"></div><div class="tl-time">21:30</div><div class="tl-title">&#127183; カードゲームナイト！</div><div class="tl-desc">旅館に戻ったらカードゲーム大会スタート！SKULL、インサイダーゲーム、ザマインド、なんじゃもんじゃ、UNO FLIPを持参して盛り上がろう。ルールは下の「ゲーム」セクションを参照。</div></div>
     </div>
   </div>
-
-  <!-- DAY 2 -->
   <div class="itinerary-day">
-    <div class="day-header">
-      <div class="day-number">
-        <span class="num">2</span>
-        <span class="label">DAY</span>
-      </div>
-      <div>
-        <div class="day-title">2月23日（月・祝）</div>
-        <div class="day-subtitle">箱根神社 &rarr; 大涌谷 &rarr; 強羅 &rarr; 宮ノ下 &rarr; 帰京</div>
-      </div>
-    </div>
+    <div class="day-header"><div class="day-number"><span class="num">2</span><span class="label">DAY</span></div><div><div class="day-title">2月23日（月・祝）</div><div class="day-subtitle">箱根神社 &rarr; 大涌谷 &rarr; 強羅 &rarr; 宮ノ下 &rarr; 帰京</div></div></div>
     <div class="timeline">
-      <div class="tl-item">
-        <div class="tl-dot"></div>
-        <div class="tl-time">08:00</div>
-        <div class="tl-title">旅館で朝食</div>
-        <div class="tl-desc">朝風呂を楽しんでからの朝食は最高の贅沢。9:30にチェックアウト。</div>
-      </div>
-      <div class="tl-item">
-        <div class="tl-dot"></div>
-        <div class="tl-time">10:00</div>
-        <div class="tl-title">箱根神社を参拝</div>
-        <div class="tl-desc">芦ノ湖に立つ朱色の「平和の鳥居」は箱根随一のフォトスポット。杉の巨木が並ぶ参道も荘厳な雰囲気。朝の澄んだ空気の中での参拝は格別。</div>
-        <div class="tl-tip">&#127359;&#65039; 箱根神社無料駐車場あり</div>
-      </div>
-      <div class="tl-item">
-        <div class="tl-dot"></div>
-        <div class="tl-time">11:00</div>
-        <div class="tl-title">芦ノ湖畔ドライブ &amp; 海賊船</div>
-        <div class="tl-desc">冬の澄んだ空気で雪化粧の富士山を湖上から一望！海賊船に乗るか、湖畔をドライブして絶景ポイントへ。</div>
-      </div>
-      <div class="tl-item">
-        <div class="tl-dot"></div>
-        <div class="tl-time">12:00</div>
-        <div class="tl-title">大涌谷（おおわくだに）</div>
-        <div class="tl-desc">車で大涌谷へ直行。噴煙が立ち上る迫力の火山谷で名物の「黒たまご」を。冬は蒸気がより幻想的で、富士山の眺望も最高。</div>
-        <div class="tl-tip">&#127359;&#65039; 大涌谷駐車場 普通車520円 / 強風時は通行止めの場合あり</div>
-      </div>
-      <div class="tl-item">
-        <div class="tl-dot"></div>
-        <div class="tl-time">13:15</div>
-        <div class="tl-title">ランチ：田むら銀かつ亭（強羅）</div>
-        <div class="tl-desc">強羅名物の「豆腐かつ煮」でアツアツランチ。特注の銀豆腐に豚挽肉を詰めた絶品の土鍋料理。</div>
-        <div class="tl-tip">&#128161; 祝日は混雑必至。到着前に電話確認がおすすめ</div>
-      </div>
-      <div class="tl-item">
-        <div class="tl-dot"></div>
-        <div class="tl-time">14:30</div>
-        <div class="tl-title">彫刻の森美術館</div>
-        <div class="tl-desc">約120点の屋外彫刻と冬の山並みの共演。「ユニークコレクション」展を鑑賞。ピカソ館も必見。</div>
-        <div class="tl-tip">&#127359;&#65039; 美術館専用駐車場あり（500円）</div>
-      </div>
-      <div class="tl-item">
-        <div class="tl-dot"></div>
-        <div class="tl-time">16:00</div>
-        <div class="tl-title">宮ノ下で休憩タイム</div>
-        <div class="tl-desc">渡邊ベーカリーの「温泉シチューパン」で体を温め、NARAYA CAFEで足湯に浸かりながらスイーツを。</div>
-      </div>
-      <div class="tl-item">
-        <div class="tl-dot"></div>
-        <div class="tl-time">16:45</div>
-        <div class="tl-title">箱根湯本でお土産 &amp; ラスト温泉</div>
-        <div class="tl-desc">時間があれば天成園で旅の締めの一風呂。湯本商店街でお土産を購入。</div>
-      </div>
-      <div class="tl-item">
-        <div class="tl-dot"></div>
-        <div class="tl-time">17:30</div>
-        <div class="tl-title">箱根出発 &rarr; 東京へ</div>
-        <div class="tl-desc">国道1号 &rarr; 小田原厚木道路 &rarr; 東名高速 &rarr; 首都高速で東京駅方面へ。祝日夕方は多少の渋滞あり。</div>
-        <div class="tl-tip">&#128161; 帰り所要約2〜2.5時間 / 20:00頃東京着予定</div>
-      </div>
+      <div class="tl-item"><div class="tl-dot"></div><div class="tl-time">08:00</div><div class="tl-title">旅館で朝食</div><div class="tl-desc">朝風呂を楽しんでからの朝食は最高の贅沢。9:30にチェックアウト。</div></div>
+      <div class="tl-item"><div class="tl-dot"></div><div class="tl-time">10:00</div><div class="tl-title">箱根神社を参拝</div><div class="tl-desc">芦ノ湖に立つ朱色の「平和の鳥居」は箱根随一のフォトスポット。杉の巨木が並ぶ参道も荘厳な雰囲気。</div><div class="tl-tip">&#127359;&#65039; 箱根神社無料駐車場あり</div></div>
+      <div class="tl-item"><div class="tl-dot"></div><div class="tl-time">11:00</div><div class="tl-title">芦ノ湖畔ドライブ &amp; 海賊船</div><div class="tl-desc">冬の澄んだ空気で雪化粧の富士山を湖上から一望！</div></div>
+      <div class="tl-item"><div class="tl-dot"></div><div class="tl-time">12:00</div><div class="tl-title">大涌谷（おおわくだに）</div><div class="tl-desc">噴煙が立ち上る迫力の火山谷で名物の「黒たまご」を。冬は蒸気がより幻想的で、富士山の眺望も最高。</div><div class="tl-tip">&#127359;&#65039; 大涌谷駐車場 普通車520円 / 強風時は通行止めの場合あり</div></div>
+      <div class="tl-item"><div class="tl-dot"></div><div class="tl-time">13:15</div><div class="tl-title">ランチ：田むら銀かつ亭（強羅）</div><div class="tl-desc">強羅名物の「豆腐かつ煮」でアツアツランチ。</div><div class="tl-tip">&#128161; 祝日は混雑必至。到着前に電話確認がおすすめ</div></div>
+      <div class="tl-item"><div class="tl-dot"></div><div class="tl-time">14:30</div><div class="tl-title">彫刻の森美術館</div><div class="tl-desc">約120点の屋外彫刻と冬の山並みの共演。「ユニークコレクション」展を鑑賞。</div><div class="tl-tip">&#127359;&#65039; 美術館専用駐車場あり（500円）</div></div>
+      <div class="tl-item"><div class="tl-dot"></div><div class="tl-time">16:00</div><div class="tl-title">宮ノ下で休憩タイム</div><div class="tl-desc">渡邊ベーカリーの「温泉シチューパン」で体を温め、NARAYA CAFEで足湯に浸かりながらスイーツを。</div></div>
+      <div class="tl-item"><div class="tl-dot"></div><div class="tl-time">16:45</div><div class="tl-title">箱根湯本でお土産 &amp; ラスト温泉</div><div class="tl-desc">時間があれば天成園で旅の締めの一風呂。湯本商店街でお土産を購入。</div></div>
+      <div class="tl-item"><div class="tl-dot"></div><div class="tl-time">17:30</div><div class="tl-title">箱根出発 &rarr; 東京へ</div><div class="tl-desc">国道1号 &rarr; 小田原厚木道路 &rarr; 東名高速 &rarr; 首都高速で東京駅方面へ。祝日夕方は多少の渋滞あり。</div><div class="tl-tip">&#128161; 帰り所要約2〜2.5時間 / 20:00頃東京着予定</div></div>
     </div>
+  </div>
+  <div class="bz-box">
+    <div class="bz-label">&#127928; B'z 豆知識 #5</div>
+    <div class="bz-text"><strong>B'zは2024年にロックの殿堂入り！</strong> 「Rock &amp; Roll Hall of Fame」のJapan部門で殿堂入りを果たした。日本人アーティストとしてはYMOに次ぐ快挙。稲葉さんと松本さんの35年以上にわたるパートナーシップは、まさに日本のロック史そのもの&#127775;</div>
   </div>
 </section>
 
 <!-- ===== ACCESS ===== -->
-<section class="access-page" id="access">
-  <div class="page-header">
-    <div class="page-number">- 07 -</div>
-    <div class="page-stamp">ACCESS BY CAR</div>
-    <h2 class="page-title">東京駅から車でのアクセス</h2>
-    <p class="page-desc">約1.5〜2時間のドライブ</p>
+<section class="access-strip" id="access">
+  <div class="section-header">
+    <span class="section-icon">&#128663;</span>
+    <div class="section-tag">ACCESS BY CAR</div>
+    <h2 class="section-title">東京駅から車でのアクセス</h2>
+    <p class="section-desc">約1.5〜2時間のドライブ</p>
   </div>
-
   <div class="access-cards">
-    <div class="access-card recommended">
-      <div class="ac-badge">&#128663; 今回のルート</div>
-      <div class="ac-name">東京駅 &rarr; 箱根湯本</div>
-      <div class="ac-route">東京駅 &rarr; 首都高速都心環状線 &rarr; 首都高速3号渋谷線 &rarr; 東名高速道路 &rarr; 厚木IC &rarr; 小田原厚木道路 &rarr; 箱根口IC &rarr; 国道1号 &rarr; 箱根湯本</div>
-      <div class="ac-stats">
-        <div class="ac-stat">&#128337; <strong>約1.5〜2時間</strong></div>
-        <div class="ac-stat">&#128176; <strong>高速約2,500円</strong></div>
-        <div class="ac-stat">&#9981; <strong>約95km</strong></div>
-      </div>
-    </div>
-    <div class="access-card">
-      <div class="ac-name">別ルート：東名 &rarr; 御殿場経由</div>
-      <div class="ac-route">東名高速 &rarr; 御殿場IC &rarr; 箱根スカイライン/乙女峠 &rarr; 仙石原・芦ノ湖方面。仙石原・芦ノ湖エリアに直接行く場合はこちらが便利。</div>
-      <div class="ac-stats">
-        <div class="ac-stat">&#128337; <strong>約2時間</strong></div>
-        <div class="ac-stat">&#128176; <strong>高速約3,000円</strong></div>
-      </div>
-    </div>
+    <div class="access-card recommended"><div class="ac-badge">&#128663; 今回のルート</div><div class="ac-name">東京駅 &rarr; 箱根湯本</div><div class="ac-route">東京駅 &rarr; 首都高速都心環状線 &rarr; 首都高速3号渋谷線 &rarr; 東名高速道路 &rarr; 厚木IC &rarr; 小田原厚木道路 &rarr; 箱根口IC &rarr; 国道1号 &rarr; 箱根湯本</div><div class="ac-stats"><div class="ac-stat">&#128337; <strong>約1.5〜2時間</strong></div><div class="ac-stat">&#128176; <strong>高速約2,500円</strong></div><div class="ac-stat">&#9981; <strong>約95km</strong></div></div></div>
+    <div class="access-card"><div class="ac-name">別ルート：東名 &rarr; 御殿場経由</div><div class="ac-route">東名高速 &rarr; 御殿場IC &rarr; 箱根スカイライン/乙女峠 &rarr; 仙石原・芦ノ湖方面。</div><div class="ac-stats"><div class="ac-stat">&#128337; <strong>約2時間</strong></div><div class="ac-stat">&#128176; <strong>高速約3,000円</strong></div></div></div>
   </div>
-
-  <div class="parking-box">
-    <div class="parking-title">&#127359;&#65039; 箱根の駐車場情報</div>
-    <div class="parking-desc">
-      <strong>箱根湯本：</strong>駅周辺にコインP多数（1時間500〜600円）<br>
-      <strong>旅館：</strong>ほとんどの旅館・ホテルに無料駐車場あり<br>
-      <strong>大涌谷：</strong>専用P 普通車520円<br>
-      <strong>箱根神社：</strong>無料駐車場あり<br>
-      <strong>彫刻の森：</strong>専用P 500円<br>
-      <strong>ガソリン代目安：</strong>往復約190km × 燃費 = 約2,000〜3,000円
-    </div>
+  <div class="parking-box"><div class="parking-title">&#127359;&#65039; 箱根の駐車場情報</div><div class="parking-desc"><strong>箱根湯本：</strong>駅周辺にコインP多数（1時間500〜600円）<br><strong>旅館：</strong>ほとんどの旅館・ホテルに無料駐車場あり<br><strong>大涌谷：</strong>専用P 普通車520円<br><strong>箱根神社：</strong>無料駐車場あり<br><strong>彫刻の森：</strong>専用P 500円<br><strong>ガソリン代目安：</strong>往復約190km × 燃費 = 約2,000〜3,000円</div></div>
+  <div class="bz-box-dark">
+    <div class="bz-label">&#127928; B'z 豆知識 #6</div>
+    <div class="bz-text"><strong>ドライブBGMにおすすめB'zセットリスト：</strong> 出発「ultra soul」&rarr; 高速「BLOWIN'」&rarr; 箱根到着「いつかのメリークリスマス」&rarr; 夜「LOVE PHANTOM」&rarr; 帰り道「ALONE」。渋滞にはまったら「愛のバクダン」で気分転換&#128663;&#127925;</div>
   </div>
 </section>
 
-<hr class="page-sep">
-
 <!-- ===== MAP ===== -->
 <section class="map-section" id="map">
-  <div class="page-header">
-    <div class="page-number">- 08 -</div>
-    <div class="page-stamp">SPOT MAP</div>
-    <h2 class="page-title">おすすめスポットマップ</h2>
-    <p class="page-desc">ピンチ・スワイプで拡大縮小できます</p>
+  <div class="section-header">
+    <span class="section-icon">&#128205;</span>
+    <div class="section-tag">SPOT MAP</div>
+    <h2 class="section-title">おすすめスポットマップ</h2>
+    <p class="section-desc">ピンチ・スワイプで拡大縮小できます</p>
   </div>
   <div class="map-tabs">
     <button class="map-tab active" onclick="switchMap('spots')">&#128205; スポットマップ</button>
@@ -1705,119 +743,172 @@ a { color: inherit; }
   </div>
 </section>
 
-<hr class="page-sep">
+<!-- ===== CARD GAMES ===== -->
+<section class="games-strip" id="games">
+  <div class="section-header">
+    <span class="section-icon">&#127183;</span>
+    <div class="section-tag">CARD GAME NIGHT</div>
+    <h2 class="section-title">夜のカードゲーム大会</h2>
+    <p class="section-desc">旅館で4人で盛り上がるゲームルール集</p>
+  </div>
+  <div class="game-list">
 
-<!-- ===== TIPS ===== -->
-<section class="page" id="tips">
-  <div class="page-header">
-    <div class="page-number">- 09 -</div>
-    <div class="page-stamp">TIPS</div>
-    <h2 class="page-title">冬の箱根 旅の豆知識</h2>
-    <p class="page-desc">知っておくと旅がもっと快適に</p>
+    <!-- SKULL -->
+    <div class="game-card">
+      <div class="game-header">
+        <div class="game-icon gi-skull">&#128128;</div>
+        <div class="game-title-wrap"><div class="game-name">SKULL（スカル）</div><div class="game-meta-info">&#128337; 15〜30分 / &#127922; ブラフ系</div></div>
+      </div>
+      <div class="game-body">
+        <div class="game-how">BASIC RULES（4人プレイ）</div>
+        <div class="game-rules">
+          <ol>
+            <li>各プレイヤーに<strong>花3枚・ドクロ1枚</strong>の計4枚を配る。自分だけ中身を確認OK</li>
+            <li><strong>裏向きに1枚ずつ</strong>自分の前に重ねて置く（花でもドクロでもOK）</li>
+            <li>自分の番で「もう1枚置く」か「チャレンジ宣言（数字を宣言）」を選ぶ</li>
+            <li>チャレンジ宣言：「自分は○枚めくれる！」と宣言。他のプレイヤーはより大きい数で上乗せするか、パスする</li>
+            <li>最も大きい数を宣言した人が、<strong>自分の山から先に</strong>その枚数をめくる。全て花なら成功！</li>
+            <li>ドクロをめくったら失敗 → ランダムに手札1枚を失う</li>
+          </ol>
+          <div class="game-win">&#127942; 勝利条件：2回チャレンジ成功で勝ち！</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- INSIDER -->
+    <div class="game-card">
+      <div class="game-header">
+        <div class="game-icon gi-insider">&#128373;</div>
+        <div class="game-title-wrap"><div class="game-name">インサイダーゲーム</div><div class="game-meta-info">&#128337; 10〜15分 / &#127922; 正体隠匿 × ワード</div></div>
+      </div>
+      <div class="game-body">
+        <div class="game-how">BASIC RULES（4人プレイ）</div>
+        <div class="game-rules">
+          <ol>
+            <li>役割を配る：<strong>マスター1人・インサイダー1人・庶民2人</strong></li>
+            <li>マスターは「お題の単語」を確認。インサイダーもこっそり確認する</li>
+            <li><strong>砂時計スタート！</strong>（約3分）庶民とインサイダーがマスターにYes/No質問をしてお題を当てる</li>
+            <li>インサイダーは答えを知っているので、バレないように上手く誘導する</li>
+            <li>お題が当たったら → <strong>投票タイム！</strong>「誰がインサイダーか？」を議論して多数決</li>
+            <li>時間切れでお題が当たらなかったらインサイダーの勝ち</li>
+          </ol>
+          <div class="game-win">&#127942; 庶民：お題を当てて＆インサイダーを見つけたら勝ち / インサイダー：バレなければ勝ち</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- THE MIND -->
+    <div class="game-card">
+      <div class="game-header">
+        <div class="game-icon gi-mind">&#129504;</div>
+        <div class="game-title-wrap"><div class="game-name">ザ・マインド</div><div class="game-meta-info">&#128337; 15〜20分 / &#127922; 協力系</div></div>
+      </div>
+      <div class="game-body">
+        <div class="game-how">BASIC RULES（4人プレイ）</div>
+        <div class="game-rules">
+          <ol>
+            <li>1〜100の数字カードを使用。<strong>会話・合図は一切禁止！</strong></li>
+            <li>ラウンド1：各自に<strong>1枚</strong>ずつ配る。ラウンド2は2枚、ラウンド3は3枚…と増えていく</li>
+            <li>場の中央に<strong>小さい数字から順番に</strong>カードを出す。「今出していい」と感じたら出す</li>
+            <li>誰かが間違った順番で出したら → ライフを1つ失う（ライフは最初4つ）</li>
+            <li>全員の手札を正しい順番で出し切ったらラウンドクリア！</li>
+            <li>お互いの「間」を感じて、テレパシーのようにタイミングを合わせるのがコツ</li>
+          </ol>
+          <div class="game-win">&#127942; 全員で協力してラウンドをクリアしていこう！ライフが0になったら全員敗北</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- NANJA MONJA -->
+    <div class="game-card">
+      <div class="game-header">
+        <div class="game-icon gi-nanja">&#128125;</div>
+        <div class="game-title-wrap"><div class="game-name">なんじゃもんじゃ</div><div class="game-meta-info">&#128337; 10〜15分 / &#127922; 記憶 × 瞬発力</div></div>
+      </div>
+      <div class="game-body">
+        <div class="game-how">BASIC RULES（4人プレイ）</div>
+        <div class="game-rules">
+          <ol>
+            <li>山札からカードを1枚めくって全員に見せる</li>
+            <li>そのキャラクターが<strong>初登場なら</strong> → めくった人が<strong>名前をつける</strong>（何でもOK！変な名前ほど楽しい）</li>
+            <li>全員その名前を覚える。次の人が山札をめくる</li>
+            <li>すでに名前がついたキャラが出たら → <strong>一番早くその名前を叫んだ人</strong>が場のカードを全部もらえる</li>
+            <li>間違った名前を叫んだらお手つき！そのターンはもらえない</li>
+          </ol>
+          <div class="game-win">&#127942; 山札がなくなった時、一番多くカードを持っている人の勝ち！</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- UNO FLIP -->
+    <div class="game-card">
+      <div class="game-header">
+        <div class="game-icon gi-uno">&#127183;</div>
+        <div class="game-title-wrap"><div class="game-name">UNO FLIP!</div><div class="game-meta-info">&#128337; 20〜40分 / &#127922; 戦略系UNO</div></div>
+      </div>
+      <div class="game-body">
+        <div class="game-how">BASIC RULES（4人プレイ）</div>
+        <div class="game-rules">
+          <ol>
+            <li>基本はUNOと同じ！色か数字が合うカードを出す。出せなければ1枚引く</li>
+            <li>カードに<strong>ライトサイド（明るい色）</strong>と<strong>ダークサイド（暗い色）</strong>の2面がある</li>
+            <li>「FLIP」カードが出たら → <strong>全員の手札と捨て札を裏返す！</strong>ダークサイドに突入</li>
+            <li><strong>ダークサイドはえぐい：</strong>+5カード、全員スキップ、指定色を出すまでドローし続ける「ドローカラー」など</li>
+            <li>残り1枚になったら「UNO！」宣言を忘れずに</li>
+            <li>再びFLIPカードが出たらライトサイドに戻る</li>
+          </ol>
+          <div class="game-win">&#127942; 一番最初に手札を0枚にした人が勝ち！ダークサイドの逆転に注意</div>
+        </div>
+      </div>
+    </div>
   </div>
 
-  <div class="tip-list">
-    <div class="tip-card">
-      <div class="tip-icon">&#129507;</div>
-      <div class="tip-content">
-        <div class="tip-title">防寒対策はしっかり</div>
-        <div class="tip-desc">気温5〜8℃、朝晩は氷点下の可能性も。ダウンジャケット・マフラー・手袋は必須。脱ぎ着しやすいレイヤードがおすすめ。</div>
-      </div>
-    </div>
-    <div class="tip-card">
-      <div class="tip-icon">&#128663;</div>
-      <div class="tip-content">
-        <div class="tip-title">冬タイヤ・チェーン確認</div>
-        <div class="tip-desc">2月の箱根山間部は路面凍結の可能性あり。スタッドレスタイヤまたはチェーン携行を推奨。特に大涌谷・芦ノ湖方面は標高が高い。</div>
-      </div>
-    </div>
-    <div class="tip-card">
-      <div class="tip-icon">&#128094;</div>
-      <div class="tip-content">
-        <div class="tip-title">滑りにくい靴で</div>
-        <div class="tip-desc">大涌谷や箱根神社周辺は凍結している場合あり。滑りにくいブーツやスニーカーを。</div>
-      </div>
-    </div>
-    <div class="tip-card">
-      <div class="tip-icon">&#128181;</div>
-      <div class="tip-content">
-        <div class="tip-title">現金を準備</div>
-        <div class="tip-desc">小さな食べ歩き店や古い温泉施設はカード不可の場合あり。5,000〜10,000円の現金があると安心。</div>
-      </div>
-    </div>
-    <div class="tip-card">
-      <div class="tip-icon">&#127749;</div>
-      <div class="tip-content">
-        <div class="tip-title">日没は17:15頃</div>
-        <div class="tip-desc">2月は日が短いので屋外観光・写真撮影は午前〜午後早めに。夕方からはイルミネーションや温泉を楽しんで。</div>
-      </div>
-    </div>
-    <div class="tip-card">
-      <div class="tip-icon">&#128151;</div>
-      <div class="tip-content">
-        <div class="tip-title">温泉マナー</div>
-        <div class="tip-desc">湯船に入る前に体を洗う・タオルは湯船に入れない・アクセサリーは外す。貸切風呂ならタトゥーOK。</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Budget -->
-  <div class="budget-box">
-    <div class="budget-title">&#128176; ざっくり予算ガイド（1人あたり）</div>
-    <div class="budget-row">
-      <span class="item">交通費（高速+ガソリン÷4人）</span>
-      <span class="cost">約2,000円</span>
-    </div>
-    <div class="budget-row">
-      <span class="item">駐車場代（合計÷4人）</span>
-      <span class="cost">約500円</span>
-    </div>
-    <div class="budget-row">
-      <span class="item">宿泊（1泊2食付き旅館）</span>
-      <span class="cost">15,000〜25,000円</span>
-    </div>
-    <div class="budget-row">
-      <span class="item">ランチ・食べ歩き</span>
-      <span class="cost">3,000〜5,000円</span>
-    </div>
-    <div class="budget-row">
-      <span class="item">日帰り温泉</span>
-      <span class="cost">2,000〜3,000円</span>
-    </div>
-    <div class="budget-row">
-      <span class="item">美術館・観光施設</span>
-      <span class="cost">1,500〜2,000円</span>
-    </div>
-    <div class="budget-row">
-      <span class="item">お土産</span>
-      <span class="cost">1,000〜3,000円</span>
-    </div>
-    <div class="budget-total">
-      <span class="item">合計目安</span>
-      <span class="cost">約25,000〜40,000円</span>
-    </div>
+  <div class="bz-box-dark" style="margin-top:1.5rem;">
+    <div class="bz-label">&#127928; B'z 豆知識 #7</div>
+    <div class="bz-text"><strong>ゲーム中のBGMは「LIVE-GYM」音源で！</strong> B'zのライブアルバムを流しながらカードゲームすれば最高の夜になること間違いなし。「Pleasure」「Treasure」は鉄板。ちなみに稲葉さんは<strong>「LIVE-GYM」というライブ名称を30年以上使い続けている</strong>こだわりの人&#127925;</div>
   </div>
 </section>
 
-<!-- ===== BACK COVER ===== -->
-<footer class="back-cover">
-  <div class="back-stamp">
-    <span class="back-stamp-text">良い<br>旅を</span>
+<!-- ===== TIPS ===== -->
+<section class="section" id="tips">
+  <div class="section-header">
+    <span class="section-icon">&#128161;</span>
+    <div class="section-tag">TIPS</div>
+    <h2 class="section-title">冬の箱根 旅の豆知識</h2>
+    <p class="section-desc">知っておくと旅がもっと快適に</p>
   </div>
-  <div class="back-title">箱根温泉 冬の旅</div>
-  <div class="back-msg">
-    最高の週末にしよう！<br>
-    2026.2.22 - 2.23
+  <div class="tip-list">
+    <div class="tip-card"><div class="tip-icon">&#129507;</div><div class="tip-content"><div class="tip-title">防寒対策はしっかり</div><div class="tip-desc">気温5〜8℃、朝晩は氷点下の可能性も。ダウンジャケット・マフラー・手袋は必須。</div></div></div>
+    <div class="tip-card"><div class="tip-icon">&#128663;</div><div class="tip-content"><div class="tip-title">冬タイヤ・チェーン確認</div><div class="tip-desc">2月の箱根山間部は路面凍結の可能性あり。スタッドレスタイヤまたはチェーン携行を推奨。</div></div></div>
+    <div class="tip-card"><div class="tip-icon">&#128094;</div><div class="tip-content"><div class="tip-title">滑りにくい靴で</div><div class="tip-desc">大涌谷や箱根神社周辺は凍結している場合あり。滑りにくいブーツやスニーカーを。</div></div></div>
+    <div class="tip-card"><div class="tip-icon">&#128181;</div><div class="tip-content"><div class="tip-title">現金を準備</div><div class="tip-desc">小さな食べ歩き店や古い温泉施設はカード不可の場合あり。5,000〜10,000円の現金があると安心。</div></div></div>
+    <div class="tip-card"><div class="tip-icon">&#127749;</div><div class="tip-content"><div class="tip-title">日没は17:15頃</div><div class="tip-desc">2月は日が短いので屋外観光は午前〜午後早めに。夕方からはイルミネーションや温泉を楽しんで。</div></div></div>
+    <div class="tip-card"><div class="tip-icon">&#128151;</div><div class="tip-content"><div class="tip-title">温泉マナー</div><div class="tip-desc">湯船に入る前に体を洗う・タオルは湯船に入れない・アクセサリーは外す。</div></div></div>
+    <div class="tip-card"><div class="tip-icon">&#127183;</div><div class="tip-content"><div class="tip-title">カードゲーム忘れずに！</div><div class="tip-desc">SKULL、インサイダーゲーム、ザマインド、なんじゃもんじゃ、UNO FLIP！夜の旅館で大活躍。</div></div></div>
   </div>
-  <div class="back-credit">Made with care for our Hakone trip</div>
+  <div class="budget-box">
+    <div class="budget-title">&#128176; ざっくり予算ガイド（1人あたり）</div>
+    <div class="budget-row"><span class="item">交通費（高速+ガソリン÷4人）</span><span class="cost">約2,000円</span></div>
+    <div class="budget-row"><span class="item">駐車場代（合計÷4人）</span><span class="cost">約500円</span></div>
+    <div class="budget-row"><span class="item">宿泊（1泊2食付き旅館）</span><span class="cost">15,000〜25,000円</span></div>
+    <div class="budget-row"><span class="item">ランチ・食べ歩き</span><span class="cost">3,000〜5,000円</span></div>
+    <div class="budget-row"><span class="item">日帰り温泉</span><span class="cost">2,000〜3,000円</span></div>
+    <div class="budget-row"><span class="item">美術館・観光施設</span><span class="cost">1,500〜2,000円</span></div>
+    <div class="budget-row"><span class="item">お土産</span><span class="cost">1,000〜3,000円</span></div>
+    <div class="budget-total"><span class="item">合計目安</span><span class="cost">約25,000〜40,000円</span></div>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer class="footer">
+  <div class="footer-title">箱根温泉 冬の旅</div>
+  <div class="footer-msg">最高の週末にしよう！<br>2026.2.22 - 2.23</div>
+  <div>Made with care for our Hakone trip &#127925;</div>
 </footer>
 
-</div><!-- /.booklet -->
-
-<!-- ===== LEAFLET MAP ===== -->
+<!-- ===== SCRIPTS ===== -->
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script>
-// Tab switching
 function switchMap(type) {
   document.querySelectorAll('.map-tab').forEach(function(t) { t.classList.remove('active'); });
   document.querySelectorAll('.map-panel').forEach(function(p) { p.classList.remove('active'); });
@@ -1830,92 +921,53 @@ function switchMap(type) {
     document.getElementById('panel-google').classList.add('active');
   }
 }
-
 (function() {
   var map = L.map('hakone-map', {
-    center: [35.2300, 139.060],
-    zoom: 13,
-    zoomControl: true,
-    scrollWheelZoom: true,
-    touchZoom: true,
-    pinchZoom: true,
-    doubleClickZoom: true,
-    dragging: true,
-    minZoom: 11,
-    maxZoom: 18
+    center: [35.2300, 139.060], zoom: 13, zoomControl: true,
+    scrollWheelZoom: true, touchZoom: true, pinchZoom: true,
+    doubleClickZoom: true, dragging: true, minZoom: 11, maxZoom: 18
   });
   window._leafletMap = map;
-
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    attribution: '&copy; OpenStreetMap contributors',
-    maxZoom: 18
+    attribution: '&copy; OpenStreetMap contributors', maxZoom: 18
   }).addTo(map);
-
   map.zoomControl.setPosition('topright');
-
-  function makeIcon(color, emoji) {
+  function makeIcon(c, e) {
     return L.divIcon({
       className: '',
-      html: '<div style="background:' + color + ';width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:16px;box-shadow:0 2px 8px rgba(0,0,0,0.3);border:2px solid #fff;">' + emoji + '</div>',
-      iconSize: [34, 34],
-      iconAnchor: [17, 17],
-      popupAnchor: [0, -20]
+      html: '<div style="background:'+c+';width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:19px;box-shadow:0 3px 10px rgba(0,0,0,0.35);border:2.5px solid #fff;">'+e+'</div>',
+      iconSize: [38, 38], iconAnchor: [19, 19], popupAnchor: [0, -22]
     });
   }
-
-  var onsenIcon = makeIcon('#b83a2a', '&#9832;&#65039;');
-  var foodIcon = makeIcon('#c47a2a', '&#127836;');
-  var shrineIcon = makeIcon('#7b1fa2', '&#9961;&#65039;');
-  var artIcon = makeIcon('#3a6b4a', '&#127912;');
-  var natureIcon = makeIcon('#2a5e8a', '&#127956;');
-  var shopIcon = makeIcon('#8a6914', '&#127857;');
-
+  var oi=makeIcon('#c0392b','&#9832;&#65039;'), fi=makeIcon('#e67e22','&#127836;'), si=makeIcon('#7b1fa2','&#9961;&#65039;'), ai=makeIcon('#2e7d32','&#127912;'), ni=makeIcon('#1565c0','&#127956;'), ki=makeIcon('#d4a017','&#127857;');
   var spots = [
-    { lat: 35.2338, lng: 139.1095, name: '天成園', cat: '温泉', url: 'https://www.tenseien.co.jp/', icon: onsenIcon },
-    { lat: 35.2365, lng: 139.1015, name: '箱根湯寮', cat: '温泉', url: 'https://www.hakoneyuryo.jp/', icon: onsenIcon },
-    { lat: 35.2410, lng: 139.0530, name: 'ユネッサン', cat: '温泉テーマパーク', url: 'https://www.yunessun.com/', icon: onsenIcon },
-    { lat: 35.2048, lng: 139.0212, name: '龍宮殿本館', cat: '温泉', url: 'https://www.princehotels.co.jp/ryuguden/', icon: onsenIcon },
-    { lat: 35.2332, lng: 139.1070, name: '函嶺', cat: '温泉', url: 'https://www.hakonenavi.jp/spot/473', icon: onsenIcon },
-    { lat: 35.2322, lng: 139.1055, name: '湯葉丼 直吉', cat: 'グルメ', url: 'https://www.hakonenavi.jp/spot/1251', icon: foodIcon },
-    { lat: 35.2316, lng: 139.1060, name: 'はつ花そば 本店', cat: 'グルメ', url: 'https://www.hatsuhana.co.jp/', icon: foodIcon },
-    { lat: 35.2448, lng: 139.0638, name: '田むら銀かつ亭', cat: 'グルメ', url: 'https://www.ginkatsutei.jp/', icon: shopIcon },
-    { lat: 35.2378, lng: 139.0548, name: '渡邊ベーカリー', cat: 'グルメ', url: 'https://watanabebakery.jp/', icon: foodIcon },
-    { lat: 35.2382, lng: 139.0540, name: 'NARAYA CAFE', cat: 'カフェ', url: 'https://naraya-cafe.com/', icon: foodIcon },
-    { lat: 35.2433, lng: 139.0267, name: '大涌谷 黒たまご', cat: 'グルメ・観光', url: 'https://www.owakudani.com/', icon: natureIcon },
-    { lat: 35.2068, lng: 139.0320, name: '箱根神社', cat: '神社', url: 'https://hakonejinja.or.jp/', icon: shrineIcon },
-    { lat: 35.2050, lng: 139.0330, name: '芦ノ湖 海賊船', cat: '観光船', url: 'https://www.hakone-kankosen.co.jp/', icon: natureIcon },
-    { lat: 35.2440, lng: 139.0588, name: '彫刻の森美術館', cat: '美術館', url: 'https://www.hakone-oam.or.jp/', icon: artIcon },
-    { lat: 35.2608, lng: 139.0340, name: 'ポーラ美術館', cat: '美術館', url: 'https://www.polamuseum.or.jp/', icon: artIcon },
-    { lat: 35.2488, lng: 139.0475, name: '岡田美術館', cat: '美術館', url: 'https://www.okada-museum.com/', icon: artIcon },
-    { lat: 35.2580, lng: 139.0378, name: 'ガラスの森美術館', cat: '美術館', url: 'https://www.hakone-garasunomori.jp/', icon: artIcon },
-    { lat: 35.2540, lng: 139.0398, name: 'ニコライ・バーグマン箱根', cat: 'ガーデン', url: 'https://www.nicolaibergmann.com/', icon: artIcon }
+    {lat:35.2338,lng:139.1095,name:'天成園',cat:'温泉',url:'https://www.tenseien.co.jp/',icon:oi},
+    {lat:35.2365,lng:139.1015,name:'箱根湯寮',cat:'温泉',url:'https://www.hakoneyuryo.jp/',icon:oi},
+    {lat:35.2410,lng:139.0530,name:'ユネッサン',cat:'温泉テーマパーク',url:'https://www.yunessun.com/',icon:oi},
+    {lat:35.2048,lng:139.0212,name:'龍宮殿本館',cat:'温泉',url:'https://www.princehotels.co.jp/ryuguden/',icon:oi},
+    {lat:35.2332,lng:139.1070,name:'函嶺',cat:'温泉',url:'https://www.hakonenavi.jp/spot/473',icon:oi},
+    {lat:35.2322,lng:139.1055,name:'湯葉丼 直吉',cat:'グルメ',url:'https://www.hakonenavi.jp/spot/1251',icon:fi},
+    {lat:35.2316,lng:139.1060,name:'はつ花そば 本店',cat:'グルメ',url:'https://www.hatsuhana.co.jp/',icon:fi},
+    {lat:35.2448,lng:139.0638,name:'田むら銀かつ亭',cat:'グルメ',url:'https://www.ginkatsutei.jp/',icon:ki},
+    {lat:35.2378,lng:139.0548,name:'渡邊ベーカリー',cat:'グルメ',url:'https://watanabebakery.jp/',icon:fi},
+    {lat:35.2382,lng:139.0540,name:'NARAYA CAFE',cat:'カフェ',url:'https://naraya-cafe.com/',icon:fi},
+    {lat:35.2433,lng:139.0267,name:'大涌谷 黒たまご',cat:'グルメ・観光',url:'https://www.owakudani.com/',icon:ni},
+    {lat:35.2068,lng:139.0320,name:'箱根神社',cat:'神社',url:'https://hakonejinja.or.jp/',icon:si},
+    {lat:35.2050,lng:139.0330,name:'芦ノ湖 海賊船',cat:'観光船',url:'https://www.hakone-kankosen.co.jp/',icon:ni},
+    {lat:35.2440,lng:139.0588,name:'彫刻の森美術館',cat:'美術館',url:'https://www.hakone-oam.or.jp/',icon:ai},
+    {lat:35.2608,lng:139.0340,name:'ポーラ美術館',cat:'美術館',url:'https://www.polamuseum.or.jp/',icon:ai},
+    {lat:35.2488,lng:139.0475,name:'岡田美術館',cat:'美術館',url:'https://www.okada-museum.com/',icon:ai},
+    {lat:35.2580,lng:139.0378,name:'ガラスの森美術館',cat:'美術館',url:'https://www.hakone-garasunomori.jp/',icon:ai},
+    {lat:35.2540,lng:139.0398,name:'ニコライ・バーグマン箱根',cat:'ガーデン',url:'https://www.nicolaibergmann.com/',icon:ai}
   ];
-
   spots.forEach(function(s) {
-    var gmapsUrl = 'https://www.google.com/maps/search/?api=1&query=' + s.lat + ',' + s.lng;
-    L.marker([s.lat, s.lng], { icon: s.icon })
-      .addTo(map)
-      .bindPopup(
-        '<div class="popup-title">' + s.name + '</div>' +
-        '<div class="popup-cat">' + s.cat + '</div>' +
-        '<div>' +
-          '<a class="popup-link" href="' + s.url + '" target="_blank" rel="noopener">&#128279; 公式サイト</a>' +
-          '<a class="popup-gmaps" href="' + gmapsUrl + '" target="_blank" rel="noopener">&#128506; Google Map</a>' +
-        '</div>'
-      );
+    var g='https://www.google.com/maps/search/?api=1&query='+s.lat+','+s.lng;
+    L.marker([s.lat,s.lng],{icon:s.icon}).addTo(map).bindPopup(
+      '<div class="popup-title">'+s.name+'</div><div class="popup-cat">'+s.cat+'</div><div><a class="popup-link" href="'+s.url+'" target="_blank" rel="noopener">&#128279; 公式サイト</a><a class="popup-gmaps" href="'+g+'" target="_blank" rel="noopener">&#128506; Google Map</a></div>'
+    );
   });
-
-  var legend = L.control({ position: 'bottomright' });
-  legend.onAdd = function() {
-    var div = L.DomUtil.create('div');
-    div.style.cssText = 'background:#f5efe3;padding:6px 10px;border-radius:3px;font-size:10px;line-height:1.8;box-shadow:0 1px 6px rgba(0,0,0,0.12);font-family:Klee One,Zen Maru Gothic,sans-serif;border:1px solid rgba(74,55,40,0.15);';
-    div.innerHTML =
-      '<div style="font-weight:700;margin-bottom:1px;">凡例</div>' +
-      '<div>&#9832;&#65039; 温泉　&#127836; グルメ</div>' +
-      '<div>&#9961;&#65039; 神社　&#127912; 美術館</div>' +
-      '<div>&#127956; 自然・観光</div>';
-    return div;
-  };
+  var legend=L.control({position:'bottomright'});
+  legend.onAdd=function(){var d=L.DomUtil.create('div');d.style.cssText='background:#fff;padding:8px 12px;border-radius:8px;font-size:11px;line-height:1.8;box-shadow:0 2px 8px rgba(0,0,0,0.15);font-family:Zen Maru Gothic,sans-serif;';d.innerHTML='<div style="font-weight:700;margin-bottom:2px;">凡例</div><div>&#9832;&#65039; 温泉　&#127836; グルメ</div><div>&#9961;&#65039; 神社　&#127912; 美術館</div><div>&#127956; 自然・観光</div>';return d;};
   legend.addTo(map);
 })();
 </script>
